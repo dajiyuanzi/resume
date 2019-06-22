@@ -1,1 +1,50 @@
-lala`
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>A Form</title>
+</head>
+<body>
+    <form action="/getInfo" method="post">
+        <div class="username">
+            <label for="username">姓名：</label>
+            <input type="text" id="username" name="username" placeholder="用户名">
+        </div>
+        <div class="password">
+            <label for="password">密码：</label>
+            <input type="password" id="password" name="password">
+        </div>
+        <div class="gender">
+            <lable>性别：</lable>
+            <input type="radio" name="gender" value="Male"> 男
+            <input type="radio" name="gender" value="Female"> 女
+        </div>
+        <div class="sex">
+            <lable>取向：</lable>
+            <input type="radio" name="sex" value="Male"> 男
+            <input type="radio" name="sex" value="Female"> 女
+        </div>
+        <div class="hobby">
+            <label>爱好：</label>
+            <input type="checkbox" name="hobby" value="read"> dota
+            <input type="checkbox" name="hobby" value="music"> 旅游
+            <input type="checkbox" name="hobby" value="study"> 宠物
+        </div>
+        <div class="comment">
+            <lable>评论：</lable>
+            <textarea name="comment" rows="8" cols="40" placeholder="ddd"></textarea>
+        </div>
+        <div class="my_car">
+            <lable>我的Car：</lable>
+            <select name="my_car">
+                <option value="saab">萨博</option>
+                <option value="volvo">沃尔沃</option>
+                <option value="suzuki">铃木</option>
+            </select>
+            <input type="submit" value="提交">
+        </div>
+    </form>
+</body>
+</html>
