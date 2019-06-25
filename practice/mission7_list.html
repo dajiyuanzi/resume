@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ji's List Practice for Element Center</title>
+    <style>
+        .container{
+            width: 600px;
+            margin: 0 auto;
+        }
+        .rowsize {
+            margin-top: 30px;
+            border-radius: 0;
+            border: 1px solid #ccc;
+            padding: 1px 16px;
+            line-height: 1.5;
+        }
+
+        .rowsize.rowstyle1 { /*两个class都用，优先级高，后期修改不易受影响*/
+            border-radius: 3px;
+        }
+
+        .rowsize.rowstyle2 {
+            background: #ffe7ef;
+            border: none;
+            border-right: 7px solid red;
+            border-left: 6px solid red;
+        }
+
+        .rowsize.rowstyle3 {
+            background: #ffffd7;
+            border: none;
+            border-top: 6px solid #ffeb3b;
+            border-bottom: 7px solid #ffeb3b;
+        }
+
+        .rowsize.rowstyle4 {
+            background: #e7ffe7;
+            border: 1px solid #4CAF50;
+            border-bottom: 7px solid #4CAF50; /*第三个参数必须用 不可省略*/
+        }
+    </style>
+</head>
+
+<body>
+
+</body>
+    <div class="container">
+        <div class="rowsize rowstyle1">
+            <p>我喜欢996 I love 996 我喜欢996 I love 996 我喜欢996 I love 996 我喜欢996 I love 996</p>
+        </div>
+        <div class="rowsize rowstyle2">
+            <p>我喜欢996 I love 996 我喜欢996 I love 996 我喜欢996 I love 996 我喜欢996 I love 996</p>
+        </div>
+        <div class="rowsize rowstyle3">
+            <p>我喜欢996 I love 996 我喜欢996 I love 996 我喜欢996 I love 996 我喜欢996 I love 996</p>
+        </div>
+        <div class="rowsize rowstyle4">
+            <p>我喜欢996 I love 996 我喜欢996 I love 996 我喜欢996 I love 996 我喜欢996 I love 996</p>
+        </div>
+    </div>
+</html>
