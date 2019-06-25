@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>我的项目</title>
+        <style>
+            /*去除自带的空隙*/
+            body,h1,h2,h3,h4,h5,h6,ul,li,p{ /*尽量不要用标签选择器，有变动时很容易受影响，也很拘束于标签的使用*/
+                margin: 0;
+                padding: 0;
+            }
+
+            a{
+                text-decoration: none; /*去除a链接的默认样式*/
+            }
+
+            ul{
+                list-style: none; /*去除无序列表的点点*/
+            }
+
+            body{
+                font: 14px/1.4 Arial; /*字体是行高1.4倍*/
+                color: #87968e; /*字体颜色*/
+                text-align: center; /*只对body下的行内（display:inline）标签作用*/
+                background: #fff2e3; /*背景色*/
+            }
+
+            /*选择器尽量简单，可以用个class，因为页面改动后，选择器就可能也要改动，不如class稳定*/
+            .btn{
+                display: inline-block; /*a链接是行内元素，无法占有高度，或者说其高度会被别的块级元素遮挡，所以使用inline-block*/
+                padding: 5px, 4px;
+                color: #fff;
+                background-color: #72b890;
+                border-radius: 3px;
+            }
+            .btn:hover{ /*悬停*/
+                opacity: 0.7;
+            }
+            .btn:active{ /*按下鼠标不松手后*/
+                opacity: 1;
+            }
+
+            .title{
+                color: #ccc;
+                font-size: 50px;
+                margin-top: 40px;
+            }
+            .description{
+                color: #aaa;
+                margin-top: 20px;
+            }
+            .tab-ct{
+                margin-top: 30px;
+            }
+
+             /*li是块级元素，所以换行，所以使用inline-block*/
+             .tab-ct>li{
+                display: inline-block;
+                margin: 0 4px;
+            }
+
+            .work-img{
+                margin-top: 40px;
+            }
+            .operate-ct{
+                margin-top: 40px;
+            }
+            .operate-ct>li{
+                display:inline-block;
+                margin: 0 4px;
+            }
+            .footer{
+                display: inline-block;
+                color: #aaa;
+            }
+            .footer a{
+                color:#72b890;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 class="title">我的项目</h1>
+        <p class="description">一句话介绍</p>
+        <ul class="tab-ct"> <!--ct 容器-->
+            <li><a class="btn" href="#">项目1</a></li>
+            <li><a class="btn" href="#">项目1</a></li>
+            <li><a class="btn" href="#">项目1</a></li>
+            <li><a class="btn" href="#">项目1</a></li>
+        </ul>
+        <img class="work-img" src="http://cdn.jscode.me/65d4aba2-a097-4b24-aaa0-ebbaf7eedab2">
+        <ul class="operate-ct">
+            <li><a class="btn" href="#">查看源码</li>
+            <li><a class="btn" href="#">使用说明</li>
+        </ul>
+        <p class="footer"><a>作者：dajiyuanzi</a></p>
+    </body>
+</html>
