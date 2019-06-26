@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>Bar Practice</title>
+    <style>
+        .layout{
+            width: 600px;
+            margin: 0 auto;
+        }
+        .btn{
+            display: inline-block;
+            text-decoration: none; /*去掉a默认的蓝色和下划线*/
+            border-radius: 3px;
+            padding: 8px 10px;
+            cursor: pointer; /*鼠标移上去：变成小手 （不加也会变）*/
+            transition: all 0.3s; /*元素的过渡效果，所有属性都有过渡效果：3s完成效果，所过渡到的效果是.bth:hover*/
+        }
+        .btn:hover{
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); /* x偏移量 | y偏移量 | 阴影模糊半径 | 阴影扩散半径 | 阴影颜色 */
+        }
+        
+        .color1{
+            background: #009688;
+            color: #fff; /*font color*/
+        }
+        .color2{
+            background-color: #ffeb3b;
+            color: #000;
+        }
+        .color3{
+            background-color: #ff9800;
+            color: #000;
+        }
+        .color4{
+            background-color: #f44336;
+            color: #fff;
+        }
+        .color5{
+            background-color: #4CAF50;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <a class="btn color1" href="">steal</a>
+        <a class="btn color2" href="">yellow</a>
+        <a class="btn color3" href="">orange</a>
+        <a class="btn color4" href="">red</a>
+        <a class="btn color5" href="">green</a>
+    </div>
+</body>
+</html>
