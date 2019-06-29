@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notification Bar</title>
+    <style>
+        .layout{
+            width: 600px;
+            margin: 0 auto;
+        }
+        .alert{
+            margin-top: 30px;
+            color: #fff; /*文字颜色*/
+            border-radius: 3px;
+            padding: 1px 16px;
+            line-height: 1.5;
+        }
+
+        .alert .close{ /*叉号*/
+            float: right; /*浮动到其容器的右边*/
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer; /*鼠标移上去，变小手*/
+        }
+
+        .alert>h3{
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .item1{
+            background: #4CAF50;
+        }
+        .item2{
+            background: #2196F3;
+        }
+        .item3{
+            background: #f44336;
+        }
+        .item4{
+            background: #ff9800;
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <div class="alert item1">
+            <span class="close">×</span> <!--这是叉号，不是艾克斯X-->
+            <h3>恭喜你</h3>
+            <p>获得本周学霸，继续加油吧</p>
+        </div>
+        <div class="alert item2">
+            <span class="close">×</span>
+            <h3>通知</h3>
+            <p>晚上上课，不要忘了</p>
+        </div>
+        <div class="alert item3">
+            <span class="close">×</span>
+            <h3>天啊</h3>
+            <p>竟然几天没做任务</p>
+        </div>
+        <div class="alert item4">
+            <span class="close">×</span>
+            <h3>警告</h3>
+            <p>学如逆水行舟</p>
+        </div>
+    </div>
+</body>
+</html>
