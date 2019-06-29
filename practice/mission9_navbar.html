@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mission9 Navbar</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none; /*这样li之前的点点就消失啦*/
+        }
+        a{
+            color: #333;
+            text-decoration: none; /*消除a默认的下划线和颜色*/
+        }
+        nav{
+            width: 500px;
+            margin: 10px auto 0; /*左右为auto*/
+            box-shadow: 0px 2px 4px 1px rgb(0, 0, 0, 0.3); /*阴影*/
+        }
+        nav>ul>li{ /*第一层级子元素的li*/
+            float: left; /*浮动后，就漂起来了，nav包不住了，所以加一个:after伪元素把nav撑起来*/
+            /* padding: 10px; 鼠标移到a链接文字上才可点击，这样的点击区域太小了，不如加在a标签上*/
+            position: relative; /*该元素可以作为 绝对定位 的元素的父元素，成为它们位置偏移的对象*/
+        }
+        nav::after{
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        nav a{
+            display: inline-block; /*防止 “更多”下的a标签会覆盖在一起*/
+            padding: 10px;
+            min-width: 50px; /*撑开宽度*/
+        }
+        nav a:hover{
+            color: #fff;
+            background: rgba(0,0,0,0.4);
+        }
+
+        nav .child{ /*用nav>ul>li>ul选择器的层级太多*/
+            position: absolute; /*“更多”中的元素脱离文档流，浮起来不再占位*/
+            top: 100%; /*该元素已绝对定位，其顶部 距离 相对定位了的父容器 的距离，是这个父容器的高度的100%*/
+            box-shadow: 0px 2px 4px 1px rgb(0, 0, 0, 0.3); 
+            display: none; /*默认隐藏*/
+        }
+        nav>ul>li:hover .child{ /*鼠标放上li后，其后的.child类的元素 展现（变为块级，不再隐藏）*/
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">作品</a></li>
+            <li> <!--相对定位的li，是下面绝对定位元素的父容器-->
+                <a href="#">更多</a>
+                <ul class="child">
+                    <li><a href="">前端</a></li>
+                    <li><a href="">后端</a></li>
+                    <li><a href="">移动端</a></li>  <!--ul/ol的“直接”子元素，最好只能是li，这样语义化更好，不能是其他的，如div-->
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</body>
+</html>
