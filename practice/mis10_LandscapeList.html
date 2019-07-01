@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Landscape List</title>
+    <style>
+        /* 要求
+        1 容器宽度800px
+        2 列表中的元素宽度260px，它们之间的间距10px
+        */
+        .layout>h1{
+            color: #666;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ccc; /*下划线*/
+        }
+        .layout{
+            width: 800px;
+            margin: 0 auto;
+        }
+
+        .card{
+            list-style: none; /*删除圆点*/
+            float: left;
+            width: 260px;
+            margin: 10px 0 10px 10px; /*只能左边10px，右边为0。否则800px，放不下*/
+            box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        }
+        .card>img{
+            width: 100%; /*与其父容器的宽高塞满，会与容器内其他块级元素互相挤*/
+            opacity: 0.75;
+        }
+        .card>p{
+            text-align: center;
+            overflow: hidden; /*溢出被父容器包含*/
+            text-overflow: ellipsis; /*文本溢出时：显示省略符号来代表被修剪的文本。*/
+            white-space: nowrap; /*元素内的空白 处理：文本不会换行，文本会在在同一行上继续，直到遇到 <br> 标签为止。*/
+        }
+
+        .container::after{ /*撑开ul*/
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        ul, li{ /*去除元素默认的内外边距，以让子元素可排列一行*/
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            margin-left: -10px; /*将每行第一个块的左侧边距移出容器*/
+        }
+    </style>
+</head>
+<body>
+    <div class="layout">
+        <h1>风景列表</h1>
+        <ul class="container">
+            <li class="card">
+                <img src="http://cdn.jscode.me/283a4100-10cd-4208-a3b5-4030ec03acf6" alt="">
+                <p>风景如画</p>
+            </li>
+            <li class="card">
+                <img src="http://cdn.jscode.me/283a4100-10cd-4208-a3b5-4030ec03acf6" alt="">
+                <p>风景如画</p>
+            </li>
+            <li class="card">
+                <img src="http://cdn.jscode.me/283a4100-10cd-4208-a3b5-4030ec03acf6" alt="">
+                <p>风景如画</p>
+            </li>
+            <li class="card">
+                <img src="http://cdn.jscode.me/283a4100-10cd-4208-a3b5-4030ec03acf6" alt="">
+                <p>风景如画</p>
+            </li>
+            <li class="card">
+                <img src="http://cdn.jscode.me/283a4100-10cd-4208-a3b5-4030ec03acf6" alt="">
+                <p>风景如画</p>
+            </li>
+            <li class="card">
+                <img src="http://cdn.jscode.me/283a4100-10cd-4208-a3b5-4030ec03acf6" alt="">
+                <p>风景如画</p>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
