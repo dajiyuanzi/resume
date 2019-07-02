@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3 Column Layout</title>
+    <style>
+        /*实现一个三栏布局，两侧固定宽度200px，中间宽度自适应撑满，附上链接。*/
+        .left{
+            background: red;
+            height: 400px;
+            width: 200px;
+            float: left;
+        }
+        .middle{
+            background: pink;
+            height: 500px;
+            margin-left: 210px; /*两侧外边距固定，给两个固定宽度的块留下空间*/
+            margin-right: 210px;
+        }
+        .right{
+            background: blue;
+            height: 400px;
+            width: 200px;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="left"></div><!--要优先渲染 浮动元素-->
+    <div class="right"></div><!--要先绘制两侧的块，再绘制中间的，否则右侧块最后绘制，屏幕的宽度不够时 会下移.-->
+    <div class="middle"></div>
+</body>
+</html>
