@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text Horizontal & Vertical</title>
+    <style>
+        /*大段文字在容器内水平垂直居中*/
+        h1, p{ /*去除默认样式*/
+            margin: 0;
+            padding: 0;
+        }
+        .container{
+            background: gray;
+            width: 600px;
+            margin: 0 auto;
+            padding: 60px;
+        }
+        .container>h1, .container>p{
+            text-align: center;
+            vertical-align:middle;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>这是标题</h1>
+        <p>这是内容，这段文字在当前区块内垂直水平居中</p>
+    </div>
+</body>
+</html>
