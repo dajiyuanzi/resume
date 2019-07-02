@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Stable Block Center</title>
+    <style>
+        /*固定宽高的块在浏览器窗口水平垂直居中*/
+        .blo{
+            border: 1px solid red;
+            background: black;
+            width: 300px;
+            height: 200px;
+
+            position: absolute; /*其定位是相对于第一个使用了position:relative/absolute/fixed的父容器*/
+            left: 50%; /*块元素地左上角，置于父容器的中心（即html/body）*/
+            top: 50%;
+            margin-left: -150px; /*宽度和高度一半的偏移，因为元素的左上角在屏幕的中心*/
+            margin-top: -100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="blo"></div>  
+</body>
+</html>
