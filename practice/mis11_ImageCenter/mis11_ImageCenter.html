@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Center</title>
+    <style>
+        .box{
+            border: 1px solid red;
+            width: 450px;
+            height: 300px;
+            text-align: center;/*写在父元素，作用于行级子元素*/
+        }
+        .box img{
+            vertical-align: middle;
+        }
+        .box:before{
+            content: '';
+            display: inline-block; /*不占满一行，防止其他元素换行hang*/
+            height: 100%; /*高度全满父容器，其基线即是容器的中线*/
+            vertical-align: middle; /*其基线变为其高度的中线*/
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <img src="./jirengu.PNG" alt="jirengu">
+    </div>
+    
+</body>
+</html>
