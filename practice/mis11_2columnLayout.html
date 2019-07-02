@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2 Column Layout</title>
+    <style>
+        /*实现一个两栏布局，左侧固定宽度200px，右侧自适应宽度，附上预览链接。*/
+        .left{
+            background: red;
+            width: 200px; /*固定不适应的，要浮动。*/
+            height: 400px;
+            float: left;
+        }
+        .right{
+            background: blue;
+            height: 500px;
+            margin-left: 210px; /*右侧块，距离左边沿固定，且本身无固定宽度，则可适应，给左侧留下固定的宽度。*/
+        }
+    </style>
+</head>
+<body>
+    <div class="left"></div>
+    <div class="right"></div>
+</body>
+</html>
