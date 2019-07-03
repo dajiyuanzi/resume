@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Horn Block</title>
+    <style>
+        /*涉及到之前的用border实现三角形*/
+        div{
+            width: 120px;
+            height: 80px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 15px;
+            border: solid 1px black;
+            position: relative; /*为其子元素的绝对定位，设置参考*/
+        }
+        .horn1::before{
+            content: '';
+            width: 0;/*设为0，用border拼挤出三角形*/
+            height: 0;
+            position: absolute;
+            top: -7.5px;
+            left: 10px;
+            border-left: 8px solid gray; /*用有色和透明的border拼挤出一个三角*/
+            border-top: 8px solid gray;
+            border-right: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            transform: rotateZ(45deg); /*沿着Z轴 顺时针转动*/
+
+        }
+        .horn2::before{
+            content: '';
+            width: 0;/*设为0，用border拼挤出三角形*/
+            height: 0;
+            position: absolute;
+            right: 0px;
+            border-left: 8px solid transparent; /*用有色和透明的border拼挤出一个三角*/
+            border-top: 8px solid red;
+            border-right: 8px solid red;
+            border-bottom: 8px solid transparent;
+
+        }
+        .horn3::before{
+            content: '';
+            width: 15px;/*设为0，用border拼挤出三角形*/
+            height: 15px;
+            background: #fff; /*掩盖容器的线*/
+            position: absolute;
+            top: -8.5px;
+            left: 10px;
+            border-left: 1px solid #000;
+            border-top: 1px solid #000;
+            transform: rotateZ(45deg); /*沿着Z轴 顺时针转动*/
+        }
+    </style>
+</head>
+<body>
+    <div class="horn1"></div>
+    <div class="horn2"></div>
+    <div class="horn3"></div>
+</body>
+</html>
