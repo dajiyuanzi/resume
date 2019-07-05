@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Game of Thrones</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <!--加http从网络中请求打开-->
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1277661_etfgaz0fi8.css">
+    <style>
+        html, body {
+            height: 100%;/*100vh兼容不好*/
+        }
+        header {
+            position: relative;/*下面绝对定位的参考点*/
+            height: 100%;
+            min-height: 600px;
+            background: #000 url(./images/index1.jpg) center center no-repeat;/*加背景色，和图片融为一体*/
+            background-size: cover;
+        }
+        header::before{ /*一个半透明遮罩，充满整个容器header*/
+            content: '';
+            display: block;
+            position: absolute;
+            left: 0;/*绝对定位 其距离容器四为0，所以自动伸缩填满容器*/
+            top: 0;
+            bottom: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.3);
+        }
+        header .logo {
+            color: #f7ba3e;
+            font-size: 32px;
+            float: left; /*一个行内元素（a），一旦浮动，就有块级的特性，便可设置宽高。*/
+            margin-top: 10px;
+        }
+        header .nav{
+            float: right;
+        }
+        header .nav>li {
+            float: left;
+            margin: 10px;
+        }
+        header .nav a {
+            display: inline-block;/*a是行内元素，背景色被padding撑开，但很容易和其他元素紧贴而重叠，因为它的高度本身没有变化。所以需要inline-block/block.*/            
+            padding: 5px;
+            color: #fff;/*字体颜色*/
+            font-size: 16px;
+            border-radius: 4px;
+        }
+        header .nav a:hover{
+            background: #f7ba3e;
+        }
+
+        header .intro {
+            position: absolute;/*需要设置一个参考点，即其容器header的定位需要是 非static*/
+            top: 50%;
+            left: 50%;/*距离容器的顶部&左边为容器宽高的50%，而底部和右侧的距离为0，所以是以块的左上角的坐标来定位，所以下面要再左移50%的坐标值*/
+            transform: translate(-50%, -50%);/*通过 translate() 方法，元素从其当前位置移动，根据给定的 left（x 坐标） 和 top（y 坐标） 位置参数*/
+            color: #fff;
+            text-align: center;
+        }
+        header .intro h1 {
+            font-size: 32px;
+        }
+        header .intro h2 {
+            font-size: 46px;
+            margin-top: 20px;
+        }
+        header .intro .button {
+            margin-top: 20px;
+        }
+
+        section {
+            text-align: center;
+            margin-top: 30px;
+        }
+        section>h2 {
+            font-size: 40px;
+        }
+        section>p {
+            margin-top: 10px;
+        }
+        section>ul .iconfont {
+            font-size: 60px;
+        }
+        section .family-intro>li{
+            float: left;/*并排一行*/
+            width: 33.33%;/*设定3列，否则无法浮动到一行，挤不开*/
+            padding: 10px 20px;
+        }
+        section>ul p {
+            margin-top: 10px;
+        }
+
+        section .family figure {
+            width: calc(33.33% - 20px);/*减去两侧margin的宽度*/
+            height: 240px;
+            margin: 10px;
+            float: left;
+        }
+        section .family a {/*使用block 避免缝隙*/
+            display: block;
+            height: 180px;
+        }
+        section .family img {
+            width: 100%;
+            height: 100%;
+        }
+        section .family figcaption {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        section .family p {
+            color: #666;
+            margin-top: 10px;
+        }
+
+        /*timeline*/
+        section .timeline > li {
+            margin-top: 20px;
+            position: relative;/*下面竖线的绝对定位参考*/
+        }
+        section .timeline img, /*圆圈*/
+        section .timeline .line-end {
+            /*float: right; 写在此处无法实现，左右文字摇摆的样子*/
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;/*图片变成圆形*/
+            border: 3px solid lightblue;
+        }
+        /*竖线最后一个圈里的文字 样式*/
+        section .timeline .line-end {/*span为行内元素*/
+            text-align: center;
+            display:inline-block;
+            padding-top: 10px;
+            font-size: 12px;
+        }
+        section .timeline >li::after {/*img浮动，其父容器要撑开。否则一行内排版混乱*/
+            content: '';
+            display: block;
+            clear: both;
+        }
+        /*文字在图片的左侧,图片靠右浮动*/
+        section .timeline>li:nth-child(odd) img {
+            float: right;
+        }
+        section .timeline>li:nth-child(odd) {
+            padding-right: calc(50% - 50px);/*用%扩展性比固定值好。图片的右侧距离其父容器的右侧为容器宽度的一半，即中线，需再减少图片宽度的一半，图片中线以移动到容器中线*/
+            text-align: right;
+        }
+        section .timeline>li:nth-child(odd) dl {
+            margin-right: 120px;/*img浮动，这是距离父容器的padding的距离*/
+        }
+        /*反向*/
+        section .timeline>li:nth-child(even) img {
+            float: left;
+        }
+        section .timeline > li:nth-child(even) {
+            padding-left: calc(50% - 50px);/*与上面的样式 方向相反*/
+            text-align: left;
+        }
+        section .timeline>li:nth-child(even) dl {
+            /*margin-right: 0; 先覆盖前面 img的样式，但这样不管用，因为改样式优先级权重低，所以前面也设置nth-child(odd)*/
+            margin-left: 120px;/*img浮动，这是距离父容器的padding的距离*/
+        }
+        section .timeline dt {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        section .timeline dd:nth-of-type(1) {/*dd中的第一个*/
+            color: #666;
+        }
+        /*竖线*/
+        section .timeline>li::before {/*加到li的第一个子元素之前上，免得内容太多，容器高度被撑下去*/
+            content: '';/*在浏览器内写style并调试*/
+            position: absolute;/*定位的父容器参考是 相对定位的li*/
+            left: 50%;
+            top: 100px;
+            margin-left: 0px;
+            display: inline-block;
+            height: 30px;
+            width: 4px;
+            background-color: lightblue;
+        }
+        /*最后一个圈的线 消掉*/
+        section .timeline>li:last-child:before {
+            height: 0;
+        }
+    </style>
+</head>
+<body>
+    <header><!--不同的div 新标签-->
+        <div class="navbar layout clearfix">
+            <a href="" class="logo">Game of Thrones</a>
+            <ul class="nav">
+                <li><a href="">Service</a></li>
+                <li><a href="">Family</a></li>
+                <li><a href="">Character</a></li>
+                <li><a href="">Team</a></li>
+                <li><a href="">Contact</a></li>
+            </ul>
+        </div>
+        <div class="intro layout">
+            <h2>WINTER IS COMMING</h2>
+            <h2>ALONE WOLF DEATH, WOLVES LIVE.</h2>
+            <a href="" class="button">Tell Me More</a>
+        </div>
+    </header> 
+    <main class="layout">
+        <section>
+            <h2>家族介绍</h2>
+            <p>关于各个家族的介绍</p>
+            <ul class="family-intro clearfix"><!--子元素浮动 而脱离容器，需撑开容器，common css中的代码::after-->
+                <li>
+                    <span class="iconfont icon-family1"></span>
+                    <h3>史塔克家族</h3>
+                    <p>临冬城的史塔克家族是美国作家乔治·R·R·马丁的长篇史诗奇
+                        幻小说《冰与火之歌》系列中虚构的一个家族。</p>
+                </li>
+                <li>
+                    <span class="iconfont icon-family2"></span>
+                    <h3>兰尼斯特家族</h3>
+                    <p>西境最重要的家族，家徽为一头金毛狮子，其手下封臣众多军队庞大，同时也是维
+                        斯特洛最富有且最有权势的家族，族语:听我怒吼（Hear me roar），由于家族
+                        极其富有，更有“兰尼斯特有债必偿（Lannisters Always pay their debts.）
+                        ”这句民间盛传的谚语。</p>
+                </li>
+                <li>
+                    <span class="iconfont icon-family3"></span>
+                    <h3>维斯特洛家族</h3>
+                    <p>维斯特洛（英语：Westeros），也被称为日落国度（the Sunset Kingdoms），是
+                        乔治·R·R·马丁的奇幻系列《冰与火之歌》中四块大陆中的一块，它的设定大致基于
+                        中世纪的欧洲。</p>
+                </li>
+            </ul>
+        </section>
+        <section>
+            <h2>FAMILY</h2>
+            <p>说明《冰与火之歌》是由美国作家乔治·R·R·马丁所著的史诗奇幻小说系列。按照作者计划，该系列将有7部，目前出版至第5部。</p>
+            <div class="family clearfix"><!--子元素浮动 而脱离容器，需撑开容器，common css中的代码::after-->
+                <figure><!--html5 用作文档中插图的图像-->
+                    <a href=""><img src="./images/pic1.jpg" alt=""></a>
+                    <figcaption></figcaption><!--figure的标题-->
+                    <p>Winter Is Comming</p>
+                </figure>
+                <figure>
+                    <a href=""><img src="./images/pic1.jpg" alt=""></a>
+                    <figcaption></figcaption>
+                    <p>Winter Is Comming</p>
+                </figure>
+                <figure>
+                    <a href=""><img src="./images/pic1.jpg" alt=""></a>
+                    <figcaption></figcaption>
+                    <p>Winter Is Comming</p>
+                </figure>
+                <figure>
+                    <a href=""><img src="./images/pic1.jpg" alt=""></a>
+                    <figcaption></figcaption>
+                    <p>Winter Is Comming</p>
+                </figure>
+                <figure>
+                    <a href=""><img src="./images/pic1.jpg" alt=""></a>
+                    <figcaption></figcaption>
+                    <p>Winter Is Comming</p>
+                </figure>
+                <figure>
+                    <a href=""><img src="./images/pic1.jpg" alt=""></a>
+                    <figcaption></figcaption>
+                    <p>Winter Is Comming</p>
+                </figure>
+            </div>
+         </section>
+        <section>
+            <h2>TimeLine</h2>
+            <p>故事的发展曲线</p>
+            <ul class="timeline">
+                <li>
+                    <img src="./images/pic1.jpg" alt="">
+                    <dl><!--<dl> 标签定义了定义列表（definition list）。<dl> 标签用于结合 <dt> （定义列表中的项目）和 <dd> （描述列表中的项目）-->
+                        <dt>Aril 2011</dt>
+                        <dd>Game of Thrones Season 1</dd>
+                        <dd>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero und</dd>
+                    </dl>
+                </li>
+                <li>
+                    <img src="./images/pic1.jpg" alt="">
+                    <dl><!--dl dt dd 都是自定义的标签-->
+                        <dt>Aril 2011</dt>
+                        <dd>Game of Thrones Season 1</dd>
+                        <dd>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero und</dd>
+                    </dl>
+                </li>
+                <li>
+                    <img src="./images/pic1.jpg" alt="">
+                    <dl><!--dl dt dd 都是自定义的标签-->
+                        <dt>Aril 2011</dt>
+                        <dd>Game of Thrones Season 1</dd>
+                        <dd>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero und</dd>
+                    </dl>
+                </li>
+                <li>
+                    <img src="./images/pic1.jpg" alt="">
+                    <dl><!--dl dt dd 都是自定义的标签-->
+                        <dt>Aril 2011</dt>
+                        <dd>Game of Thrones Season 1</dd>
+                        <dd>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero und</dd>
+                    </dl>
+                </li>
+                <li>
+                    <span class="line-end">THE LINE END IS HERE!!!</span>
+                </li>
+            </ul>
+        </section>
+    </main>
+    <footer>
+        <p>Footer</p>
+    </footer>
+</body>
+</html>
