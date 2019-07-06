@@ -7,7 +7,7 @@
     <title>Game of Thrones</title>
     <link rel="stylesheet" href="./css/common.css">
     <!--加http从网络中请求打开-->
-    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1277661_etfgaz0fi8.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1277661_up7kpxbogr9.css">
     <style>
         html, body {
             height: 100%;/*100vh兼容不好*/
@@ -22,12 +22,16 @@
         header::before{ /*一个半透明遮罩，充满整个容器header*/
             content: '';
             display: block;
-            position: absolute;
-            left: 0;/*绝对定位 其距离容器四为0，所以自动伸缩填满容器*/
+            position: absolute;/*脱离 文档流*/
+            left: 0;/*绝对定位 其距离容器四为0，所以自动伸缩填满容器.这样写，即使hearder没有height:100%，也还会填充全屏*/
             top: 0;
             bottom: 0;
             right: 0;
             background: rgba(255, 255, 255, 0.3);
+        }
+        header .navbar {/*上面的伪元素遮罩，是绝对定位,因而脱离文档流，而覆盖下面的div navbar ，a:hover将失效。所以此处设置z-index*/
+            position: relative;
+            z-index: 1;
         }
         header .logo {
             color: #f7ba3e;
@@ -49,7 +53,7 @@
             font-size: 16px;
             border-radius: 4px;
         }
-        header .nav a:hover{
+        header .nav a:hover {
             background: #f7ba3e;
         }
 
@@ -243,33 +247,27 @@
             <div class="family clearfix"><!--子元素浮动 而脱离容器，需撑开容器，common css中的代码::after-->
                 <figure><!--html5 用作文档中插图的图像-->
                     <a href=""><img src="./images/pic1.jpg" alt=""></a>
-                    <figcaption></figcaption><!--figure的标题-->
-                    <p>Winter Is Comming</p>
+                    <figcaption>Winter Is Comming</figcaption><!--figure的标题-->
                 </figure>
                 <figure>
                     <a href=""><img src="./images/pic1.jpg" alt=""></a>
-                    <figcaption></figcaption>
-                    <p>Winter Is Comming</p>
+                    <figcaption>Winter Is Comming</figcaption>
                 </figure>
                 <figure>
                     <a href=""><img src="./images/pic1.jpg" alt=""></a>
-                    <figcaption></figcaption>
-                    <p>Winter Is Comming</p>
+                    <figcaption>Winter Is Comming</figcaption>
                 </figure>
                 <figure>
                     <a href=""><img src="./images/pic1.jpg" alt=""></a>
-                    <figcaption></figcaption>
-                    <p>Winter Is Comming</p>
+                    <figcaption>Winter Is Comming</figcaption>
                 </figure>
                 <figure>
                     <a href=""><img src="./images/pic1.jpg" alt=""></a>
-                    <figcaption></figcaption>
-                    <p>Winter Is Comming</p>
+                    <figcaption>Winter Is Comming</figcaption>
                 </figure>
                 <figure>
                     <a href=""><img src="./images/pic1.jpg" alt=""></a>
-                    <figcaption></figcaption>
-                    <p>Winter Is Comming</p>
+                    <figcaption>Winter Is Comming</figcaption>
                 </figure>
             </div>
          </section>

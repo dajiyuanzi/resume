@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Native Food in China</title>
+    <link rel="stylesheet" href="./css/common.css">
+    <!--加http从网络中请求打开-->
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_1277661_up7kpxbogr9.css">
+    <style>
+        html, body {
+            height: 100%;/*100vh兼容不好*/
+        }
+        /*header*/
+        header {
+            position: relative;/*下面绝对定位的参考点*/
+            height: 100%;
+            min-height: 600px;
+            background: #000 url(./images/index1.jpg) center center no-repeat;/*加背景色，和图片融为一体*/
+            background-size: cover;
+        }
+        header .logo {
+            color: #3ef056;
+            font-size: 32px;
+            float: left; /*一个行内元素（a），一旦浮动，就有块级的特性，便可设置宽高。*/
+            margin-top: 10px;
+        }
+        header .nav{
+            float: right;
+        }
+        header .nav>li {
+            float: left;
+            margin: 10px;
+        }
+        header .nav a {
+            display: inline-block;/*a是行内元素，背景色被padding撑开，但很容易和其他元素紧贴而重叠，因为它的高度本身没有变化。所以需要inline-block/block.*/            
+            padding: 5px;
+            color: #3ef056;/*字体颜色*/
+            font-size: 16px;
+            border-radius: 4px;
+        }
+        header .nav a:hover{
+            background: #f7ba3e;
+        }
+
+        header .intro {
+            position: absolute;/*需要设置一个参考点，即其容器header的定位需要是 非static*/
+            top: 50%;
+            left: 50%;/*距离容器的顶部&左边为容器宽高的50%，而底部和右侧的距离为0，所以是以块的左上角的坐标来定位，所以下面要再左移50%的坐标值*/
+            transform: translate(-50%, -50%);/*通过 translate() 方法，元素从其当前位置移动，根据给定的 left（x 坐标） 和 top（y 坐标） 位置参数*/
+            color: #fff;
+            text-align: center;
+        }
+        header .intro h1 {
+            font-size: 32px;
+        }
+        header .intro h2 {
+            font-size: 46px;
+            margin-top: 20px;
+        }
+        header .intro .button {
+            margin-top: 20px;
+        }
+
+        /*layout in sections of main*/
+        section {
+            text-align: center;
+            margin-top: 30px;
+        }
+        section>h2 {
+            font-size: 40px;
+        }
+        section>p {
+            margin-top: 10px;
+        }
+        section>ul .iconfont {
+            font-size: 60px;
+        }
+        section .food-intro>li{
+            float: left;/*并排一行*/
+            width: 33.33%;/*设定3列，否则无法浮动到一行，挤不开*/
+            padding: 10px 20px;
+        }
+        section>ul p {
+            margin-top: 10px;
+        }
+        section .timeline img, /*圆圈*/
+        section .timeline .line-end, 
+        section .chef img {
+            /*float: right; 写在此处无法实现，左右文字摇摆的样子*/
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;/*图片变成圆形*/
+            border: 3px solid lightblue;
+        }
+
+        /*Food*/
+        section .food figure {
+            width: calc(33.33% - 20px);/*减去两侧margin的宽度*/
+            height: 240px;
+            margin: 10px;
+            float: left;
+        }
+        section .food a {/*使用block 避免缝隙*/
+            display: block;
+            height: 180px;
+            position: relative;/*food-hover绝对定位的参考*/
+        }
+        section .food img {
+            width: 100%;
+            height: 100%;
+        }
+        section .food figcaption {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        section .food p {
+            color: #666;
+            margin-top: 10px;
+        }
+        section .food a>.food-hover {/*鼠标移上去就变色*/
+            background: rgba(254, 209, 54, .9);
+            position: absolute;/*脱离文档流，不和容器内的其他元素挤压*/
+            width: 100%;/*宽高容器a相同*/
+            height: 100%;
+            opacity: 0;
+            transition: all ease .5s;
+            -webkit-transition: all ease .5s;
+            -moz-transition: all ease .5s
+        }
+        section .food .food-hover:hover {
+            opacity: 0.8;
+        }
+        section .food .food-hover>span {/*已从section继承了 text-align:center*/
+            font-size: 50px;
+            display: inline-block;/*span是行内元素不可设置宽高， 这样可设置高度*/
+            padding-top: 60px;/*使icon在图片居中*/
+        }
+
+        /*Timeline*/
+        section .timeline > li {
+            margin-top: 20px;
+            position: relative;/*下面竖线的绝对定位参考*/
+        }
+        /*竖线最后一个圈里的文字 样式*/
+        section .timeline .line-end {/*span为行内元素*/
+            text-align: center;
+            display:inline-block;
+            padding-top: 10px;
+            font-size: 12px;
+            color: #fff;
+            background: #3ef056;
+        }
+        section .timeline >li::after {/*img浮动，其父容器要撑开。否则一行内排版混乱*/
+            content: '';
+            display: block;
+            clear: both;
+        }
+        /*文字在图片的左侧,图片靠右浮动*/
+        section .timeline>li:nth-child(odd) img {
+            float: right;
+        }
+        section .timeline>li:nth-child(odd) {
+            padding-right: calc(50% - 50px);/*用%扩展性比固定值好。图片的右侧距离其父容器的右侧为容器宽度的一半，即中线，需再减少图片宽度的一半，图片中线以移动到容器中线*/
+            text-align: right;
+        }
+        section .timeline>li:nth-child(odd) dl {
+            margin-right: 120px;/*img浮动，这是距离父容器的padding的距离*/
+        }
+        /*反向*/
+        section .timeline>li:nth-child(even) img {
+            float: left;
+        }
+        section .timeline > li:nth-child(even) {
+            padding-left: calc(50% - 50px);/*与上面的样式 方向相反*/
+            text-align: left;
+        }
+        section .timeline>li:nth-child(even) dl {
+            /*margin-right: 0; 先覆盖前面 img的样式，但这样不管用，因为改样式优先级权重低，所以前面也设置nth-child(odd)*/
+            margin-left: 120px;/*img浮动，这是距离父容器的padding的距离*/
+        }
+        section .timeline dt {
+            font-size: 16px;
+            font-weight: bold;
+        }
+        section .timeline dd:nth-of-type(1) {/*dd中的第一个*/
+            color: #666;
+        }
+        /*竖线*/
+        section .timeline>li::before {/*加到li的第一个子元素之前上，免得内容太多，容器高度被撑下去*/
+            content: '';/*在浏览器内写style并调试*/
+            position: absolute;/*定位的父容器参考是 相对定位的li*/
+            left: 50%;
+            top: 100px;
+            margin-left: 0px;
+            display: inline-block;
+            height: 30px;
+            width: 4px;
+            background-color: lightblue;
+        }
+        /*最后一个圈(li)的线 消掉*/
+        section .timeline>li:last-child:before {
+            height: 0;
+        }
+
+        /*chef*/
+        section .chef figure {
+            width: calc(33.33% - 20px);/*减去两侧margin的宽度*/
+            height: 360px;
+            margin: 10px;
+            float: left;
+        }
+        section .chef .chef-profile {
+            display: block;
+            height: 270px;
+        }
+        section .chef figure img {
+            width: 100%;
+            height: 100%;
+        }
+        section .chef .chef-social li {
+            display: inline;
+            text-align: center;
+        }
+        section .chef .chef-social i {
+            font-size: 30px;
+            color: gray;
+        }
+        section .chef:last-child {
+            padding-bottom: 20px;
+        }
+
+        /*companion*/
+        section .companion figure {
+            width: calc(25% - 20px);/*减去两侧margin的宽度*/
+            height: 200px;
+            margin: 10px;
+            float: left;
+        }
+        section .companion figure a {
+            display: inline-block;
+            height: 180px;
+        }
+        section .companion img {
+            width: 100%;
+            height: 100%;
+        }
+
+        /*contact*/
+        .contact {
+            background: url(./images/map.jpg);
+        }
+        .contact .contact-info, 
+        .contact .contact-message {
+            width: calc(50% - 20px);
+            height: 240px;
+            margin: 10px;
+            float: left;
+            text-align: center;/*让其内的子元素居中*/
+        }
+        .contact .contact-info input {
+            display: block;
+            position: relative;
+            left: 10%;
+            width: 80%;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 3.6; 
+            border-radius: 4px;
+        }
+        .contact .contact-message textarea {
+            display: block;
+            position: relative;
+            left: 10%;
+            width: 80%;
+            border-radius: 4px;
+            margin-top: 10px;
+            height: 202px;
+        }
+        .contact .button {
+            text-align: center;
+            line-height: 3.2;
+            width: 300px;
+            margin-bottom: 20px;
+        }
+
+        /*Footer*/
+        footer p, footer div {
+            text-align: center;
+        }
+        footer a {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <header><!--不同的div 新标签-->
+        <div class="navbar layout clearfix">
+            <a href="" class="logo">Native Food in China</a>
+            <ul class="nav">
+                <li><a href="#sec-eat">Eat</a></li>
+                <li><a href="#sec-foods">Food</a></li>
+                <li><a href="#sec-history">History</a></li>
+                <li><a href="#sec-chef">Chef</a></li>
+                <li><a href="#sec-companion">Companion</a></li>
+                <li><a href="#sec-contact">Contact</a></li>
+            </ul>
+        </div>
+        <div class="intro layout">
+            <h2>Native Food Is Comming From China</h2>
+            <h2>More Delicious, More Health, More History</h2>
+            <a href="" class="button">Tell Me More</a>
+        </div>
+    </header> 
+    <main class="layout">
+        <section id="sec-eat">
+            <h2>Eat Everywhere</h2>
+            <p>About How to Enjoy Our Food</p>
+            <ul class="food-intro clearfix"><!--子元素浮动 而脱离容器，需撑开容器，common css中的代码::after-->
+                <li>
+                    <span class="iconfont icon-family1"></span>
+                    <h3>On The Way</h3>
+                    <p>When you commute, our Chinese food can give new sense distinct from others</p>
+                </li>
+                <li>
+                    <span class="iconfont icon-family2"></span>
+                    <h3>On Daily Life</h3>
+                    <p>Everyday life needs every kinds of energies and they can come from magic Chinese Native Food</p>
+                </li>
+                <li>
+                    <span class="iconfont icon-family3"></span>
+                    <h3>On Relaxing</h3>
+                    <p>When you have a leisure time, eating our food can give you a fantastice vigour</p>
+                </li>
+            </ul>
+        </section>
+        <section id="sec-foods">
+            <h2>The Foods</h2>
+            <p>So many foods in China comes from the native nature, so they are the <b>God's Gift</b></p>
+            <div class="food clearfix"><!--子元素浮动 而脱离容器，需撑开容器，common css中的代码::after-->
+                <figure><!--html5 用作文档中插图的图像-->
+                    <a href="">
+                        <div class="food-hover"><!--放在a里不会覆盖a-->
+                            <span class="iconfont icon-family4"></span>
+                        </div>
+                        <img src="./images/pic1.jpg" alt="">
+                    </a>
+                    <figcaption>Dessert</figcaption><!--figure的标题-->
+                </figure>
+                <figure>
+                    <a href="">
+                        <div class="food-hover"><!--放在a里不会覆盖a-->
+                            <span class="iconfont icon-family4"></span>
+                        </div>
+                        <img src="./images/pic2.jpg" alt="">
+                    </a>
+                    <figcaption>Meat</figcaption>
+                </figure>
+                <figure>
+                    <a href="">
+                        <div class="food-hover"><!--放在a里不会覆盖a-->
+                            <span class="iconfont icon-family4"></span>
+                        </div>
+                        <img src="./images/pic3.jpg" alt="">
+                    </a>
+                    <figcaption>Candy</figcaption>
+                </figure>
+                <figure>
+                    <a href="">
+                        <div class="food-hover"><!--放在a里不会覆盖a-->
+                            <span class="iconfont icon-family4"></span>
+                        </div>
+                        <img src="./images/pic4.jpg" alt="">
+                    </a>
+                    <figcaption>Toufu</figcaption>
+                </figure>
+                <figure>
+                    <a href="">
+                        <div class="food-hover"><!--放在a里不会覆盖a-->
+                            <span class="iconfont icon-family4"></span>
+                        </div>
+                        <img src="./images/pic5.jpg" alt="">
+                    </a>
+                    <figcaption>Tea</figcaption>
+                </figure>
+                <figure>
+                    <a href="">
+                        <div class="food-hover"><!--放在a里不会覆盖a-->
+                            <span class="iconfont icon-family4"></span>
+                        </div>    
+                        <img src="./images/pic6.jpg" alt="">
+                    </a>
+                    <figcaption>Wine</figcaption>
+                </figure>
+            </div>
+         </section>
+        <section id="sec-history">
+            <h2>History</h2>
+            <p>The Story of Chinese Native Food</p>
+            <ul class="timeline">
+                <li>
+                    <img src="./images/his1.jpg" alt="">
+                    <dl><!--<dl> 标签定义了定义列表（definition list）。<dl> 标签用于结合 <dt> （定义列表中的项目）和 <dd> （描述列表中的项目）-->
+                        <dt>B.C. 3000</dt>
+                        <dd>Huang Di, The Acestor Of ZhongHua</dd>
+                        <dd>The Zhong Hua civilization was given birth and the founder, and the founder, Huang Di, innovated many food legends.</dd>
+                    </dl>
+                </li>
+                <li>
+                    <img src="./images/his2.jpg" alt="">
+                    <dl><!--dl dt dd 都是自定义的标签-->
+                        <dt>B.C. 3000</dt>
+                        <dd>Confucius, Culture Custom in Native Food</dd>
+                        <dd>The saint, Confucius, said there should be moral custom for both people and noble, and Chinese native food got the culture significance.</dd>
+                    </dl>
+                </li>
+                <li>
+                    <img src="./images/his3.jpg" alt="">
+                    <dl><!--dl dt dd 都是自定义的标签-->
+                        <dt>A.C. 1100</dt>
+                        <dd>The Most Prosperity Belonging to Song Dynasty</dd>
+                        <dd>In Song danasty, the science, culture, politic and ecomomy reached the top of prosperity in ZhongHua civilization. Its Chinese native food was more than what we can see now.</dd>
+                    </dl>
+                </li>
+                <li>
+                    <img src="./images/his4.jpg" alt="">
+                    <dl><!--dl dt dd 都是自定义的标签-->
+                        <dt>2019</dt>
+                        <dd>Modern Life, More Than Foods</dd>
+                        <dd>Nowadays Chinese have more choices on food, more than the flavour, but also healthy and native.</dd>
+                    </dl>
+                </li>
+                <li>
+                    <span class="line-end">LINE of CHINESE NATIVE FOOD NEVER ENDS!!!</span>
+                </li>
+            </ul>
+        </section>
+        <section id="sec-chef">
+            <h2>Chef</h2>
+            <p>Masters of our food makers</p>
+            <div class="chef clearfix">
+                <figure><!--html5 用作文档中插图的图像-->
+                    <div class="chef-profile">
+                        <img src="./images/chef1.jpg" alt="">
+                    </div>                        
+                    <figcaption><!--figure的标题-->
+                        <h4>XiaoDangJia</h4>
+                        <p>The Special Level of National chef</p>
+                    </figcaption>
+                    <ul class="chef-social">
+                        <li><a href="#"><i class="iconfont icon-twitter"></i></a></li>
+                        <li><a href="#"><i class="iconfont icon-facebook"></i></a></li>
+                        <li><a href="#"><i class="iconfont icon-linkedin"></i></a></li>
+                    </ul>
+                </figure>
+                <figure>                      
+                    <div class="chef-profile">
+                        <img src="./images/chef2.jpg" alt="">
+                    </div>
+                    <figcaption>
+                        <h4>Food Gold</h4>
+                        <p>The champion of domestic cooking competition</p>
+                    </figcaption>
+                    <ul class="chef-social">
+                        <li><a href="#"><i class="iconfont icon-twitter"></i></a></li>
+                        <li><a href="#"><i class="iconfont icon-facebook"></i></a></li>
+                        <li><a href="#"><i class="iconfont icon-linkedin"></i></a></li>
+                    </ul>
+                </figure>
+                <figure>                      
+                    <div class="chef-profile">
+                        <img src="./images/chef3.jpg" alt="">
+                    </div>
+                    <figcaption>
+                        <h4>XiaoFuGui</h4>
+                        <p>The chef responsible for national leaders' cuisine</p>
+                    </figcaption>
+                    <ul class="chef-social">
+                        <li><a href="#"><i class="iconfont icon-twitter"></i></a></li>
+                        <li><a href="#"><i class="iconfont icon-facebook"></i></a></li>
+                        <li><a href="#"><i class="iconfont icon-linkedin"></i></a></li>
+                    </ul>
+                </figure>
+                <h3>Our chefs and food makeders are always trying their best to provide the best quality.</h3>
+            </div>
+        </section>
+        <section id="sec-companion">
+            <h3>Companion</h3>
+            <div class="companion clearfix">
+                <figure>
+                    <a href="#">  
+                        <img src="./images/brand1.jpg" alt="">
+                    </a>
+                </figure>
+                <figure>
+                    <a href="#">  
+                        <img src="./images/brand2.jpg" alt="">
+                    </a>
+                </figure>
+                <figure>
+                    <a href="#">  
+                        <img src="./images/brand3.jpg" alt="">
+                    </a>
+                </figure>
+                <figure>
+                    <a href="#">  
+                        <img src="./images/brand4.jpg" alt="">
+                    </a>
+                </figure>
+            </div>
+        </section>
+        <section id="sec-contact">
+            <div class="contact clearfix">
+                <form action="">
+                    <div class="contact-info">
+                        <input type="text" placeholder="Your Name *" id="name" name="name" required data-validation-required-message="Please enter your name.">
+                        <input type="text" placeholder="Your Email *" id="email" name="email" required data-validation-required-message="Please enter your email.">
+                        <input type="text" placeholder="Your Phone *" id="phone" name="phone" required data-validation-required-message="Please enter your phone.">
+                    </div>
+                    <div class="contact-message">
+                        <textarea name="message" placeholder="Your Message *" id="message" required="" data-validation-required-message="Please enter a message."></textarea>
+                    </div>
+                    <input class="button" type="submit" value="SEND MESSAGE">
+                </form>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>Copyright © Your Website 2014</p>
+        <div>
+            <a href=""><span class="iconfont icon-twitter"></span></a>
+            <a href=""><span class="iconfont icon-facebook"></span></a>
+            <a href=""><span class="iconfont icon-linkedin"></span></a>
+        </div>
+    </footer>
+</body>
+</html>

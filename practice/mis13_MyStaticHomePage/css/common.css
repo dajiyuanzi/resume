@@ -3,7 +3,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box; /*box-sizing 属性允许您以特定的方式定义匹配某个区域的特定元素。例如，假如您需要并排放置两个带边框的框，可通过将 box-sizing 设置为 "border-box"。这可令浏览器呈现出带有指定宽度和高度的框，并把边框和内边距放入框中。*/
-}     
+}
 a {
     text-decoration: none;
 }
@@ -24,18 +24,25 @@ ul {
     background-color: #f7ba3e;
     padding: 5px 10px;
     border-radius: 4px;
-     /*    opacity: 0.8;*/
+    /*    opacity: 0.8;*/
 }
 .button:hover{
     background-color: #e8cb4f;
 }
 
 .layout{
-    max-width: 1500px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 body {
     font: 14px/1.5 Arial;
     background-color: #eee;
     color: #444;
+}
+
+.layout section:nth-child(even) {
+    background: rgb(219, 253, 219);
+}
+.layout section:nth-child(odd) {
+    background: whitesmoke;
 }
