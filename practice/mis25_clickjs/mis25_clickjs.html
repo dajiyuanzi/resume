@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Click_js</title>
+  <!--补全代码，要求：当鼠标放置在li元素上，会在img-preview里展示当前li元素的data-img对应的图片。-->
+</head>
+<body>
+  <ul class="ct">
+    <li data-img="pic1.jpg">鼠标放置查看图片1</li>
+    <li data-img="pic2.jpg">鼠标放置查看图片2</li>
+    <li data-img="pic3.jpg">鼠标放置查看图片3</li>
+  </ul>
+  <div class="img-preview"></div>
+</body>
+
+<script>
+  var ct = document.querySelector(".ct"),
+  preview = document.querySelector(".img-preview"),
+  // 创建元素节点
+  image = document.createElement("img");
+  ct.addEventListener("mouseover", function(e){
+    src = e.target.getAttribute("data-img");//从自定义属性（data-img）中获得图片的地址，作为src属性的值
+    // 为了方便观察，加一个控制台输出结果
+    console.log(src);
+    // 设置元素属性
+    image.setAttribute("src", src);
+    preview.appendChild(image);
+  });
+</script>
+</html>
