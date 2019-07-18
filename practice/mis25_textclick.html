@@ -16,14 +16,19 @@
 
   <script>
     var li_tag=document.getElementsByTagName('li')
-    
-      
-    li_tag.forEach(function(value, index, array){
+
+    for(var i=0;i<li_tag.length;i++){
+      li_tag[i].onclick=function(){
+          console.log(this.innerText);
+      }
+    }
+    /*li_tag.forEach(function(value, index, array){
         array[index].onclick=function(){
         console.log(this.innerText)
         console.log(value)
       }
-    })
-
+    }) li_tag是伪数组，没有forEach，可以用document.querySelectorAll ，这个获取的虽然也是伪数组对象， 但本身有forEach方法。
+    Array.from(li_tag).forEach也可以
+    */
   </script>
 </html>
