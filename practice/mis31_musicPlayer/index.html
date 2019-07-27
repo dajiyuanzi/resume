@@ -168,11 +168,11 @@
       return document.querySelector(selector)
     }
 
-    //请求音乐资源 函数定义在下面
+    //请求音乐资源 函数执行 定义在下面
     getMusicList(function(list){
       musicList = list
-      loadMusic(list[currentIndex])
       generateList(list)
+      loadMusic(list[currentIndex])//该函数使用generateList的数据，所以要在其后执行，否则加载不到会报错。报错调试，就在浏览器设置断点，一个个的/由浅入深的console.log变量，找到null/undefined的变量，很有可能是数据没有加载到造成的。
     })
 
     //播放的进度条
@@ -259,10 +259,12 @@
       $('.musicbox .auther').innerText = musicObj.auther
       $('.cover').style.backgroundImage = 'url(' + musicObj.img + ')' //每次加载新音乐时，更改背景图片
 
-      //修改 列表中的音乐条目 的样式状态，先清除所有条目的playing样式，再给点击的条目加上。
+      //点击时，修改 列表中的音乐条目 的样式状态，先清除所有条目的playing样式，再给点击的条目加上。
       for(var i = 0; i < $('.musicbox .list').children.length; i++){
         $('.musicbox .list').children[i].classList.remove('playing')
       }
+      console.log(currentIndex)
+      console.log($('.musicbox .list').children[currentIndex])
       $('.musicbox .list').children[currentIndex].classList.add('playing')
     }
 
@@ -374,10 +376,14 @@
       titleNode.innerText = songObj.title
       authorNode.innerText = songObj.auther
       cover.style.backgroundImage = 'url(' + songObj.img + ')'
+
+      //点击时，修改 列表中的音乐条目 的样式状态，先清除所有条目的playing样式，再给点击的条目加上。
       for(var i = 0; i < musicListContainer.children.length; i++){
         musicListContainer.children[i].classList.remove('playing')
       }
       musicListContainer.children[musicIndex].classList.add('playing')
+      //console.log(musicListContainer.children[musicIndex])
+      //console.log(musicListContainer.children[musicIndex].classList)
     }
 
     function loadNextMusic() {
@@ -408,7 +414,7 @@
         }
       }
     }
-*/    
+*/
   </script>
 </body>
 </html>
