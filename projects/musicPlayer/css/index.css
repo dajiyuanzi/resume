@@ -1,0 +1,75 @@
+.cover{
+  position: absolute;
+  content:'';
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: url(http://cloud.hunger-valley.com/17-9-22/87786461.jpg)  center center no-repeat;
+  background-size: cover;
+  filter: blur(5px); /*filter(滤镜) 属性 定义了元素(通常是<img>)的可视效果(例如：模糊与饱和度)。*/
+}
+.musicbox {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  font-family: cursive;
+  font-size: 16px;
+  color: #f06d6a;
+  width: 340px;
+}
+.music-panel {
+  border: 1px solid #76dba3;
+  padding: 20px 20px 5px 20px;
+  box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.1), 0px 2px 10px 0px rgba(0, 0, 0, 0.05);
+  background-color: rgba(255, 255, 255, 0.9);
+}    
+.musicbox .control {
+  margin-top: 20px;
+  font-size: 22px;
+  color: #ee8a87;
+  float: left;
+}
+
+.musicbox .control .fa {
+  margin-right: 12px;
+  cursor: pointer;
+}
+
+.musicbox .control .fa.disable {
+  opacity: 0.3;
+}
+
+.musicbox .info {
+  margin-left: 120px;
+}
+
+.musicbox .info .title {
+  font-size: 18px;
+}
+
+.musicbox .info .auther {
+  font-size: 13px;
+}
+
+.musicbox .progress {
+  width: 260px;
+}
+
+.musicbox .progress .bar {
+  height: 3px;
+  margin-top: 5px;
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.musicbox .progress .progress-now {
+  background-color: #ee8a87;
+  height: 3px;
+  width: 0;
+  position: relative;
+}
+
+.musicbox .time {
+  text-align: right;
+}
