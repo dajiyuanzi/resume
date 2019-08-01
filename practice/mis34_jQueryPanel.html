@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <meta charset="utf-8">
+<!--
+Created using JS Bin
+http://js.jirengu.com
+
+Copyright (c) 2019 by jirengu (http://js.jirengu.com/rayez/2/edit)
+
+Released under the MIT license: http://jsbin.mit-license.org
+-->
+<meta name="robots" content="noindex">
+  <title>JS Bin</title>
+
+<style id="jsbin-css">
+*{
+  box-sizing: border-box;
+}
+.mod-tab {
+  margin-top: 30px;
+}
+.mod-tab .header{
+
+}
+.mod-tab .header:after{/*撑开父容器，因为下面的.tab浮动*/
+  content:'';
+  display: block;
+  clear: both;
+}
+
+.mod-tab .header .tab{
+  float: left;
+  border-left: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  background: #ddd;
+  padding: 5px 20px;
+  cursor: pointer; /*光标呈现为指示链接的指针（一只手）*/
+}
+.mod-tab .header .tab.active {/*js需要实现 增删.active*/
+  background: #fff;
+}
+.mod-tab .header .tab:last-child{
+  border-right: 1px solid #ccc;
+}
+
+.mod-tab .content {
+  border: 1px solid #ccc;
+  width: 300px;
+  height: 200px;
+  background: #fff;
+}
+.mod-tab .panel{
+
+  padding: 30px;
+  background: #fff;
+  display: none;/*没选中的就不显示*/
+}
+.mod-tab .panel.active{/*选中的显示*/
+  display: block;
+}
+</style>
+</head>
+<body>
+  <div class="mod-tab">
+    <div class="header">
+      <div class="tab ">1</div>
+      <div class="tab active">2</div>
+      <div class="tab">3</div>
+      <div class="tab">4</div>
+    </div>
+    <div class="content">
+      <div class="panel ">panel1</div>
+      <div class="panel active">panel2</div>
+      <div class="panel">panel3</div>
+      <div class="panel">panel4</div>
+    </div>
+  </div>
+  
+  <div class="mod-tab">
+    <div class="header">
+      <div class="tab ">1</div>
+      <div class="tab">2</div>
+      <div class="tab">3</div>
+      <div class="tab active">4</div>
+    </div>
+    <div class="content">
+      <div class="panel ">panel1</div>
+      <div class="panel">panel2</div>
+      <div class="panel">panel3</div>
+      <div class="panel active">panel4</div>
+    </div>
+  </div>
+<script>
+
+/*
+//jQuery写法
+$('.mod-tab .tab').on('click', function(){
+  $(this).addClass('active') //原生对象this不能直接用于jquery，要用$()改成jq对象。
+         .siblings()
+         .removeClass('active')//先 选中的this元素增加active类，再让兄弟元素删掉active类
+ 
+  $(this).parents('.mod-tab') //让tab下面的panel中的文字显现。先跳回容器，从容器的后代内再找panel类
+         .find('.panel')
+         .eq($(this).index())//panel的index与tab的相同
+         .addClass('active')
+         .siblings()
+         .removeClass('active')
+})
+*/
+
+
+//原生js
+document.querySelectorAll('.mod-tab .tab').forEach(function(node){ //querySelectorAll有foreach循环方法
+  node.addEventListener('click', function(){
+    var index
+    this.parentElement.querySelectorAll('.tab').forEach(function(tab, idx){
+      tab.classList.remove('active')
+      if(node === tab){//先遍历所有元素并去掉所有tab的active类，若点击的元素和其中某个是同一个，则记住其index，后面加上active类
+        index = idx
+      }
+    })
+    this.classList.add('active')
+    this.parentElement.nextElementSibling.querySelectorAll('.panel').forEach(function(panel){ //nextElementSibling：选中元素下面的同级兄弟元素
+      panel.classList.remove('active')
+    })
+    this.parentElement.nextElementSibling.querySelectorAll('.panel')[index].classList.add('active')
+  })
+})
+
+</script>
+</body>
+</html>
