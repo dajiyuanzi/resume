@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>效果 切换</title>
+  <script src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js"></script>
+  <style>
+    li{
+      list-style: none;
+    } 
+    .ct >ul >li{
+      border: 1px solid #ccc;
+    }
+    .ct>ul>li>p{
+      display: none;
+    } 
+    .box{
+      width: 100px;
+      height: 100px;
+      background-color: red;
+      display: inline-block;
+    }
+  </style>
+</head>
+<body>
+  <button id="btn-box1">show</button>
+  <button id="btn-box2">hide</button>
+  <button id="btn-box3">fadeIn</button>
+  <button id="btn-box4">fadeOut</button>
+  <button id="btn-box5">slideDown</button>
+  <button id="btn-box6">slideUp</button>
+  <button id="action"> 回调</button>
+  <div class="container">
+    <div class="box">
+      hello
+    </div>    
+  </div>
+
+
+  
+  <script>
+    $('#btn-box1').on('click', function(){
+      $('.box').show('normal')
+    })
+    $('#btn-box2').on('click', function(){
+      $('.box').hide('normal')
+    })
+    $('#btn-box3').on('click', function(){
+      $('.box').fadeIn()
+    })
+    $('#btn-box4').on('click', function(){
+      $('.box').fadeOut()
+    })
+    $('#btn-box5').on('click', function(){
+      $('.box').slideDown()
+    })
+    $('#btn-box6').on('click', function(){
+      $('.box').slideUp()
+    })
+    $('#action').on('click', function(){
+      var $box = $('.box')
+      /*
+      $box.hide(1000, function(){
+         $box.show(1000, function(){
+           $box.fadeOut('slow',function(){
+             $box.fadeIn('slow',function(){
+               $box.slideUp(function(){
+                 $box.slideDown(function(){
+                   console.log('动画执行完毕')
+                 })
+               })
+             })
+           })
+         })
+      })
+      */
+      //与上面注释的代码等价
+      $box.hide(1000)
+          .show(1000)
+          .fadeOut()
+          .fadeIn()
+          .slideUp()
+          .slideDown(function(){
+            console.log('真的完毕了')
+          })
+          
+      console.log('动画完毕了吗')
+    })
+  </script>
+
+
+  <div class="ct">
+    <ul>
+      <li class="item">
+        <h3>标题1</h3>
+        <p>内容1</p>
+      </li>
+      <li class="item">
+        <h3>标题2</h3>
+        <p>内容2</p>
+      </li>
+      <li class="item">
+        <h3>标3</h3>
+        <p>内容3</p>
+      </li>
+      <li class="item">
+        <h3>标题4</h3>
+        <p>内容4</p>
+      </li>
+    </ul>
+  </div>
+
+<script>
+
+$('.ct .item').on('click', function(){
+   $(this).find('p').slideDown();
+   $(this).siblings().find('p').slideUp()
+});
+// $('.ct .item').on('mouseleave', function(){
+//    $(this).find('p').slideUp(100);
+// });
+
+</script>
+
+
+
+
+
+</body>

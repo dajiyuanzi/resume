@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+  <style>
+    .container{
+      position: relative;
+    }
+    .box {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: red;
+    }
+  </style>
+</head>
+<body>
+  <button id="btn1">start</button>
+  <button id="btn2">step+50</button>
+  <button id="btn3">step-50</button>
+  <button id="btn4">auto</button>
+  <button id="btn5">reset</button>
+  <button id="btn6">stop(false,false)</button>
+  <button id="btn7">stop(true,false)</button>
+  <button id="btn8">stop(true,true)</button>
+  <button id="btn9">finish</button>
+  
+  <div class="container">
+    <div class="box"></div>
+  </div>
+  
+  
+  <script>
+    $('#btn1').click(function(){
+      $('.box').animate({
+        left: '100px'
+      }, 1000)
+    })
+    $('#btn2').click(function(){
+      $('.box').animate({
+        left: '+=50'
+      }, 1000)
+    })
+    $('#btn3').click(function(){
+      $('.box').animate({
+        left: '-=50'
+      }, 1000)
+    })
+    $('#btn4').click(function(){
+      $('.box').animate({
+        left: '100px'
+      }, 1000)
+      $('.box').animate({
+        left: '100px',
+        top: '100px'
+      }, 1000)
+      $('.box').animate({
+        left: '0',
+        top: '100px'
+      }, 1000)
+      $('.box').animate({
+        left: '0',
+        top: '0'
+      }, 1000)
+    })
+    $('#btn5').click(function(){
+      $('.box').animate({
+        left: 0,
+        top: 0
+      }, 1000)
+    })
+    $('#btn6').click(function(){
+      //停止当前动画
+      $('.box').stop()
+    })
+    $('#btn7').click(function(){
+      //停止当前动画，并清除未执行的动画队列
+      $('.box').stop(true, false)
+    })
+    $('#btn8').click(function(){
+      //停止当前动画，并清除未执行的动画队列，并且当前动画展示最终状态
+      $('.box').stop(true, true)
+    })
+    $('#btn9').click(function(){
+      //停止当前动画，并清除未执行的动画队列，并且当前动画展示最终状态
+      $('.box').finish()
+    })
+    
+
+  </script>
+</body>
+</html>
