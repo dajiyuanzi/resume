@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"><!--保证页面在移动端可以执行-->
+  <title>GitHub 看板</title>
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_440195_fw8hsnrso53wstt9.css"><!--icon link-->
+  <!--这个版本的代码乱糟糟，比如变量和函数的名字已经经常重复很难再控制，所以要用面向对象编程-->
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box; /*盒模型：为元素指定的任何内边距和边框都将在已设定的宽度和高度内进行绘制。通过从已设定的宽度和高度分别减去边框和内边距才能得到内容的宽度和高度。*/
+    }
+    a{
+      text-decoration: none; /*清除a链接的下划线*/
+      color: #333;
+    }
+    html, body{
+      height: 100%;
+    }
+    body{
+      position: relative; /*作为footer定位的依照，但position:relative会让body收缩，所以要把height设为100%*/
+      font-size: 12px;
+      line-height: 1.2;
+      background-color: #fff;
+      overflow: scroll; /*只让main标签的溢出内容滚动。overflow 属性规定当内容溢出元素框时发生的事情；scroll	内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。*/
+      -webkit-overflow-scrolling: touch; /*手机上滚动时有弹性*/
+    }
+
+    main{
+      height: calc(100vh - 60px);/*满屏高度下，再减去50px。注：减号两侧一定要有空格*/
+      /*background: blue;*/
+    }
+    main>section{
+      display: none;/*main中的内容有三类被加载，但先都隐藏，需要显示什么 再点击显示*/
+    }
+    main>section:first-child{
+      display: block; /*暂时先让第一个section显示出来，在js内实现点击下面的tab切换section内容*/
+    }
+    .item {
+      border-bottom: 1px solid #ccc;/*下边线*/
+      padding-bottom: 10px;
+      padding-top: 10px;
+      display: flex;
+    }
+    .item .cover,
+    .item .cover img{
+      width: 50px;
+      border-radius: 4px;
+    }
+    .item>a{
+      display: flex;
+      /*display: block;*/
+    }
+    .item .order {
+      display: flex;
+      align-items: center;
+    }
+    .item .order span{
+      padding: 0 4px;
+      color: #fff;
+      background: green;
+    }
+    .item .detail {
+      padding-left: 10px;
+    }
+    .item .detail h2{
+      font-size: 16px;
+    }
+    .item .detail .extra{
+      color: #999;
+      margin-top: 4px;
+    }
+    .item .detail .score{
+      color: #FF5722;
+    }
+
+    footer{/*固定在底端，用fix在移动端有很多问题*/
+      position: absolute;
+      bottom: 0;
+      height: 50px;
+      width: 100%;
+      /*background: red;*/
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+    footer>div{
+      flex: 1; /*相当于flex-grow属性为 1，则容器footer>div内的元素将按照flex布局来等分剩余空间*/
+      text-align: center;
+    }
+    footer .active{/*底部tab被点击时的状态*/
+      color: #FF5722;
+    }
+    footer>div>span{
+      display: block;/*以设置span居中*/
+      padding-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section>
+      <!--
+        <div class="item">
+        <a href="https://github.com/TryGhost/Ghost">
+          <div class="order"><span>1</span></div>
+          <div class="detail">
+            <h2>Ghost </h2>
+            <div class="extra">Knockout makes it easier to create rich, responsive UIs with JavaScript</div>
+            <div class="extra">4196 star</div>
+          </div>
+        </a>
+      </div> -->
+    </section>
+    <section>2</section>
+    <section>3</section>
+  </main>
+  <footer>
+    <div class="active"><span class="iconfont icon-paihang"></span><span>前端项目排行</span></div>
+    <div><span class="iconfont icon-beimei"></span><span>前端高产用户排行</span></div>
+    <div><span class="iconfont icon-search"></span><span> 项目搜索</span></div>
+  </footer>
+  <script src="//cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script>
+    //点击底部按钮，切换 展示的section
+    $('footer>div').click(function(){
+      var index = $(this).index() //获得 被点击的 底部按钮tab的index
+      //$('section').eq(index).show().siblings().hide() //相同index的section显示，其他同级的section隐藏
+      $('section').hide().eq(index).fadeIn() //section先全部隐藏，与底部tab有相同index的section淡入地显示
+      $(this).addClass('active').siblings().removeClass('active') //点击的底部tab增加 样式active类，其他同级的tab移出active
+    })
+
+    //请求数据以展示 一次请求一页 30条
+    $.ajax({
+      url: 'http://api.github.com/search/repositories?q=language:javascript&sort=stars&order=desc', //要加http字段，否则url会拼在当前网址的后面
+      type: 'GET',
+      data: {
+        page: this.page
+      },
+      dataType: 'jsonp'
+    }).done(function(ret){
+      console.log(ret)
+      setData(ret)
+    }).fail(function(){
+      console.log('error...')
+    })
+
+    function setData(data){
+      data.data.items.forEach(function(subject, index){//遍历json数据中的items数据类型里的数据
+        var tpl=`<div class="item">
+                  <a href="https://github.com/TryGhost/Ghost">
+                    <div class="order"><span>1</span></div>
+                    <div class="detail">
+                      <h2>Ghost </h2>
+                      <div class="extra">Knockout makes it easier to create rich, responsive UIs with JavaScript</div>
+                      <div class="extra">4196 star</div>
+                    </div>
+                  </a>
+                </div>`
+        var $node = $(tpl) //jQuery的$()函数可以：创建&选择dom，事件监听。
+        $node.find('.order span').text(index)
+        $node.find('a').attr('href', subject.html_url)    
+        $node.find('.detail h2').text(subject.name)  
+        $node.find('.detail .description').text(subject.description)
+        $node.find('.detail .collection').text(subject.collect_count)  
+        $node.find('.detail .star-count').text(subject.stargazers_count ) 
+        //return $node
+        $('section').eq(0).append($node)
+      })
+    }
+
+  </script>
+</body>
+</html>
