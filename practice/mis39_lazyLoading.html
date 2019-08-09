@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+  <meta charset="utf-8">
+  <title>JS Bin</title>
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .container:after{
+      content: '';
+      display: block;
+      clear: both;
+    }
+    .container img {
+      float: left;
+      width: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="1" data-src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg">
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="2" data-src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg">
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="3" data-src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg">
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="4" data-src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg">
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="5" data-src="http://cdn.jirengu.com/book.jirengu.com/img/5.jpg">
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="6" data-src="http://cdn.jirengu.com/book.jirengu.com/img/6.jpg">
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="7" data-src="http://cdn.jirengu.com/book.jirengu.com/img/7.jpg">
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="8" data-src="http://cdn.jirengu.com/book.jirengu.com/img/8.jpg">
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="9" data-src="http://cdn.jirengu.com/book.jirengu.com/img/9.jpg">
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="10" data-src="http://cdn.jirengu.com/book.jirengu.com/img/10.jpg">
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="11" data-src="http://cdn.jirengu.com/book.jirengu.com/img/11.jpg">
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="12" data-src="http://cdn.jirengu.com/book.jirengu.com/img/12.jpg">
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="13" data-src="http://cdn.jirengu.com/book.jirengu.com/img/13.jpg">
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="14" data-src="http://cdn.jirengu.com/book.jirengu.com/img/14.jpg">
+    <h1>hello</h1>
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="15" data-src="http://cdn.jirengu.com/book.jirengu.com/img/15.jpg">
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="16" data-src="http://cdn.jirengu.com/book.jirengu.com/img/16.jpg">
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="17" data-src="http://cdn.jirengu.com/book.jirengu.com/img/17.jpg">
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="18" data-src="http://cdn.jirengu.com/book.jirengu.com/img/18.jpg">
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="19" data-src="http://cdn.jirengu.com/book.jirengu.com/img/19.jpg">
+    <img src="http://smashinghub.com/wp-content/uploads/2014/08/cool-loading-animated-gif-3.gif" alt="20" data-src="http://cdn.jirengu.com/book.jirengu.com/img/20.jpg">
+    
+  
+  </div>
+  <script>
+    start()
+
+    $(window).on('scroll', function(){//滚动时 判断container下的图片是否在视野
+      start()
+    })
+
+    function start(){
+      $('.container img').not('[data-isLoaded]').each(function(){//not([attr]) 不具有属性
+        var $node=$(this) //如果你要使用html元素本身的属性或方法就需要使用this,如果你要使用jQuery包装后的方法或属性就要$(this),一般则有关系$(this)[0] == this;.
+        if( isShow($node) ){//判断视野，但上面滚动时要检查 所有图片 一次（包含已经出现的图片），太浪费，所以loadImg要加个flag属性
+          loadImg($node) //加载
+        }
+      })
+    }
+    
+    function isShow($node){//判断container下的图片是否在视野
+      return $node.offset().top <= $(window).height() + $(window).scrollTop() //元素出现在了视野：元素顶部距离页面内容的开端（超出视野）<=窗口的高度+滚动的距离（即 窗口视野的底部）
+    }
+    
+    function loadImg($img){
+      $img.attr('src', $img.attr('data-src')) //把属性data-src的值 赋值给属性src。
+      $Img.attr('data-isLoaded', 1)//已经加载的，就加个flag，以判断不需要再加载
+    }
+    
+    
+  </script>
+</body>
+</html>
