@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <meta charset="utf-8">
+  <title>瀑布流布局</title>
+  <!--思路：首先，需要一个数组，存储每一列的高度；-->
+  <style>
+
+    .waterfall {
+      width: 600px;
+      margin: 0 auto;
+    }
+    .waterfall img{
+      width: 100px;
+      margin: 10px;
+      position: absolute;/*js要控制元素的位置，所以需要设为绝对定位，以浮在文档流中*/
+      transition: all .4s;
+    }
+  </style>
+</head>
+<body>
+  <div class="waterfall"><!--容器不适用绝对定位：因为 如果img下面还有元素的话，容器的高度还会涨，超过img瀑布的最长列，就无法用容器高度确定瀑布高度了-->
+    <img src="http://via.placeholder.com/100x100" alt="300*100">
+    <img src="http://via.placeholder.com/100x70" alt="300*70">
+    <img src="http://via.placeholder.com/100x150" alt="300*150">
+    <img src="http://via.placeholder.com/100x250" alt="300*250">
+    <img src="http://via.placeholder.com/100x80" alt="300*80">
+    <img src="http://via.placeholder.com/100x90" alt="300*90">
+    <img src="http://via.placeholder.com/100x120" alt="300*120">
+    <img src="http://via.placeholder.com/100x210" alt="300*210">
+    <img src="http://via.placeholder.com/100x230" alt="300*230">
+    <img src="http://via.placeholder.com/100x100" alt="300*100">
+    <img src="http://via.placeholder.com/100x70" alt="300*70">
+    <img src="http://via.placeholder.com/100x150" alt="300*150">
+    <img src="http://via.placeholder.com/100x250" alt="300*250">
+    <img src="http://via.placeholder.com/100x80" alt="300*80">
+    <img src="http://via.placeholder.com/100x90" alt="300*90">
+    <img src="http://via.placeholder.com/100x120" alt="300*120">
+    <img src="http://via.placeholder.com/100x210" alt="300*210">
+    <img src="http://via.placeholder.com/100x230" alt="300*230">
+  </div>
+  
+  <script>
+    
+    /*
+    //对象封装版
+    var waterfall = {
+      init: function(){
+        this.colHeightArray = []
+        this.imgWidth = $('.waterfall img').outerWidth(true)
+        this.colCount =  Math.floor($('.waterfall').width()/this.imgWidth)
+        for(var i=0; i<this.colCount; i++){
+          this.colHeightArray[i] = 0
+        }
+        this.bind()
+      },
+      bind: function(){
+        var _this = this
+        $('.waterfall img').on('load', function(){
+          _this.layout($(this)) //layout是下面定义的方法
+        })
+        $(window).on('resize', function(){
+          $('.waterfall img').each(function(){
+            _this.layout($(this))
+          })
+        })
+      },
+      layout: function($node){
+        console.log(this)
+        var minValue = this.colHeightArray[0] //0
+        var minIndex = 0   //0
+        console.log(minValue, minIndex)
+        
+        for(var i=0; i<this.colCount; i++){
+          if(this.colHeightArray[i]<minValue){
+            minValue = this.colHeightArray[i]
+            minIndex = i
+          }
+        }
+        console.log(minValue, minIndex)
+        $node.css({
+          left: minIndex * this.imgWidth,
+          top: minValue
+        })
+        this.colHeightArray[minIndex] += $node.outerHeight(true)
+      }
+      
+    }
+    waterfall.init()
+    */
+    
+  
+  //非封装版 -- 找到所有列中高度最大的。其实也可以用 容器的高度。
+    var colCount //列的数量
+    var colHeightArray = [] //列的高度
+    var imgWidth = $('.waterfall img').outerWidth(true)//包裹外边距padding的宽度，用.outerWidth(true)
+    
+    colCount = Math.floor($('.waterfall').width()/imgWidth) //当前的列数，很精巧的实现。也可用ParseInt转为整数。
+  
+    for(var i=0; i<colCount; i++){
+      colHeightArray[i] = 0 //每列的高度初始化为0，否则下面无法比较判断。
+    }
+    //若有3列(colCount=3)，数据[0, 0, 0]
+    
+
+    //var minValue = colHeightArray[0] //0
+    //var minIndex = 0   //0
+    $('.waterfall img').on('load', function(){//每一个图片 被加载成功之后运行
+      //变量的初始化要放到内部，每次加载图片后 都执行，minValue先赋值为当前的第一列的高度
+      //如果放在外面（上面的），当时三列为[0, 0, 0]，赋值就已定死了。之后该函数一直调用外面的恒定赋值，不会随着数列变动了。
+      //所以这里要用函数内的局部变量，而不是沿着 作用域链 到外部。
+      var minValue = colHeightArray[0] //0
+      var minIndex = 0   //0
+   
+      for(var i=0; i<colCount; i++){//找出最小的列数&是哪一列
+        if(colHeightArray[i]<minValue){//第一次循环时，都是0<0返回false
+          minValue = colHeightArray[i]//高度起始于最矮的一列
+          minIndex = i
+        }
+      }
+      //  console.log(minIndex)
+      $(this).css({
+        left: minIndex * imgWidth,//左侧起的距离
+        top: minValue//顶部距离
+      })
+      
+      console.log($(this).outerHeight(true))
+      colHeightArray[minIndex] += $(this).outerHeight(true)//当前该列的高度 加上新图片的列高，包含padding
+      console.log(colHeightArray)
+      //第一次循环后，第一列加载得高度100 [100, 0, 0]
+    })
+
+    /*
+    //把上面的代码放进resize事件内，
+    $(window).on('resize', function(){
+      colHeightArray = []
+      colCount = Math.floor($('.waterfall').width()/imgWidth)
+      for(var i=0; i<colCount; i++){
+        colHeightArray[i] = 0
+      }
+      $('.waterfall img').each(function(){
+        var minValue = colHeightArray[0] //0
+        var minIndex = 0   //0
+
+        for(var i=0; i<colCount; i++){
+          if(colHeightArray[i]<minValue){
+            minValue = colHeightArray[i]
+            minIndex = i
+          }
+        }
+
+        //  console.log(minIndex)
+        $(this).css({
+          left: minIndex * imgWidth,
+          top: minValue
+        })
+        console.log($(this).outerHeight(true))
+        colHeightArray[minIndex] += $(this).outerHeight(true)
+        console.log(colHeightArray)
+
+      })
+
+    })
+    
+    //console.log($('.waterfall img').eq(3).height())
+  */                        
+                 
+  </script>
+</body>
+</html>
