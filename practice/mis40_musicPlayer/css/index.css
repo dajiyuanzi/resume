@@ -194,11 +194,11 @@ footer>.layout{
 }
 footer .box {
   position: relative;
-  overflow: hidden;
+  overflow: hidden;/*溢出的部分就隐藏*/
   height: 24vh;
 }
 footer ul{
-  position: absolute;
+  position: absolute;/*要浮动以居左*/
   left: 0;
 }
 footer ul:after {
