@@ -84,7 +84,7 @@ var Footer = {//底部的音乐滑动
     })
   },
 
-  render(){
+  render(){//获取歌曲的频道，并把数据塞到footer里
     var _this = this
     $.getJSON('//jirenguapi.applinzi.com/fm/getChannels.php')
       .done(function(ret){
@@ -95,10 +95,10 @@ var Footer = {//底部的音乐滑动
       })
   },
 
-  renderFooter: function(channels){
+  renderFooter: function(channels){//把数据塞到footer里
     console.log(channels)
     var html = ''
-    channels.unshift({
+    channels.unshift({ //与shift方法对应的有一个unshift方法，用于向数组头部添加一个元素
       channel_id: 0,
       name: '鎴戠殑鏈€鐖�',
       cover_small: 'http://cloud.hunger-valley.com/17-10-24/1906806.jpg-small',
@@ -111,11 +111,11 @@ var Footer = {//底部的音乐滑动
             + '  <h3>'+channel.name+'</h3>'
             +'</li>'
     })
-    this.$ul.html(html)
+    this.$ul.html(html)//数据和生成的html，塞进footer的ul
     this.setStyle()
   },
 
-  setStyle: function(){
+  setStyle: function(){//设置footer的ul容器的宽度
     var count = this.$footer.find('li').length
     var width = this.$footer.find('li').outerWidth(true)
     this.$ul.css({
@@ -134,8 +134,8 @@ var App = {//播放
     this.audio = new Audio()
     this.audio.autoplay = true
     this.currentSong = null
-    this.clock = null
-    this.collections = this.loadFromLocal()
+    this.clock = null //定时的时间寄存
+    this.collections = this.loadFromLocal() //用localStorage获得收藏的歌曲
     this.bind()
 
     EventCenter.fire('select-albumn', {//自己触发trigger一些自定义事件
@@ -162,22 +162,22 @@ var App = {//播放
       }
     })
 
-    this.$container.find('.btn-next').on('click', function(){
+    this.$container.find('.btn-next').on('click', function(){//下一曲
       _this.loadSong()
     })
 
     this.audio.addEventListener('play', function(){//play事件 是audio类里自带的
       clearInterval(_this.clock)
       _this.clock = setInterval(function(){
-        _this.updateState()
+        _this.updateState()//进度条的更新
         _this.setLyric()
-      }, 1000)//以免进度变化不均匀，所以设置定时，一秒走一格
+      }, 1000)//以免进度条变化不均匀，所以设置定时，一秒走一格
       console.log('play')
     })
 
     this.audio.addEventListener('pause', function(){
       console.log('pause')
-      clearInterval(_this.clock)
+      clearInterval(_this.clock) //防止上面的进度条还在进行
     })
     this.audio.addEventListener('end', function(){
       console.log('pause')
@@ -199,10 +199,11 @@ var App = {//播放
 
 
   },
+
   loadSong: function(){
     var _this = this
-    if(this.channelId === '0'){
-      _this.loadCollection()
+    if(this.channelId === '0'){//如果是默认的第一个channel
+      _this.loadCollection()//随机播放一曲
     }else {
       $.getJSON('//jirenguapi.applinzi.com/fm/getSong.php', {channel: this.channelId})
         .done(function(ret){
@@ -211,6 +212,7 @@ var App = {//播放
     }
 
   },
+
   play: function(song){
     console.log(song)
     this.currentSong = song
@@ -239,24 +241,24 @@ var App = {//播放
     this.$container.find('.bar-progress').css('width', this.audio.currentTime/this.audio.duration * 100 + '%')
   },
 
-  loadLyric: function(sid){
+  loadLyric: function(sid){//加载歌词
     var _this = this
     $.getJSON('//jirenguapi.applinzi.com/fm/getLyric.php', {sid: sid})
       .done(function(ret){
         console.log(ret.lyric)
         var lyricObj = {}
-        ret.lyric.split('\n').forEach(function(line){
-          var timeArr = line.match(/\d{2}:\d{2}/g)
+        ret.lyric.split('\n').forEach(function(line){//每行歌词是一个字符串
+          var timeArr = line.match(/\d{2}:\d{2}/g) //每行歌词前的数字就是时间
           if(timeArr){
             timeArr.forEach(function(time){
-              lyricObj[time] = line.replace(/\[.+?\]/g, '')
+              lyricObj[time] = line.replace(/\[.+?\]/g, '')//修改下歌词时间的格式
             })
           }
         })  
         _this.lyricObj = lyricObj
       })
   },
-  setLyric: function(){
+  setLyric: function(){//修改歌名和歌曲时长
     var timeStr = '0'+Math.floor(this.audio.currentTime/60)+':'
       + (Math.floor(this.audio.currentTime)%60/100).toFixed(2).substr(2)
     if(this.lyricObj && this.lyricObj[timeStr]){
@@ -274,11 +276,11 @@ var App = {//播放
     return JSON.parse(localStorage['collections']||'{}')
   },
 
-  saveToLocal: function(){
+  saveToLocal: function(){//把收藏的曲目存入localstorage
     localStorage['collections'] = JSON.stringify(this.collections)
   },
 
-  loadCollection: function(){
+  loadCollection: function(){//获得该频道下的歌曲数目，并随机播放一曲
     var keyArray = Object.keys(this.collections)
     if(keyArray.length === 0) return
     var randomIndex = Math.floor(Math.random()* keyArray.length)
@@ -289,24 +291,24 @@ var App = {//播放
 }
 
 
-//http://js.jirengu.com/zuvar/1/edit?html,js,console,output
-$.fn.boomText = function(type){ //jquery自定义方法就是$.fn.func，方便之后调用。
+//http://js.jirengu.com/zuvar/1/edit?html,js,console,output 实现歌词旋转地弹出
+$.fn.boomText = function(type){ //jquery自定义方法就是$.fn.func，方便之后调用。 
   type = type || 'rollIn'
   console.log(type)
   this.html(function(){
     var arr = $(this).text()
-    .split('').map(function(word){
-        return '<span class="boomText">'+ word + '</span>'
+    .split('').map(function(word){//先拆出每个字
+        return '<span class="boomText">'+ word + '</span>' //每个字裹一个span，以操作每个字
     })
-    return arr.join('')
+    return arr.join('')//把数组内所有元素 以字符串 返回，作为$（选择器所得元素）的innerHTML
   })
   
   var index = 0
   var $boomTexts = $(this).find('span')
-  var clock = setInterval(function(){
-    $boomTexts.eq(index).addClass('animated ' + type)
+  var clock = setInterval(function(){//每300毫秒做一次，循环结束后，清除clock
+    $boomTexts.eq(index).addClass('animated ' + type) //animated动画源自cdn animate.min.css
     index++
-    if(index >= $boomTexts.length){
+    if(index >= $boomTexts.length){ //循环结束后，清除clock定时循环
       clearInterval(clock)
     }
   }, 300)
