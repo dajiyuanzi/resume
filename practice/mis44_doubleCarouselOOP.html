@@ -132,8 +132,8 @@
       this.autoPlay() //下面写的自动播放函数
 		}
 
-		Carousel.prototype = {
-			constructor: Carousel,
+		Carousel.prototype = { //放在原型上方便调用
+			constructor: Carousel, //因为重新赋值，覆盖先前的默认数据，所以要重新赋值
 			init: function($ct){
 				console.log(this)
 				this.$ct = $ct				

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>无线轮播</title>
+		<meta name="description" content="">
+		<meta name="keywords" content="">
+		<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.min.js"></script>
+	
+		<style type="text/css">
+      .carousel {
+        position: relative;/*自身作为 子元素相对定位的 参考点*/
+        width: 640px;
+        height: 180px;
+        margin: 30px auto;
+        overflow: hidden;/*内容溢出则隐藏,触发BFC*/
+      }
+
+      .carousel ul,
+      .carousel li{
+        margin: 0;
+        padding: 0;
+        list-style: none;/*去掉 自带的点*/
+      }
+
+      .carousel .img-ct {
+        position: absolute;
+      }
+      .carousel .img-ct:after{/*撑开容器*/
+        content: '';
+        display: block;
+        clear: both;
+      }
+      .carousel .img-ct>li {
+        float: left;
+      }
+      .carousel .img-ct img {
+        width: 320px;
+        height: 180px;
+      }
+
+      .carousel .arrow {/*箭头*/
+        position: absolute;/*位置参考 相对定位的父容器*/
+        top: 50%;/*top 属性规定元素的顶部边缘。该属性定义了一个定位元素的上外边距边界与其包含块上边界之间的偏移。*/
+        margin-top: -15px;/*自身高度是30px，所以*/
+        display: inline-block;/*要处理缝隙*/
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        border: 1px solid #fff;
+        line-height: 30px;
+        color: #fff;
+        text-align: center;
+        text-decoration: none;
+      }
+      .carousel .arrow:hover {
+        opacity: 0.8;
+      }
+      .carousel .pre {
+        left: 10px;
+      }
+
+      .carousel .next {
+        right: 10px;
+      }
+
+      .carousel .bullet {
+        position: absolute; /*覆盖在图片之上，所以 绝对定位*/
+        bottom: 10px;
+        width: 100%;
+        font-size: 0;
+        z-index: 1;
+        text-align: center;
+      }
+      .carousel .bullet >li{
+        display: inline-block;/*居中：容器的text-align: center，其内行内元素受影响*/
+        width: 30px;
+        height: 5px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        margin: 0 3px;
+        cursor: pointer;/*鼠标移上去 变小手*/
+      }
+      .carousel .bullet >li.active{
+        background-color: #ccc;
+      }
+		</style>
+	</head>
+	<body>
+    <!--第1个轮播-->
+		<div class="carousel"><!--图片播放的窗口-->
+			<ul class="img-ct"><!--窗口-->
+				<li ><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg"></a></li>
+				<li ><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg"></a></li>
+				<li ><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg"></a></li>
+				<li ><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg"></a></li>
+			</ul>
+			<a class="pre arrow" href="#"><</a>
+			<a class="next arrow" href="#">></a>
+			<ul class="bullet"><!--图片下方的小点点-->
+				<li class="active"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+
+    <!--第2个轮播-->
+		<div class="carousel">
+			<ul class="img-ct">
+				<li ><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg"></a></li>
+				<li ><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg"></a></li>
+				<li ><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg"></a></li>
+				<li ><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg"></a></li>
+			</ul>
+			<a class="pre arrow" href="#"><</a>
+			<a class="next arrow" href="#">></a>
+			<ul class="bullet">
+				<li class="active"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+    </div>
+    
+    <!--第3个轮播-->
+		<div class="carousel">
+			<ul class="img-ct">
+				<li ><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/1.jpg"></a></li>
+				<li ><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/2.jpg"></a></li>
+				<li ><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/3.jpg"></a></li>
+				<li ><a href="#"><img src="http://cdn.jirengu.com/book.jirengu.com/img/4.jpg"></a></li>
+			</ul>
+			<a class="pre arrow" href="#"><</a>
+			<a class="next arrow" href="#">></a>
+			<ul class="bullet">
+				<li class="active"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+
+    <script>
+
+
+      function Carousel($ct){
+        this.init($ct)
+        this.bind()
+        this.autoPlay() //下面写的自动播放函数
+      }
+
+      Carousel.prototype = { //放在原型上方便调用
+        constructor: Carousel, //因为重新赋值，覆盖先前的默认数据，所以要重新赋值
+        init: function($ct){
+          console.log(this)
+          this.$ct = $ct				
+          this.$imgCt   = this.$ct.find('.img-ct')
+          this.$imgs    = this.$ct.find('.img-ct >li')
+          this.$preBtn  = this.$ct.find('.pre')
+          this.$nextBtn = this.$ct.find('.next')
+          this.$bullets = this.$ct.find('.bullet li') //小点点
+
+          this.imgWidth = this.$imgs.width()
+          this.imgCount = this.$imgs.length //图片格子的总数
+          this.index = 0 //目前展示的图片的下标
+          this.isAnimate = false //防止连续点击，动画故障
+
+          this.$imgCt.append(this.$imgs.first().clone())
+          this.$imgCt.prepend(this.$imgs.last().clone())/*给头部和尾部复制，即4 1 2 3 4 1*/
+          this.$imgCt.width((this.imgCount + 2)*this.imgWidth)/*计算容器ul宽度：ul为绝对定位会脱离文档流。则需要被撑开，因为其内li都是浮动的*/
+          this.$imgCt.css('left', -this.imgWidth)	/*朝左偏移*/		
+
+        },
+        bind: function(){ //写代码时，可以先假想功能已经实现，就直接调用，写出调用的逻辑。之后，再看如何实现被调用的功能函数。这样代码可以被拆解开，方便思考、协作和复用。
+          var _this = this
+          this.$preBtn.on('click', function(){
+            console.log('pre...')
+            _this.playPre(1)
+          })
+          this.$nextBtn.on('click', function(){
+            console.log('next...')
+            _this.playNext(1)
+          })
+          this.$bullets.on('click', function(){
+            var index = $(this).index()//点击小点点而选定的图片
+            if(_this.index > index){//计算要移动的图片格子数
+              _this.playPre(_this.index - index)
+            }else {
+              _this.playNext(index - _this.index)
+            }
+
+          })
+        },
+
+        playNext: function(len){//len：要移动的图片格子数
+          console.log('playNext...')
+          if(this.isAnimate) return //防止连续点击，动画故障
+          this.isAnimate = true//防止连续点击，动画故障
+          var _this = this
+          this.$imgCt.animate({
+            left: '-='+this.imgWidth*len /*自减，ul容器 朝左偏移*/
+          }, function(){
+            _this.index += len /*朝左移，加格子数*/
+            if(_this.index === _this.imgCount){//“当前图片坐标+移动格子数” 已经是最大格子数，则跳回开头图片 图片序列 4 1 2 3 4 1
+              _this.$imgCt.css('left', -_this.imgWidth)
+              _this.index = 0
+            }
+            _this.setBullet()//设置 小点点
+            _this.isAnimate = false 
+          })
+        },
+
+        playPre: function(len){ //len：要移动的图片格子数
+          if(this.isAnimate) return
+          this.isAnimate = true
+
+          var _this = this
+          this.$imgCt.animate({
+            left: '+='+this.imgWidth*len
+          },function(){
+            _this.index -=len
+            if(_this.index < 0){
+              _this.$imgCt.css('left', -_this.imgWidth * _this.imgCount)
+              _this.index = _this.imgCount - 1 ///“当前图片坐标+移动格子数” 已经是最大坐标的图片，则跳到尾部图片 图片序列 4 1 2 3 4 1
+            }
+            _this.setBullet() //设置 小点点
+            _this.isAnimate = false
+          })
+        },
+
+        setBullet: function(){ //设置 小点点
+          this.$bullets.eq(this.index).addClass('active')
+              .siblings().removeClass('active')
+        },
+
+        autoPlay: function(){
+          var _this = this
+          this.autoClock = setInterval(function(){ //返回计数器的index，在下面调用清除
+            _this.playNext(1)
+          }, 1000)
+        },
+
+        stopAuto: function(){
+          clearInterval(this.autoClock)
+        }
+
+
+      }
+
+      //调用
+      /*
+      var a = new Carousel($('.carousel').eq(0)) //先获取dom。 eq() 选择器选取带有指定 index 值的元素。
+      var b = new Carousel($('.carousel').eq(1))
+      var c = new Carousel($('.carousel').eq(2))
+      */
+
+
+      /*封装在jQuery并调用*/
+      $.fn.carousel = function(){
+        console.log(this)
+        $.each(this, function(index, node){
+          new Carousel($(node)) //注意括号
+        })
+      }
+
+      $('.carousel').carousel()
+		
+		</script>
+	</body>
+</html>
