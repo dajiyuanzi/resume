@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+//把如下 ajax 改造成一个返回 Promise对象的方法
+
+//改造前：
+/*
+function ajax(opts){
+    var url = opts.url
+    var type = opts.type || 'GET'
+    var dataType = opts.dataType || 'json'
+    var onsuccess = opts.onsuccess || function(){}
+    var onerror = opts.onerror || function(){}
+    var data = opts.data || {}
+
+    var dataStr = []
+    for(var key in data){
+        dataStr.push(key + '=' + data[key])
+    }
+    dataStr = dataStr.join('&')
+
+    if(type === 'GET'){
+        url += '?' + dataStr
+    }
+
+    var xhr = new XMLHttpRequest()
+    xhr.open(type, url, true)
+    xhr.onload = function(){
+        if((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304){
+            //成功了
+            if(dataType === 'json'){
+                onsuccess( JSON.parse(xhr.responseText))
+            }else{
+                onsuccess( xhr.responseText)
+            }
+        } else {
+            onerror()
+        }
+    }
+    xhr.onerror = onerror
+    if(type === 'POST'){
+        xhr.send(dataStr)
+    }else{
+        xhr.send()
+    }
+}
+*/
+//改造前的调用方法
+/*
+ajax({
+    url: 'http://api.jirengu.com/getWeather.php',
+    data: {
+        city: '北京'
+    },
+    onsuccess: function(ret){
+        console.log(ret)
+    },
+    onerror: function(){
+        console.log('服务器异常')
+    }
+})
+*/
+
+//改造后
+function ajax(opts){
+    var url = opts.url
+    var type = opts.type || 'GET'
+    var dataType = opts.dataType || 'json'
+    var onsuccess = opts.onsuccess || function(){}
+    var onerror = opts.onerror || function(){}
+    var data = opts.data || {}
+
+    var dataStr = []
+    for(var key in data){
+        dataStr.push(key + '=' + data[key])
+    }
+    dataStr = dataStr.join('&')
+
+    if(type === 'GET'){
+        url += '?' + dataStr
+    }
+
+    var promise = new Promise(function(resolve, reject){
+        var xhr = new XMLHttpRequest()
+        xhr.open(type, url, true)
+        xhr.onload = function(){//打开监听
+            if((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304){
+                //成功了
+                if(dataType === 'json'){
+                    //onsuccess(JSON.parse(xhr.responseText))
+                    resolve(JSON.parse( xhr.responseText))
+                }else{
+                    //onsuccess( xhr.responseText)
+                    resolve(xhr.responseText)
+                }
+            } else {
+                //onerror()
+                reject()
+            }
+        }
+        xhr.onerror = onerror
+        if(type === 'POST'){
+            xhr.send(dataStr)
+        }else{
+            xhr.send()
+        }
+    })
+
+    return promise    
+}
+
+//改造后：
+ajax({
+    url: 'http://api.jirengu.com/getWeather.php',
+    data: {
+        city: '北京'
+    }
+}).then(function(ret){
+    console.log(ret)
+}).catch(function(){
+    console.log('服务器异常')
+})
+
+
+
+
+</script>
+</html>
