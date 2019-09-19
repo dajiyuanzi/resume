@@ -1,6 +1,6 @@
 //一个最简单的express范例
 var express = require('express'); //模块系统，导入
-var app = express(); //调用模块内的函数，生成express的应用实例
+var app = express(); //调用模块内的函数，生成express的应用实例（启动express，也启动服务器）
 
 app.get('/', function(req, res){ //路由，默认localhost:3000
   res.send('Hello World');
