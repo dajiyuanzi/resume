@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- 要求：
+  1渲染文本到页面
+  2渲染HTML到页面
+  3动态绑定属性（任意属性均可）
+  4绑定一个事件
+  5必须使用到过滤器
+  上述要求必须使用到，v-text,v-html,v-bind,v-on,过滤器 -->
+
+  <style>
+    .c1{
+      background-color: bisque;
+      height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div id="test1">
+    {{ txt1 | filter1(108) }}<br>
+    <span v-text="txt1"></span><br>
+    <span v-html="ht1"></span><br>
+    <span v-bind:class="className">v-bind</span><br>
+    <button v-on:click="al">Alert</button>
+
+  </div>
+</body>
+
+<!--环境搭建-->
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+  var app = new Vue({
+    el: '#test1',
+    data: {
+      txt1: 'Hello World',
+      ht1: '<span class="c1">v-html</span>',
+      className: 'c1'
+    },
+    methods:{
+      al:function(){
+        alert("haha")
+      }
+    },
+    filters:{
+      filter1:function(value, a){
+        return value+" with filter's prameter "+a
+      }
+    }
+  })
+</script>
+</html>
