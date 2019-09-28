@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Filter, Command&Event, Syntactic Sugar 过滤器，指令和事件，语法糖</title>
+  <style>
+    .transRed{
+      background-color: red;
+      height: 30px;
+    }
+    #transRed{
+      background-color: green;
+      height: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div id="dateApp">
+    {{date}}<br>
+
+    <!--过滤器, | 后面接的是过滤器的名字-->
+    {{ date | formatDate }} <!--formatDate是下面定义的方法，不要写成带括号的 formatDate()-->
+    <!--date显示前，要先经过过滤器fiter中的formateDate函数处理-->
+
+    <!--过滤器的串联 {{ data | filter1 | filter2 }} -->
+      
+    <!--过滤器的参数，，分别对应 过滤器formatDate的 第二个 和 第三个参数 （因为date已经是第一个参数，所以66&99是第二个）-->
+    {{ date | formatDate(66, 99) }}
+
+    <hr>
+    指令和事件<br>
+    v-text指令: {{apple}}<br>
+    <span v-text='apple'></span>
+
+    <hr>
+    brackets指令: {{ banana }} <br>
+    v-text指令: <span v-text="banana"></span> <br>
+    v-html指令: <span v-html="banana"></span> <!--只有v-html将html代码parse-->
+
+    <hr>
+    v-bind指令: 绑定 活的属性<br>
+    <!-- <div class="{{className}}"></div> 括号拿不到数据-->
+    <div v-bind:class="className">v-bind: class</div>
+    <div v-bind:id="idname">v-bind: id</div>
+    <!-- v-bind的语法糖Syntactic sugar -->
+    <div :class="className">v-bind语法糖: class</div>
+
+    <hr>
+    v-on指令: 绑定事件监听器<br>
+    <!--为按钮添加监听事件-->
+    <button v-on:click="count">{{ countnum }}</button>
+    <!-- v-on的语法糖Syntactic sugar -->
+    <button @click="count">{{ countnum }}</button>
+
+  </div>
+
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    //需求：在页面中实时显示当前时间
+    //在月份、日期、小时 小于10的时候，在十位上补0
+    var plusDate = function(value){
+      return value<10? '0'+value : value
+    }
+    
+    var app = new Vue({
+      el: "#dateApp",
+      data: {
+        date: new Date(),
+        apple: 'apple',
+        banana: '<span style="color: yellow">Banana</span>',
+        className: 'transRed',
+        idname: 'transRed',
+        countnum: 0
+      },
+
+      //定义过滤器，因为过滤器可能不止一个，就将其声明为对象
+      filters:{
+        formatDate:function(value, a, b){//value就是需要过滤的数据
+          //将字符串转化为date类型
+          var date = new Date(value)
+          var year = date.getFullYear() //年
+          var month = plusDate(date.getMonth()+1) //月，getmonth()的结果是0-11
+          var day = plusDate(date.getDate()) //日
+          var hours = plusDate(date.getHours()) //时
+          var min = plusDate(date.getMinutes()) //分
+          var sec = plusDate(date.getSeconds()) //秒
+          //将整理好的数据返回
+          return year + '--' + month + '--' + day + '    ' 
+          + hours + '--' + min + '--' + sec + '--参数a&b: ' + a + ' ' + b
+        }
+      },
+
+      methods:{
+        count:function(){
+          this.countnum = this.countnum + 1
+        }
+      },
+
+      //Life Hooks
+      mounted:function(){
+        var _this = this; //this代表的就是该vue实例 (为了避免js函数嵌套内的this辨识不清，用之前就先赋值)
+        //每1000毫秒执行一次date更新，用settimeout定时器
+        this.timer = setInterval(function(){
+          _this.date = new Date()
+        }, 1000)
+      },
+      beforeDestroy:function(){
+        //如果定时器存在，就清除定时器
+        if(this.timer){
+          clearInterval(this.timer)
+        }
+      }
+
+    })
+
+  </script>
+</body>
+</html>

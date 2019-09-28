@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Data-Binding</title>
+</head>
+<body>
+  <div id="app"><!--绑定的数据 通过双括号 展示-->
+    {{msg}} <br>
+    
+  </div>
+
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script> 
+  <script>
+    var app = new Vue({
+      //挂载element：el 用于指定一个页面中己存在的 DOM 元素来挂载 Vue实例,可以是标签。也可以是css语法
+      el:"#app",
+      //data 选选项项，可以声明应用内需要双向绑定的数据。建议所有会用到的数据都预先在 data 内 声明，这样不至于将数据散落在业务逻辑中，难以维护。也可以指向一个已经有的变量。
+      data:{
+        msg:"vue学习开始了",
+        a: 2
+      },
+      created:function(){
+        alert('我是Vue实例，创建完成。还未挂载到DOM')
+      },
+      mounted:function(){
+        alert('我是Vue实例，已经挂载到DOM')
+      }
+    });
+
+    //访问vue实例的属性
+    console.log(app.$el)//访问挂载的元素
+    console.log(app.$data)//访问挂载的元素的数据
+
+    //访问data中的属性
+    console.log(app.msg)
+    console.log(app.a)
+
+  </script>
+</body>
+</html>
