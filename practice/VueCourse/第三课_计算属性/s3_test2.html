@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!--
+    代码题---
+    实例化一个vue实例，在data中定义一个firstName和lastName，还有一个全称叫fullName。
+    提示：fullName = firstName + lastName。
+    需求：分别使用watch监听器和计算属性来实现以下功能实现，只要firstName和lastName中的任意一个改变，全称fullname就会改变
+  -->
+</head>
+<body>
+  <div id="app">
+    Watch Output: {{fullName}}<br>
+    Computed Output: {{fullNameCom}}<br>
+  </div>
+
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el:'#app',
+      data:{
+        firstName:'fa',
+        lastName:'la',
+        fullName:'fa la'
+      },
+      watch:{
+        firstName:function(val){
+          this.fullName = val + ' ' + this.lastName
+        },
+        lastName:function(val){
+          this.fullName = this.firstName + ' ' + val
+        }
+      },
+      computed:{
+        fullNameCom:function(){
+          return this.firstName + ' ' + this.lastName
+        }
+      }
+    })
+  </script>
+</body>
+</html>
