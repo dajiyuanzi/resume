@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>计算属性</title>
+</head>
+<body>
+    <div id="demo">
+      {{ text }} <br>
+      
+      <!-- 逗号分隔字符串为多个数组，并反转顺序，再以逗号为分隔符 变回字符串。这些合起来还是 单行表达式 -->
+      {{ text.split(',').reverse().join(',') }} <br>
+      <!--逻辑过长就会变得臃肿，难以维护，所以遇到复杂的逻辑时，应当使用计算属性-->
+      ----下边是使用计算属性得到的<br>
+      {{ reverseText }}
+      <!--计算属性的例子，见s3_calcCartPrices.html计算购物车总价-->
+      <hr>
+
+      计算属性的缓存：<br>
+      {{now}}<br>
+      通过methods拿到的时间戳(方法需要加括号)：
+      {{ thisTime() }}
+      <!--
+        在浏览器consle里执行app.text="a"后，页面会再渲染，methods的thisTime()会再执行，其数据变化；
+        而now不变，因为 其只依赖 计算属性computed中的数据，不受页面刷新渲染的影响（即 计算属性只依赖于它的缓存）。
+        即 methods只要页面重新渲染，方法就会重新执行；conputed只要计算属性依赖的数据未发生变化，就永远不变
+      -->
+
+    </div>
+
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    //需求：'123, 456, 789' 变成 789, 456, 123
+    var app = new Vue({
+      el: '#demo',
+      data: {
+        text: '123, 456, 789',
+        msg:'haha' //不把msg放到dom里，但在浏览器console中再赋值app.msg="yoyo"，则thisTime()的数据不变，因为 没把msg放到dom里，改变msg不会让页面再渲染，methods也就不执行
+      },
+
+      //定义计算属性
+      computed:{
+        //如果计算属性直接跟一个function，默认就是getter函数
+        reverseText: function(){//该计算属性依赖于text
+          return this.text.split(',').reverse().join(',')
+        },
+        now:function(){
+          return Date.now()
+        }
+      },
+      methods:{
+        thisTime:function(){
+          return Date.now()
+        }
+      }
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>显示全名（计算属性setter的用法）</title>
+</head>
+<body>
+  <div id="abc">
+    我的姓名是----{{fullName}}
+  </div>
+
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+     var app = new Vue({
+      el: '#abc',
+      data: {
+        firstName: 'Zhang',
+        lastName: 'Sanfeng'
+      },
+      computed:{
+        //计算属性的默认用法是getter函数
+        // fullName:function(){
+        //   return this.firstName+' '+this.lastName
+        // }
+
+        //设置全名，调用set方法，在浏览器的console内 写app.fullName="zhang,fei"
+        fullName:{
+          get:function(){
+            return this.firstName+' '+this.lastName
+          },
+          set:function(newValue){
+            //用逗号分隔 Liu,Bei
+            var names = newValue.split(',') //分割为数组
+            this.firstName = names[0]
+            this.lastName = names[1]
+            console.log("我是set方法，我被调用了")
+          }
+        }
+      }
+    })
+  </script>
+</body>
+</html>

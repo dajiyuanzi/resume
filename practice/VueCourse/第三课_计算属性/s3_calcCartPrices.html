@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>计算属性：计算购物车总价</title>
+</head>
+<body>
+    <div id="demo">
+      两个购物车总计: {{prices}}
+    </div>
+
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    //需求：计算购物车中的所有物品的价格
+    var app2 = new Vue({//计算属性还可以依赖 多个 Vue实例的数据,只要其中任一数据变化，计算属性就会重新执行，，视图也会更新
+      el:'abc',
+      data:{
+        msg:'我是app2中的内容' //若在浏览器的console中修改数据，msg也会变化，页面的值也变化（双向绑定）
+      }
+    })
+
+    var app = new Vue({
+      el: '#demo',
+      data: {
+        //第1个购物车
+        package1:[
+          {
+            name:'iPhone',
+            price:6999,
+            count:2
+          },
+          {
+            name:'iPad',
+            price:3600,
+            count:1
+          }  
+        ],
+        //第2个购物车
+        package2:[
+          {
+            name: 'iPhone',
+            price: 6999,
+            count:3
+          },
+          {
+            name: 'iPad',
+            price: 3600,
+            count:6
+          }  
+        ]
+      },
+
+      //定义计算属性
+      computed:{
+        prices:function(){
+          var prices = 0
+          for(var i=0;i<this.package1.length;i++){
+            prices+=this.package1[i].price * this.package1[i].count
+          }
+          for(var j=0;j<this.package2.length;j++){
+            prices+=this.package2[j].price * this.package2[j].count
+          }
+          return prices+'----------'+app2.msg //计算属性还可以依赖 多个 Vue实例的数据
+        }
+      }
+
+    })
+  </script>
+</body>
+
+</html>

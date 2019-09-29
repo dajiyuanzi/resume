@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- 创建以一个vue实例，并使用 计算属性和方法 实现一个 字符串翻转 的操作，写出核心代码 -->
+</head>
+<body>
+  <div id="app">
+    {{text}}<br>
+    methods attributes for reverse: {{revreseStr()}}<br>
+    Computed attributes for reverse: {{revreseStrC}}<br>
+  </div>
+
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        text: 'abcdef'
+      },
+      methods:{
+        revreseStr:function(){
+          return this.text.split('').reverse().join('')
+        }
+      },
+      computed:{
+        revreseStrC:function(){//不能和methods的方法重名
+          return this.text.split('').reverse().join('')
+        }
+      }
+    })
+  </script>
+</body>
+</html>
