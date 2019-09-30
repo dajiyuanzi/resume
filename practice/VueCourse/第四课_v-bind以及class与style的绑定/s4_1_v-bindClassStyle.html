@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>v-bind以及class与style的绑定</title>
+  <style>
+    .divStyle{
+      background-color: darkred;
+      width: 100px;
+      height: 100px;
+    }
+    .borderStyle{
+      border: 10px solid blue;
+    }
+    .btnBackground{
+      background-color: red;
+    }
+
+    .active{
+      background-color: black;
+      width: 100px;
+      height: 100px;
+    }
+    .error{
+      border: 10px solid red;
+    }
+  </style>
+</head>
+<body>
+  v-bind作用是：绑定活的属性！！！<br>
+  <div id="app">
+    <a v-bind:href="url">我是百度</a>
+    <!-- Syntactic sugar -->
+    <img :src="imgUrl" alt="">
+    
+    <hr>
+    绑定class对象语法: 对象的键是类名，值是布尔值<br>
+    <div v-bind:class="{divStyle:isActive, borderStyle:isBorder}"></div>
+    
+    <hr>
+    <input type="button" value="Click&SwapColor" :class={btnBackground:isBack} v-on:click="changeColor">
+    
+    <hr>
+    <div :class="classNames">计算属性</div>
+
+    <hr>
+    绑定class数组语法: 数组中的成员 直接 对应类名<br>
+    <div :class="[activeClass, errorClass]" style="color: white">我是数组绑定class</div>
+  </div>
+  
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el:"#app",
+      data:{
+        url:'http://baidu.com',
+        imgUrl:'https://www.baidu.com/img/baidu_jgylogo3.gif',
+
+        isActive:true,
+        isBorder:true,
+        
+        isBack:true,
+
+        activeClass:'active',
+        errorClass:'error'
+      },
+      methods:{
+        changeColor:function(){//需求：点击一个按钮，来回切换背景颜色为红、蓝
+          this.isBack = !this.isBack //点击 就取反
+        }
+      },
+      computed:{
+        classNames:function(){//下面的属性逻辑 很臃肿，所以用 计算属性
+          return {
+            active:this.isActive && !this.isBorder
+          }
+        }
+      }
+    })
+
+  </script>
+</body>
+</html>

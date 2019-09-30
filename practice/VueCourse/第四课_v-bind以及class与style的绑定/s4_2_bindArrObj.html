@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>数组语法和对象语法 混用</title>
+</head>
+<body>
+  绑定class: <br>
+  <div id="app">
+    数组和对象混用，第一个成员是对象，第二个成员是数组成员
+    <div :class="[ {'active':isActive}, errorClass]"></div><!--注：因为在数组内，对象的键名要加引号'active'-->
+  </div>
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    //需求：点击一个按钮，来回切换背景颜色为红、蓝
+    var app = new Vue({
+      el:"#app",
+      data:{
+        isActive:true,//看isActive情况存在
+        errorClass:'error'//永远存在
+      }
+    })
+  </script>
+</body>
+</html>
