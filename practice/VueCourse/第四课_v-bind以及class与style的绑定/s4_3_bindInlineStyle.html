@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>绑定内联样式</title>
+  <style></style>
+</head>
+<body>
+  绑定内联样式: 键 代表 style的属性值，值 就代表 属性对应的值了 <br>
+  切记：Vue中 只要是 大写字母，都给你 转换成“-加小写”，如 fontSize被转换成font-size，dsfASDghG为dsf-a-s-dgh-g
+  <div id="app">
+    <div v-bind:style="{'color':color, 'fontSize':fontSize+'px'}">对象语法绑内联样式</div>
+  
+    <hr>
+    style数组语法(项目开发中基本不用)<br>
+    <div v-bind:style="[styleA, styleB]">数组语法绑内联样式</div>
+
+  </div>
+  
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el:'#app',
+      data:{
+        color:'red',
+        fontSize:90, //或者写成 '90px'，删掉上面的'px'
+
+        styleA:{
+          color:'red'
+        },
+        styleB:{
+          fontSize:'20px'
+        }
+      }
+    })
+  </script>
+</body>
+</html>
