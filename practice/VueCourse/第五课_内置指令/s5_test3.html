@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>test3</title>
+  <!-- 使用v-bind，v-on写出一个demo -->
+
+  <style>
+    .color{
+      color: brown;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <p v-bind:class="{color:isC}">{{num}}</p>
+    <button v-on:click="hello">Hello</button>
+  </div>
+  
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el:"#app",
+      data:{
+        num:11111,
+        isC:true
+      },
+      methods:{
+        hello:function(){
+          alert('hello')
+        }
+      }
+    })
+  </script>
+</body>
+</html>

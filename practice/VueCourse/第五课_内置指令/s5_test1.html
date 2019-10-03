@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>test1</title>
+
+  <!-- v-model的作用是？请使用v-model写出一个demo,简写即可-->
+</head>
+<body>
+  <div id="app">
+    可以用 v-model 指令在表单 input、textarea 及 select 元素上创建双向数据绑定。它
+    会根据控件类型自动选取正确的方法来更新元素。尽管有些神奇，但 v-model 本质上不过是语法糖。
+    它负责监听用户的输入事件以更新数据，并对一些极端场景进行一些特殊处理。<br>
+    <hr>
+    <input v-model="message" placeholder="edit me">
+    <p>Message is: {{ message }}</p>
+  </div>
+  
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el:"#app",
+      data:{
+        message:''
+      }
+    })
+  </script>
+</body>
+</html>
