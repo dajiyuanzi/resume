@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>test1&2&3</title>
+</head>
+<body>
+  <div id="app">
+    <!-- HTML中的输入框--v-model,请写出demo -->
+    <input type="text" v-model="inp"><br>
+    {{inp}} <br><hr>
+
+    <!--HTML中的复选框框--v-model,请写出demo-->
+    cat: <input type="checkbox" value="cat" v-model="check">
+    dog: <input type="checkbox" value="dog" v-model="check">
+    fish: <input type="checkbox" value="fish" v-model="check"><br>
+    {{check}} <br><hr>
+
+    <!--HTML中的单选框--v-model,请写出demo-->
+    cat: <input type="radio" name="ha" value="cat" v-model="radio">
+    dog: <input type="radio" name="ha" value="dog" v-model="radio">
+    fish: <input type="radio" name="ha" value="fish" v-model="radio"><br>
+    {{radio}} <br>
+
+  </div>
+  
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el:"#app",
+      data:{
+        inp:"",
+        check:[],
+        radio:""
+      }
+    })
+  </script>
+</body>
+</html>
