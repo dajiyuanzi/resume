@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>作用域插槽</title>
+</head>
+<body>
+  <div id="app" style="border: 2px solid chartreuse">
+    <my-component>
+      <!--作用域插槽的本质：从子组件获取数据，通过slot实现-->
+      <!--对应子组件中name=abc的slot，拿出它的数据(只能拿出 name之外的属性)，放到dom中slot-scope的变量里。这必须在 template标签 中使用，但 template标签 本身不会被渲染，渲染的是子组件的标签和指定的slot数据-->
+      <template slot="abc" slot-scope="prop"> 
+        {{prop.text}}
+        {{prop.ss}}
+        <!-- {{prop.name}} 这个数据拿不到 -->
+      </template>
+
+      <!--vue2.5之后的标签写法，更爽-->
+      <p slot="abc" slot-scope="prop">
+        {{prop.text}}
+        {{prop.ss}}
+      </p>
+    </my-component>
+  </div>
+  
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    Vue.component('my-component', {
+      template:'<div>\
+                  <slot text="我是来自子组件的数据" name="abc" ss="fdjkfjlsd"></slot>\
+                </div>'
+    })
+
+    var app = new Vue({
+      el:"#app"
+    })
+
+  </script>
+</body>
+</html>

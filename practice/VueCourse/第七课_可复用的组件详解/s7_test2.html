@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>test2</title>
+  <!-- 请写出一个子组件给父组件传递信息的demo -->
+</head>
+<body>
+  <div id="app" style="border: 2px solid chartreuse">
+    <sub-com @defevent="deffunc" v-model="val2"></sub-com>
+    <p>btn1: {{val}}  btn2: {{val2}}</p>
+  </div>
+  
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el:"#app",
+      data:{
+        val:"",
+        val2:""
+      },
+      components:{
+        'sub-com':{
+          template:'<div>\
+                      <button @click="trigger">Defined Event</button><br>\
+                      <button @click="motrig">V-Model Trigger</button><br>\
+                    </div>',
+          data:function(){
+            return {
+              btn1:"Defined Event",
+              btn2:"V-Model Event"
+            }
+          },
+          methods:{
+            trigger:function(){
+              this.$emit('defevent', this.btn1)
+            },
+            motrig:function(){
+              this.$emit('input', this.btn2)
+            }
+          }
+        }
+      },
+      methods:{
+        deffunc:function(val){
+          this.val=val
+        }
+      }
+    })
+
+  </script>
+</body>
+</html>

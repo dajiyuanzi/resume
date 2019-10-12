@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>单项数据流--props的两种应用场景</title>
+</head>
+<body>
+  <div id="app" style="border: 2px solid chartreuse">
+    <my-component msg="I am the data transfered by sub-component"></my-component>
+  
+    <!--需求：通过input中输入的数据直接改变div的宽度-->
+    <!-- 但width仅仅传递一个数据，下面还要拼接计算 -->
+    <input type="text" v-model="width">
+    <width-component :width="width"></width-component><!--引号的width对应 input内的width-->
+  </div>
+
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    //将传递进来的数据通过初始值保存起来
+    Vue.component('my-component', {
+      props:['msg'],
+      template:'<div>I am a component</div>',
+      data:function(){
+        return{
+          //props中的值可以通过this.XXX直接或缺
+          count:this.msg
+        }
+      }
+    })
+
+    //width
+    Vue.component('width-component', {
+      props:['width'],//数组
+      template:'<div :style="style"></div>',//引号内的style就是computed中的
+      data:function(){
+        return{}},
+      computed:{
+        style:function(){
+          //返回的是style
+          return{
+            width:this.width+'px',//将传递进来的数据 通过计算属性进行重新计算(此处为 拼接)
+            //background-color:'red',//命名形式会报错
+            background:'red',
+            height:'30px'
+          }
+        }
+      }
+    })
+
+    var app = new Vue({
+      el:"#app",
+      data:{
+          width:'' //input中v-model的width
+      }
+    })
+
+  </script>
+</body>
+</html>

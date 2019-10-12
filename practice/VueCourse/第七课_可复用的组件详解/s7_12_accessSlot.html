@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>访问slot</title>
+</head>
+<body>
+  <div id="app" style="border: 2px solid chartreuse">
+    <my-component>
+      <!-- {{message}} message是处在 父组件的作用域，不能放到子组件内，这需要slot插值-->
+      
+      <!-- 单个插槽(无名) -->
+      <p>我是父组件插入的内容</p><!--被放到子组件的slot里,显示出来-->
+
+      <!-- 具名插槽 -->
+      <name-component>
+        <h3 slot="header">我是标题</h3> <!--header是这个slot的名字，会在子组件的模板中找到 同名slot的地方插入-->
+        <p>我是正文内容</p> <!--没有slot名的，就都放在子组件中 无名单个slot中-->
+        <p>正文内容有两段</p>
+        <p slot="footer">我是底部信息</p>
+      </name-component>
+    </my-component>
+  </div>
+  
+  
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    //单个插槽(无名)
+    Vue.component('my-component', {
+      template:'<div>\
+                  <slot>如果父组件没有插入内容，我就作为默认出现</slot>\
+                </div>'
+    })
+
+    Vue.component('name-component',{
+      mounted:function () {            
+        //访问插槽            
+        var header = this.$slots.header; //拿到name为header的slot虚拟节点(VNode)，从数据中的elm集合内，提取innerText等数据            
+        var text = header[0].elm.innerText;            
+        var html = header[0].elm.innerHTML;            
+        console.log(header)            
+        console.log(text)            
+        console.log(html)        
+      },
+      template:'<div>\
+                    <div class="header">\n' +
+      '    <slot name="header">\n' +
+      '        \n' +
+      '    </slot>\n' +
+      '</div>\n' +
+      '<div class="contatiner">\n' +
+      '    <slot>\n' +
+      '        \n' +
+      '    </slot>\n' +
+      '</div>\n' +
+      '<div class="footer">\n' +
+      '    <slot name="footer">\n' +
+      '\n' +
+      '    </slot>  \n' +
+      '</div>'+
+      '     </div>'
+    })
+
+    var app = new Vue({
+      el:"#app"
+    })
+
+  </script>
+</body>
+</html>

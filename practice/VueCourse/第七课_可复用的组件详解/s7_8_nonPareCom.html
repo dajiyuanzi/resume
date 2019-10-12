@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>非父组件之间的通信</title>
+</head>
+<body>
+  <div id="app" style="border: 2px solid chartreuse">
+    Hello, this is my app
+    <my-acomponent ref="a"></my-acomponent>
+    <my-bcomponent ref="b"></my-bcomponent>
+    <hr>
+    <child-component ref="c"></child-component>---{{msg}}
+    <br>
+    <button @click="getChildData">我是父组件的按钮，我要拿到子组件的内容</button>
+    ----{{fromchild}}
+  </div>
+  
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    //触发事件
+    Vue.component('my-acomponent', {
+      template:'<div><button @click="handle">点击我向B组件传递数据</button></div>',
+      data:function(){
+        return {
+          aaa:'我是来自A组件的内容',
+          msg:'我是A中的msg'
+        }
+      },
+      methods:{
+        handle:function(){
+          this.$root.bus.$emit('lala', this.aaa) //访问根组件 并发射lala事件和其参数aaa
+        }
+      }
+    })
+
+    //监听事件
+    Vue.component('my-bcomponent', {
+      template:'<div></div>',
+      created:function(){
+        //组件在 其实例创建的时候 就监听事件---lala事件
+        this.$root.bus.$on('lala', function(value){
+          alert(value)
+        })
+      },
+      data:function(){
+        return {
+          msg:'我是B中的msg'
+        }
+      }
+    })
+
+    //父链：this.$parent
+    Vue.component('child-component', {
+      template:'<button @click="setFatherData">通过点击我修改父亲的数据</button>',
+      methods:{
+        setFatherData:function(){
+          this.$parent.msg='数据已经修改了' //从父组件获得数据并修改
+        }
+      },
+      data:function(){
+        return {
+          msg:'我是C中的msg' 
+        }
+      }
+    })
+
+    var app = new Vue({ ///父组件，根组件也只是 父组件实例的数据；放在template的里的dom标签是 子组件，放在父组件的dom布局内
+      el:"#app",
+      data:{
+        //bus中介，处在根组件
+        bus:new Vue(), //根组件，上面的子组件都被创建到了实例bus上---bus是根
+        msg:'数据还未修改',
+        fromchild:'还未拿到'
+      },
+      //子链：this.$refs 
+      methods:{
+        getChildData:function(){
+          //用来拿子组件中的内容----$refs
+          this.fromchild=this.$refs.a.msg //父组件 从子组件 获得数据
+        }
+      }
+    })
+
+  </script>
+</body>
+</html>

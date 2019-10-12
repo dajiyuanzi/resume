@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>自定义事件--子组件给父组件传递数据</title>
+</head>
+<body>
+  <!--写在此div的html组件 都算是父组件-->
+  <div id="app" style="border: 2px solid chartreuse">
+    您现在的银行卡余额是{{total}}
+    <son-component @change="handleTotal"></son-component>
+    <!--change是自定义事件-->
+  </div>
+  
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    //需求:通过加号按钮和减号按钮 来给父组件传递数据
+
+    Vue.component('son-component', {
+      template:'<div>\
+                  <button @click="handleincrease">+1000</button> \
+                  <button @click="handlereduce">-1000</button>\
+                </div>',
+      data:function(){
+        return {
+          count:2000 //把它赋值给total
+        }
+      },
+      methods:{
+        handleincrease:function(){//响应上面子组件(button)
+          this.count=this.count+1000
+          this.$emit('change', this.count) //触发自定义事件change，传递数据count
+        },
+        handlereduce:function(){
+          this.count=this.count-1000
+          this.$emit('change', this.count)
+        }
+      }
+    })
+
+    var app = new Vue({
+      el:"#app",
+      data:{
+        total:2000
+      },
+      methods:{
+        handleTotal:function(value){
+          //此处的形参value就是传递过来的数据
+          this.total=value
+        }
+      }
+    })
+
+  </script>
+</body>
+</html>

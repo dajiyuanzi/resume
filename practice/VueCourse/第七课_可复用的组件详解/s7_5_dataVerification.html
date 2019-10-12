@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title></title>
+</head>
+<body>
+  <div id="app" style="border: 2px solid chartreuse">
+    <my-component my-msg="lalala"></my-component>
+    <hr>
+
+    <type-component :a="a" :b="b" :c="c" :d="d" :f="f" :g="g"></type-component><!--若 b="b"不加v-bind，会导致传入的是字符b，而非vue实例的data的b-->
+    <!--通过v-bind把vue实例的a 传递给 component的props的a-->
+  </div>
+  
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    Vue.component('my-component', {
+      props:['myMsg'],
+      template:'<div>{{abc}}</div>',
+      data:function(){
+        return{
+          abc:this.myMsg //this.my-msg报错，此处模板用this时，只能用驼峰
+        }
+      }
+    })
+
+    Vue.component('type-component', {
+      props:{//数据来自 父组件上v-bind绑定的vue实例app的a
+        a:Number, //限定数据类型必须是数字，若不符，就会报warning
+        b:[String, Number], //既可以是string也可是number
+        c:{//c必须是布尔类型，默认值是true(则用对象)，type--required--default
+          type:Boolean,
+          default:true
+        },
+        d:{
+          type:Number,
+          required:true //必传项,即不可传错种类和传空，否则报warning
+        },
+        e:{
+          type:Array,
+          default:function(){
+            return [666];//下面传值为空，所以不用默认值；若在父组件中删掉:e="e"，则会用默认值
+          }
+        },
+        f:{//自定义一个验证函数
+          validator:function(value){
+            return value>10 //不符合会报warning
+          }
+        },
+        g:Function //传入必须是FUnction
+      },
+      template:'<div>{{a}}----{{b}}----{{c}}----{{d}}----{{e[0]}}</div>',
+      data:function(){return{}}
+    })
+
+    var app = new Vue({
+      el:"#app",
+      data:{
+        a:1,
+        b:'666',
+        c:'',
+        d:123,
+        e:[],
+        f:88,
+        g:console.log()
+      }
+    })
+
+  </script>
+</body>
+</html>

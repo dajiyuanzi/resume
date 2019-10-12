@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>test3</title>
+  <!-- 请写出一个非父子组件之间传值的demo -->
+</head>
+<body>
+  <div id="app" style="border: 2px solid chartreuse">
+    <a-com></a-com>
+    <b-com></b-com>   
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el:"#app",
+      data:{
+        bus:new Vue()
+      },
+      components:{
+        'a-com':{
+          template:'<button @click="trigger">Emit Msg to bus then to B</button>',
+          data:function(){
+            return {
+              a:"msg from A"
+            }
+          },
+          methods:{
+            trigger:function(){
+              this.$root.bus.$emit('sefevent', this.a)
+            }
+          }
+        },
+        'b-com':{
+          template:'<div></div>',
+          created:function(){
+            this.$root.bus.$on('sefevent', function(val){
+              alert(val)
+            })
+          }
+        }
+      }
+    })
+
+  </script>
+</body>
+</html>

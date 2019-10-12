@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>组件的使用方法</title>
+</head>
+<body>
+  <div id="app" style="border: 2px solid chartreuse">
+    <my-component></my-component>
+    <app-component></app-component>
+    <app-component2></app-component2>
+    table中只能有tr,d,tbody这些元素
+    <table>
+      <!-- <my-component></my-component> -->
+      <tbody is="my-component"></tbody>
+    </table>
+    
+    <hr><br>
+  </div>
+  <hr>
+
+  <div id="bpp" style="border: 2px solid indianred; margin-top: 6px">
+    <my-component></my-component>
+    <app-component></app-component> <!--这个局部组件只在实例app上，不在bpp上-->
+  </div>
+  
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    //注册组件
+    Vue.component('my-component', {
+      template:'<div>我是一个全局组件</div>'
+    })
+
+    var app = new Vue({
+      el:"#app",
+      components:{
+        'app-component':{
+          template:'<div><span>我是app局部注册的一个组件</span></div>'
+        },
+        'app-component2':{
+          template:'<div>我是app局部注册的2个组件</div>'
+        }
+      }
+    })
+
+    var bpp = new Vue({
+      el:"#bpp"
+    })
+
+  </script>
+</body>
+</html>

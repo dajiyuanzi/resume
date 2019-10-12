@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>组件使用的奇技淫巧（组件的data必须是方法）</title>
+</head>
+<body>
+  <div id="app" style="border: 2px solid chartreuse">
+    两个按钮组件 分别自加，没有共用一个count：<br>
+    <btn-component></btn-component>
+    <btn-component></btn-component>
+  </div>
+  
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    var app = new Vue({
+      el:"#app",
+      components:{
+        'btn-component':{
+          template:'<button @click="count++">{{count}}</button>',
+          data: function(){ //组件的data必须是一个方法，此处返回一个对象
+            return {//当点击2个组件时，每个组件获得一个独立的对象count，两者并不关联
+              count:0
+            }
+          }
+        }
+      }
+    })
+
+  </script>
+</body>
+</html>
