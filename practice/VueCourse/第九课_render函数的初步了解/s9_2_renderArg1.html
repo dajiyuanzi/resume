@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>render函数的第一个参数</title>
+</head>
+<body>
+  <div id="app">
+    <child></child>
+  </div>
+  
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    Vue.component('child', {
+      render: function(createElement){
+        alert(typeof createElement)
+
+        // ----第一个参数必选
+        //String--html标签  
+        //Object---一个含有数据选项的对象  
+        //Function---方法返回含有数据选项的对象
+        
+        //return createElement('div')
+
+        /*return createElement({
+          template:'<div>锄禾日当午</div>'
+        })*/
+
+        var domFun = function () {  
+            return {  
+                    template:'<div>锄禾日当午</div>'  
+                }
+        }
+        return createElement(domFun()); //传递一个方法
+
+      }
+    })
+
+    var app = new Vue({
+      el:"#app"
+    })
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>render函数的第三个参数</title>
+</head>
+
+<body>
+  <div id="app">
+    <child></child>
+  </div>
+
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    Vue.component('child', {
+      // ----第三个参数是可选的，代表子节点，可以是 String | Array(更常用)
+      render: function (createElement) {
+        return createElement('div', [  //div是createElement第1个参数，数组整体 是第3个参数，因为createElement的第2个参数只能是对象，创建了下面2个子节点。
+          createElement('h1', '我是h1标题'), //h1是第1个参数，'我是h1标题'是第3个参数，因为createElement的第2个参数只能是对象，即 创建h1和其内的文本
+          createElement('h6', '我是h6标题')
+        ])
+      }
+    });
+
+    var app = new Vue({
+      el: "#app"
+    })
+
+  </script>
+</body>
+
+</html>

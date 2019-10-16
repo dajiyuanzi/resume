@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>render函数的初步了解</title>
+</head>
+<body>
+  <div id="app" style="border: 2px solid chartreuse">
+    <child :level="level">
+      我是蜡笔小新
+    </child>
+  </div>
+
+  <!--使用vue组件定义：这里仅level=2的slot渲染，但其他用v-if的slot 会先渲染出来再移除，还重复写了很多slot，解决这 就需要render-->
+  <!-- <template id="hdom">
+    <div>
+      <h1 v-if="level==1">
+        <slot></slot>
+      </h1>
+      <h2 v-if="level==2"> 
+        <slot></slot>
+      </h2>
+      <h3 v-if="level==3">
+        <slot></slot>
+      </h3>
+    </div>
+  </template> -->
+  
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    //使用vue组件定义
+    /*Vue.component('child', {
+      props:['level'],
+      template:'#hdom'
+    })*/
+
+    //使用render函数进行定义组件----不用上面的template
+    Vue.component('child', {
+      props:['level'],
+      render:function(createElement){ //函数参数必须是createElement
+        return createElement('h'+this.level, this.$slots.default)
+      }
+    })
+
+    var app = new Vue({
+      el:"#app",
+      data:{
+        level:2
+      }
+    })
+
+  </script>
+</body>
+</html>
