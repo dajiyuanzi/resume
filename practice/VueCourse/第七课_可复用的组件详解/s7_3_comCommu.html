@@ -14,7 +14,7 @@
     <!--把msg放在上面的div里，msg就算是div自身的属性了，只有放在这里，才算是"从父组件 传递给"子组件-->
     <hr>
 
-    使用v-bind进行数据的动态绑定---把input中的msg传递给子组件 <br>
+    使用v-bind进行数据的动态绑定---若不用vbind 则传过去的是字符串parentmsg，而非input的变量；用vbind把input中的变量parentmsg传递给 子组件props的msg <br>
     <input type="text" v-model="parentmsg">
     <bind-component v-bind:msg="parentmsg"></bind-component><br>
     <hr>

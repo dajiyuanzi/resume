@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>龙哥的正则问题</title>
+</head>
+<body>
+  <p>怎么用正则表达式找出a不连续的（比如 aa不匹配）？</p>
+</body>
+<script>
+  var str="hhaaaaaassdaaaasrrraaaarrrdsf"
+  var reg= /[^(a+)]/g
+//没有g就是匹配到第一个 就结束
+
+  console.log(str.match(reg))
+  
+</script>
+</html>

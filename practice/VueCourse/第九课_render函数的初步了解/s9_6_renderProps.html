@@ -4,24 +4,51 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>render函数的第三个参数</title>
+  <title>在render函数中使用props传递数据</title>
 </head>
 <body>
   <div id="app">
-    <child></child>
+    <button @click="switchShow">点击切换图片</button>
+    {{show}}
+    <my-component :show="show"></my-component> <!-- 引号内的show是处在父组件上的，它其实是Vue实例app的数据show；冒号v-bind的show绑定了 子组件的props数据 -->
   </div>
   
   <!--环境搭建-->
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
   <script>
-    Vue.component('child', {
-      render: function(createElement){
-        
+
+    //需求：点击按钮切换美女图片  
+    Vue.component('my-component',{  
+      props:['show'],  
+      render:function (createElement) {  
+        var imgsrc;  
+        if(this.show){  
+          imgsrc = 'img/001.jpg'  
+        }else{
+          imgsrc = 'img/002.jpg'
+        }
+        return createElement('img',{  
+          attrs:{ //该选项可设置id、src等属性 
+            src: imgsrc  
+          },
+          style:{  
+            width:'600px',  
+            height:'400px'
+          }
+        });
       }
     })
 
     var app = new Vue({
-      el:"#app"
+      el:"#app",
+      data:{
+        show:false
+      },
+      methods:{
+        switchShow:function(){
+          this.show = !this.show
+        }
+      }
     })
 
   </script>

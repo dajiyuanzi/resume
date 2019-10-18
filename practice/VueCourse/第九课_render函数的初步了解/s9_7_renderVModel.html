@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>v-­model在render函数中的使用</title>
+</head>
+<body>
+  <div id="app">
+      <!-- <my-component :name="name" @input="showName"></my-component> 
+      注：name="name" 引号内的name是vue实例app的；冒号的name是v-bind动态绑定的变量，它是子组件props中的变量，实现 父组件数据传给子组件。若不用vbind则传给子组件一个字符串name -->
+
+    <my-component :name="name" v-model="name"></my-component>  
+    <!--直接用v-model相当于 v-on监听input事件(子组件emit发出) 和 v-bind绑定app实例的name(父组件)，与上面的等价-->
+    <br>{{name}}
+    <!-- v-bind:父组件数据传给子组件。v-model:子组件数据传给父组件 -->
+  </div>
+  
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+
+    //需求：input输入，在下面显示出来
+    Vue.component('my-component',{
+      render:function (createElement) {
+        var self = this; //指的就是当前这个Vue子组件
+        return createElement('input',{  
+          domProps:{ //该属性表示"原生dom属性"
+            value: self.name //将props所接受的父组件数据 赋值此处，实现 父组件的数据传递给子组件
+          },
+          on:{ //on：监听事件
+            input:function (event) { //input事件，在input框输入时触发，执行emit，实现 子组件的数据传递给父组件。
+              debugger
+              var a = this;  
+              //此处的this指的是什么？指的就是window，不是该子组件，则this.$emit不行。因为传入的input-event是 createElement的vnode所创建的dom上的原生event事件，即当前的context不是在该子组件
+              
+              self.$emit('input',event.target.value) //发送input事件，触发父组件的@input=showName(即v-model)去接收数据
+            }
+          }
+        })
+      },
+      props:['name'] //接收 父组件上的 vue实例app的数据name
+    })
+
+    var app = new Vue({
+      el:"#app",
+      data:{
+        name:'JACK'
+      },
+      methods:{
+        showName:function(value){
+          this.name=value
+        }
+      }
+    })
+
+  </script>
+</body>
+</html>

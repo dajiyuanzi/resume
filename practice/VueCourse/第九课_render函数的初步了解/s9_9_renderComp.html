@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>函数化组件的应用</title>
+</head>
+<body>
+  <div id="app">
+    <my-component value="haha"> </my-component>
+  </div>
+  
+  <!--环境搭建-->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script>
+    //对比 不用functional函数化组件 和 用了 相同之处
+    // this.text----context.props.text  
+    //this.$slots.default-----context.children
+    Vue.component('my-component', {
+      functional:true, //表示当前的vue实例 无状态，无实例-->没有this和data。则用context(上下文对象),拿到组件的数据
+      render: function(createElement, context){
+        return createElement('button', {
+          on:{
+            click:function(){ //context代表上下文对象级，可拿到 所属vue实例中 所有内容
+              console.log(context)
+              console.log(context.parent)
+              alert(context.parent.msg)
+              console.log(context.props.value)
+              //alert(this.value) 报错，此时this代表window，不是vue实例。所以只能用context
+            }
+          }
+        }, '点击我学习context')
+      },
+      props:['value']
+    })
+
+    var app = new Vue({
+      el:"#app",
+      data:{
+        msg:'我是父组件的内容'
+      }
+    })
+
+  </script>
+</body>
+</html>

@@ -8,15 +8,28 @@
 </head>
 <body>
   <div id="app">
-    <child></child>
+    <my-component>
+      <p>锄禾日当午</p>
+      <p>汗滴禾下土</p>
+      <h3 slot="header">我是标题</h3> <!--我被render放到开头-->
+      <h5 slot="footer">我是文章的最后一段</h5>
+    </my-component>
   </div>
   
   <!--环境搭建-->
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
   <script>
-    Vue.component('child', {
-      render: function(createElement){
-        
+    Vue.component('my-component',{
+      render:function (createElement) {
+        debugger //设置断点
+        var header = this.$slots.header; //--这返回的内容就是 含有=VNODE的数组
+        var main = this.$slots.default; //没有slot名的标签
+        var footer = this.$slots.footer;
+        return createElement('div',[ //该数组是createElemment的第三个参数，存的是vnode(虚拟节点)
+          createElement('header',header), //返回的是vnode
+          createElement('main',main),  
+          createElement('footer',footer)
+        ]);
       }
     })
 
