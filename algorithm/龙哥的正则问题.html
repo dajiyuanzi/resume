@@ -7,12 +7,14 @@
   <title>龙哥的正则问题</title>
 </head>
 <body>
-  <p>怎么用正则表达式找出a不连续的（比如 aa不匹配）？</p>
+  <p>问题：怎么用正则表达式找出a不连续3次以上的（比如 aaa不匹配，a连续超过2个就不要被匹配）？</p>
 </body>
 <script>
-  var str="hhaaaaaassdaaaasrrraaaarrrdsf"
-  var reg= /[^(a+)]/g
+  var str="haahaaassadaaaasrrraaaarrrdsf"
+  var reg= /^(a\1{3,})/g
 //没有g就是匹配到第一个 就结束
+
+//解法是错的 龙哥说要用dfa。
 
   console.log(str.match(reg))
   
