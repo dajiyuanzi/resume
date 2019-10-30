@@ -6,7 +6,7 @@
 
 
 # Vue-Cli 的构建 与Github Page上部署 
-(本质:就是此命令把项目内的代码编译, 生成静态网页的文件,放到dist文件夹(distribution); 然后把这个文件夹的内容单独上传, github page 预览它的 dist/index.js 就可以了)
+(本质:就是此命令把项目内的代码编译, 生成静态网页的文件,放到dist文件夹(distribution); 然后把这个文件夹的内容单独上传, github page 预览它的 dist/index.html 就可以了)
 npm run build
 
 
