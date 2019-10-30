@@ -1,4 +1,6 @@
 
+// webpack默认直接处理文件夹下的index.js
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 
