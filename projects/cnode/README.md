@@ -18,8 +18,12 @@ npm run build
 
 # PS
 可能还需要，在config目录下，找到index.js，将其内的 build:{assetsPublicPath} 改成如下，斜杠前加个点，然后再run build.
+![path_fix](https://github.com/dajiyuanzi/resume/blob/master/projects/cnode/path_fix.png)
 
 # 项目技术栈
 Vue-CLI 3:对比Vue-CLI 2.x，3.x集成度更高，在创建项目时提供常用插件。
 Vue-router:进行路径管理。
 Axios:基于Promise，用于浏览器和Node.js的HTTP客户端，改写Vue原型链，并把Axios挂载其上。
+
+# 预览截图
+![cnode](https://github.com/dajiyuanzi/resume/blob/master/projects/cnode/cnode.PNG)
