@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Exam1</title>
+  <!-- 写一个 React 函数组件，要求：
+  接受 name 和 age 作为 props
+  在 div 里展示 name 和 age -->
+  <script src="https://cdn.bootcss.com/react/16.4.0/umd/react.production.min.js"></script>
+  <script src="https://cdn.bootcss.com/react-dom/16.4.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+</body>
+
+<script type="text/babel">
+function App() {
+  return (
+    <div>
+      <Cla1 name="name1" age="age1"/>
+      <hr/>
+      <Cla2 name="name2" age="age2"/>
+    </div>
+  )
+}
+
+function Cla1(props) {
+  return (
+    <p>Cla1: {props.name} and {props.age}</p>
+  )
+}
+
+class Cla2 extends React.Component{
+  constructor(props){
+    super(props)
+  }
+
+  render(){
+    return (
+      <div>
+        <p>Cla2:</p>
+        <p>{this.props.name}</p>
+        <p>{this.props.age}</p>
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(<App/>, document.querySelector('#root'))
+</script>
+</html>

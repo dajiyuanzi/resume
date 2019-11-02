@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>类 来打包标签代码</title>
+  <style>
+    .red{
+      border: 1px solid red;
+    }
+  </style>
+  <script src="https://cdn.bootcss.com/react/16.4.0/umd/react.production.min.js"></script>
+  <script src="https://cdn.bootcss.com/react-dom/16.4.0/umd/react-dom.production.min.js"></script>
+  <!-- CDN开发，除了引入react和reactDOm，还要引入Babel-standalone（但生产环境中不建议使用）；并且，script要写<script type="text/babel"> -->
+  <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="root">
+  </div>
+</body>
+
+
+<script type="text/babel">
+function App(props){
+  return (
+    <div>
+      <Box1 name="frank"/>
+      <Box2 name="jack"/>
+    </div>
+  )
+}
+
+class Box1 extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      number:0
+    }
+  }
+  
+  add(){
+    this.setState({
+      number: this.state.number+1
+    })
+  }
+  minus(){
+    this.setState({
+      number: this.state.number-1
+    })
+  }
+
+  render(){
+    return (
+      <div className="red">
+        <span>{this.state.number}</span>
+        <button onClick={this.add.bind(this)}>+1</button>
+        <button onClick={this.minus.bind(this)}>-1</button>
+        {this.props.name}
+      </div>
+    )
+  }
+}
+
+class Box2 extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {
+      number: 0
+    }
+  }
+
+  add(){
+    this.setState({
+      number: this.state.number+2
+    })
+  }
+  minus(){
+    this.setState({
+      number: this.state.number-2
+    })
+  }
+
+  render(){
+    return (
+      <div className="red">
+        <span>{this.state.number}</span>
+        <button onClick={this.add.bind(this)}>+2</button>
+        <button onClick={this.minus.bind(this)}>-2</button>
+        {this.props.name}
+      </div>
+    )
+  }
+}
+
+render()
+
+function render(){
+  ReactDOM.render(
+    <App />,
+    document.querySelector('#root')
+  )
+}
+
+</script>
+</html>
