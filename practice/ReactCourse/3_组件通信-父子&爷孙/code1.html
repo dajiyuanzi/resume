@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Rabbit and Turtle</title>
+  <script src="https://cdn.bootcss.com/react/16.4.0/umd/react.production.min.js"></script>
+  <script src="https://cdn.bootcss.com/react-dom/16.4.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<style>
+.header{
+  display: flex;
+  justify-content: center;
+}
+.track{
+  border-bottom: 1px solid black;
+}
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.player{/*动画更平滑，每次播放都要有1s时长 且匀速(线性)*/
+  transition: all 1s linear;
+}
+body{
+  padding: 40px;
+}
+.playground{
+  border: 1px solid black;
+  background: green;
+}
+</style>
+
+<body>
+  <div id="root"></div>
+</body>
+
+<script type="text/babel">
+// function App() {
+//   let t0 = new Date()
+//   let success1 = ()=>{
+//     console.log('兔子跑完了，用时：')
+//     console.log(new Date()-t0)
+//   }
+//   let success2 = ()=>{
+//     console.log('乌龟跑完了，用时')
+//     console.log(new Date()-t0)
+//   }
+//   return (
+//     <div>
+//       <div class="header">  
+//         <Time1/>
+//         <Judge/>
+//         <Time2/>
+//       </div>
+//       <Track1 success={success1} />
+//       <Track2 success={success2} />
+//     </div>
+//   )
+// }
+//如果在数据更新后，把数据再渲染到 已经渲染的组件Time1&Time2上，这个是 函数不能支持的，所以要用“类”来封装
+class App extends React.Component{
+  constructor(){
+    super()
+    this.state = {
+      result1: 0, //rabit time-cost
+      result2: 0  //turtle time-cost
+    }
+    this.t0 = new Date() //在此this特指 属于App类的实例 的自身环境，this.xxx特指 实例环境中的变量，而不是传参(形参)或随意的临时变量
+  }
+  success1(x){
+    console.log(x)
+    console.log('兔子跑完了，用时：')
+    let r1 = new Date() - this.t0
+    this.setState({
+      result1: r1
+    })
+  }
+  success2(x){
+    console.log(x)
+    console.log('乌龟跑完了，用时')
+    let r2 = new Date() - this.t0
+    this.setState({
+      result2: r2
+    })
+  }
+  render(){
+    return (
+      <div>
+        <div class="header">  
+          <Time1 result={this.state.result1} />
+          <Judge/>
+          <Time2 result={this.state.result2} />
+        </div>
+        <Playground 
+          success1={this.success1.bind(this)}  /*bind(this)是 函数被调用时 所处的context*/
+          success2={this.success2.bind(this)}
+        />
+      </div>
+    )
+  }
+}
+//父子组件的通信
+//(父->子)：App是父，Playground(Track1&2)是子，父组件传一个 回调函数 给子组件(这要用bind)；(即 直接放在props里)
+//(子->父)：子组件在恰当的时候 调用执行 此父组件的回调函数，把子组件的数据 作为参数 传入 此callback
+//子->父 本质上：callback是在父组件定义的，但却 用子组件的数据 调用了 （本质上，callback只是作为参数(指针)被传送，仍属于 它的声明之处）
+
+//组件App先传callback给子组件Playground，Playground再传给它的子组件Track1&2 （这就是 爷爷->爸爸，再 爸爸->孙子）
+//Track1&2是孙子，Playground是爸爸，App是爷爷。爷爷->孙子，就先 爷爷->爸爸，再 爸爸->孙子。增爷爷->增孙子，以此类推。
+
+
+function Playground(props){//跑道
+  let success1 = props.success1
+  let success2 = props.success2
+  return (
+    <div class="playground">
+      <Track1 success={success1} />
+      <Track2 success={success2} />
+    </div>
+  )
+}
+
+function Time1(props) {
+  return (
+    <div>
+      <h2>🐇Rabbit Time-Cost</h2>
+      <div>{props.result}</div>
+    </div>
+  )
+}
+
+function Time2(props) {
+  return (
+    <div>
+      <h2>🐢Turtle Time-Cost</h2>
+      <div>{props.result}</div>
+    </div>
+  )
+}
+
+function Judge() {
+  return (
+    <div>👮‍Judge</div>
+  )
+}
+
+//===========主要看Track函数============
+//函数无法有自己的状态数据，要用class封装，"类"有状态数据
+// function Track1() {
+//   return (
+//     <div>
+//       <div>🐇</div>
+//       <div class="track"></div>
+//     </div>
+//   )
+// }
+class Track1 extends React.Component{//兔子的跑动
+  constructor(){
+    super() //必写
+
+    let n = 0
+    this.state = {
+      style:{
+        transform: `translateX(${n}%)`  //``是JS字符串模板
+      }
+    }
+    let timerId = setInterval(() => {
+      n+=25
+      this.setState({
+        style:{
+          transform: `translateX(${n}%)`
+        }  
+      })
+      if(n>=100){ //如果到达(跑完100%路程)，清掉定时器 注：z这里必须写>=100，不能写>
+        window.clearInterval(timerId)
+        this.props.success('我是小兔兔') //前面的代码跑完后，执行 父组件传进来的回调函数success(x)，相当于将 子组件的数据 以函数的参数 发给 父/爷组件 [见App和Playground类]
+      }
+    }, 1000)
+  }
+
+  render(){
+    return (
+      <div>
+        <div class="player" style={this.state.style}>🐇</div>
+        <div class="track"></div>
+      </div>
+    )
+  }
+}
+
+// function Track2() {
+//   return (
+//     <div>
+//       <div>🐢</div>
+//       <div class="track"></div>
+//     </div>
+//   )
+// }
+class Track2 extends React.Component{//乌龟的跑动
+  constructor(){
+    super()
+
+    let n = 0
+    this.state = {
+      style:{
+        transform: `translateX(${n}%)`  //``是JS字符串模板
+      }
+    }
+    let timerId = setInterval(() => {
+      n+=20
+      this.setState({
+        style:{
+          transform: `translateX(${n}%)`
+        }  
+      })
+      if(n>=100){ //如果到达(跑完100%路程)，清掉定时器 注：z这里必须写>=100，不能写>
+        window.clearInterval(timerId)
+        this.props.success('我是小龟龟')
+      }
+    }, 1000)
+  }
+
+  render(){
+    return (
+      <div>
+        <div class="player" style={this.state.style}>🐢</div>
+        <div class="track"></div>
+      </div>
+    )
+  }
+}
+
+ReactDOM.render(<App/>, document.querySelector('#root'))
+</script>
+</html>

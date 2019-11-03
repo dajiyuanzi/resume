@@ -72,7 +72,7 @@
       el:"#app",
       data:{
         //bus中介，处在根组件
-        bus:new Vue(), //根组件，上面的子组件都被创建到了实例bus上---bus是根
+        bus:new Vue(), //实例bus是 根组件，上面的子组件都被创建到了Vue父类上（即 全局组件），所以bus作为实例 可以与 Vue类内的全局组件沟通
         msg:'数据还未修改',
         fromchild:'还未拿到'
       },
