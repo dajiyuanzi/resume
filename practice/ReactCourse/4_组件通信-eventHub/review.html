@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Review</title>
+  <!-- 回顾上一节 父子组件的通信 -->
+  <script src="https://cdn.bootcss.com/react/16.4.0/umd/react.production.min.js"></script>
+  <script src="https://cdn.bootcss.com/react-dom/16.4.0/umd/react-dom.production.min.js"></script>
+  <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+</body>
+
+<script type="text/babel">
+class App extends React.Component{
+  constructor(){
+    super()
+    this.state = {
+      message:'Hello'
+    }
+  }
+  changeMsg(){
+    this.setState({
+      message: 'Son Emit'
+    })
+  }
+  changeMsg2(x){
+    this.setState({
+      message: x
+    })
+  }
+  render(){
+    return (
+      <div>
+        hi
+        <Foo 
+          msg={this.state.message} 
+          fn={this.changeMsg.bind(this)}
+          fn2={this.changeMsg2.bind(this)}
+        />
+      </div>
+    )
+  }
+}
+
+function Foo(props) {
+  return (
+    <div>
+      <p>Foo get the msg: {props.msg}</p>   {/* 父->子 */}
+      <button onClick={props.fn}>click</button> {/* 子->父 */}
+      <button onClick={props.fn2('Son Msg2')}>click2</button> {/* 子->父 */}
+    </div>   
+  )
+}
+
+ReactDOM.render(<App/>, document.querySelector('#app'))
+</script>
+</html>
