@@ -51,7 +51,9 @@ function Foo(props) {
     <div>
       <p>Foo get the msg: {props.msg}</p>   {/* 父->子 */}
       <button onClick={props.fn}>click</button> {/* 子->父 */}
-      <button onClick={props.fn2('Son Msg2')}>click2</button> {/* 子->父 */}
+
+      {/* 子->父 注意：onclick(fn)的赋值必须是个 函数，而不是函数执行后的返回值，fn()有括号 就是执行函数 */}
+      <button onClick={()=>props.fn2('Son Msg2')}>click2</button>
     </div>   
   )
 }
