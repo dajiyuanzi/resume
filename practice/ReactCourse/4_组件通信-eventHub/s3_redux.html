@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Redux</title>
+  <script src="https://cdn.bootcss.com/react/16.4.0/umd/react.production.min.js"></script>
+  <script src="https://cdn.bootcss.com/react-dom/16.4.0/umd/react-dom.production.min.js"></script>
+  <!--引入redux-->
+  <script src="https://cdn.bootcss.com/redux/4.0.4/redux.min.js"></script>
+  
+  <script src="https://cdn.staticfile.org/babel-standalone/6.26.0/babel.min.js"></script>
+  <style>
+    .root{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid black;
+      padding: 10px;
+    }
+    .papa{
+      border: 1px solid grey;
+      padding: 10px;
+      margin: 10px;
+    }
+    .son{
+      border: 1px solid red;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+    <div id="app"></div>
+  </body>
+  
+<script type="text/babel">
+//Redux改造EventHub的组件通信
+
+//EventHub->不需要EventHub了，Redux里内置了它
+// var fnLists = {} //"事件名:响应函数"
+// var eventHub = { //简单说，对象 就是一种无序的数据集合，由若干个“键值对”（key-value）构成。对象的每一个“键名”又称为“属性”（property），它的“键值”可以是任何数据类型。如果一个属性的值为函数，通常把这个属性称为“方法”，它可以像函数那样调用(A:func(){})。
+//   //发布 （触发事件对应的响应函数）
+//   trigger(eventName, data){ 
+//     let fnList = fnLists[eventName]
+//     if(!fnList){return} //键名(事件)的键值(响应函数)为空，就终止
+//     for(let i =0;i<fnList.length; i++){ //键值(响应函数)有设置，则遍历键名下的键值，并传入数据调用
+//       fnList[i](data)
+//     }
+//   }, 
+//   //订阅 (设置监听事件和响应函数)
+//   on(eventName, fn){
+//     if(!fnLists[eventName]){//若全局对象fnLists内，键名对应的键值 没有定义，就创建一个空值的键值对
+//       fnLists[eventName] = []
+//     }
+//     fnLists[eventName].push(fn) //将 响应函数 作为全局对象fnLists内 键名的键值
+//   } 
+// }
+
+//数据，放在Reudx的state里
+// var money = {
+//   amount: 100000
+// }
+
+//不需要EventHub的管家了，Redux内置了
+//管家,监听子组件所发布的事件，并以此处理数据money
+// var x = {
+//   init(){
+//     eventHub.on('我花钱了', function(data){ //相当于redux的subscribe
+//       money.amount -= data  //相当于redux的reducer(数据的变动)
+//       renderPage()
+//     })
+//   }
+// }
+// x.init()
+
+
+//Redux实现
+// redux:
+// reducer(数据的变动)    subscribe订阅     action(type,种类 payload数值)--事件触发
+let createStore = Redux.createStore
+let reducers = (state, action) => {
+  state = state || {
+    money: {amount:100000}  //数据
+  }
+  switch (action.type) {
+    case '我想花钱':
+      return {
+        money:{
+          amount:state.money.amount - action.payload
+        }
+      }
+      break;
+    default:
+      return state
+  }
+}
+const store = createStore(reducers)
+
+store.subscribe(renderPage) //监听到事件触发，就重新渲染
+
+
+class App extends React.Component{
+  constructor(){
+    super()
+  }
+  render(){
+    return (
+      <div className="root">
+        <BigPapa money={this.props.store.money} />
+        <YoungPapa money={this.props.store.money} />
+      </div>
+    )
+  }
+}
+
+class Son2 extends React.Component{
+  constructor(){
+    super()
+  }
+  x(){ //花钱，不能自己花，而是由 管家监听并修改数据 ---- Redux的Action 代替了
+    //eventHub.trigger('我花钱了', 100) //发布事件,管家监听并修改数据 （相当于redux的action(type, payload)）
+    store.dispatch({type:'我想花钱', payload:100}) //发布Redux的state事件action，type是事件，payload是数据
+  }
+  render(){
+    return (
+      <div className="son">
+        儿子2 {this.props.money.amount}
+        <button onClick={()=>this.x()}>消费</button>  {/* 箭头函数 相当于 this.x.bind(this) */}
+      </div>
+    )
+  }
+}
+
+
+class BigPapa extends React.Component{
+  constructor(){
+    super()
+  }
+  render(){
+    return (
+      <div className="papa"> 
+        大爸 {this.props.money.amount}
+        <Son1 money={this.props.money} />
+        <Son2 money={this.props.money} />
+      </div>
+    )
+  }
+}
+class YoungPapa extends React.Component{
+  constructor(){
+    super()
+  }
+  render(){
+    return (
+      <div class="papa"> 
+        二爸 {this.props.money.amount}
+        <Son3 money={this.props.money} />
+        <Son4 money={this.props.money} />
+      </div>
+    )
+  }
+  
+}
+class Son1 extends React.Component{
+  constructor(){
+    super()
+  }
+  render(){
+    return (
+      <div className="son">儿子1 {this.props.money.amount}</div>
+    )
+  }
+  
+}
+class Son3 extends React.Component{
+  constructor(){
+    super()
+  }
+  render(){
+    return (
+      <div className="son">儿子3 {this.props.money.amount}</div>
+    )
+  }
+  
+}
+class Son4 extends React.Component{
+  constructor(){
+    super()
+  }
+  render(){
+    return (
+      <div className="son">儿子4 {this.props.money.amount}</div>
+    )
+  }
+}
+
+
+function renderPage() {
+  ReactDOM.render(<App store={store.getState()} />, document.querySelector('#app')) //react只更新 需要更新的地方，这就是dom diff
+}
+renderPage()
+
+</script>
+</html>
