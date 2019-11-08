@@ -77,7 +77,7 @@
 
 //Redux实现
 // redux:
-// reducer(数据的变动)    subscribe订阅     action(type,种类 payload数值)--事件触发
+// reducer(数据的变动，相当于管家)    subscribe订阅     action(type,种类 payload数值)--事件触发
 let createStore = Redux.createStore
 let reducers = (state, action) => {
   state = state || {
