@@ -62,7 +62,7 @@
         return 0
       }else{
         if(action.type === 'add'){
-          var newState = state + action.payload
+          var newState = state + action.payload   //redux不需要手动写setState
           return newState // 2 根据操作生成新的 state, 触发一个针对store的事件
         }else{
           return state

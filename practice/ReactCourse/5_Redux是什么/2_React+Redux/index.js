@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+//引入redux
 import {createStore} from 'redux'
 
 const stateChanger = (state, action)=>{ //相当于reducer，设定对 state和action(对state的操作) 的处理，即 管家
@@ -10,7 +12,7 @@ const stateChanger = (state, action)=>{ //相当于reducer，设定对 state和a
     return 0
   }else{
     if(action.type === 'add'){
-      var newState = state + action.payload
+      var newState = state + action.payload   //redux不需要手动写setState
       return newState
     }else{
       return state

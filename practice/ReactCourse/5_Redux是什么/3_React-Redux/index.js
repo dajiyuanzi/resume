@@ -5,6 +5,8 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+//引入redux和react-redux
 import {createStore} from 'redux'
 import { Provider } from "react-redux";
 
@@ -13,7 +15,7 @@ const reducer = (state, action)=>{
     return {n: 0}  //写成哈希，方便传递后取出 (props.n)
   }else{
     if(action.type === 'add'){
-      var newState = {n: state.n + action.payload}
+      var newState = {n: state.n + action.payload}  //redux不需要手动写setState
       return newState
     }else{
       return state

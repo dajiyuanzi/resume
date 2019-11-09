@@ -1,9 +1,10 @@
+//引入react 和 它的组件类，还有redux的connect
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
 
 class App extends Component {
-  render() {
+  render() { //不需要super
     return (
       <div>
         你点击了 <span id="value">{this.props.n}</span> 次  {/* 通过provider，数据n来自下面的connect(mapStateToProps)() */}
@@ -20,30 +21,35 @@ class App extends Component {
 
 //如何获得index.js的provider传来的store数据：用conect()()获取state和发送action，如下
 
-//获取state其中的数据n 并返回，以渲染到组件的props
+//connect第1个参数
+//对象写法(推荐)：获取state其中的数据n 并返回，以渲染到组件的props
 function mapStateToProps(state){
   return { //包在对象内
     n: state.n  //n来自index.js中的reducer
   }
 }
 
+//connect第2个参数
 //对象内有 一个dispatch action的函数，箭头式让其this处于执行时的context，传递给组件的props以触发
 const mapDispatchToProps = {
   add1: ()=>{
     return {type:'add', payload: 1}
   } 
 }
-//connect的函数型写法，把dispatch映射到add1
+//函数型写法，把dispatch映射到add1
 /*function mapDispatchToProps(dispatch){
   return {
     add1: ()=> dispatch({type:'add', playload:1})
   }
-}*/
+} the function will be called with dispatch as the first argument.  */
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);
 /* connext(x, y)(App), x和y的名称 随便取，App是相关的组件class，connect把x和y合并为props传给App
 X必须是函数，该函数返回 state中需要的数据 x:state.x (获得状态); --把state映射到props.n
-y是 对象{}或函数，该对象{} 返回 要dispatch的action，以变更状态 (更新状态) --把dispatch action映射到props.add1() */
+y是 对象{}或函数，该对象{} 返回 要dispatch的action，以变更状态 (更新状态) --把dispatch action映射到props.add1() 
+
+x和y返回的都是个{}对象
+*/
 
 
 /* connect(x, y)(App)的运作流程

@@ -1,6 +1,8 @@
+
+//引入react 和 它的组件类
 import React, { Component } from 'react';
 
-class App extends Component {
+class App extends Component { //不需要super
   //承接 父组件传来的 store数据中的回调函数，但并不是 store本身传过去了
   add1(){
     this.props.onAdd1()
