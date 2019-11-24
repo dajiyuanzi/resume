@@ -1,0 +1,21 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+  /* IE盒模型：如果你将一个元素的width设为100px，那么这100px会包含它的border和padding */
+  /* box-sizing: content-box：w3c标准盒模型，只有content */
+}
+
+*::after{ /*作为已选中元素的最后一个子元素 */
+  box-sizing: border-box;
+}
+*::before{
+  box-sizing: border-box;
+}
+ul,ol,dl{
+  list-style: none;
+}
+a{
+  color: inherit; /* 关键字指定一个属性应从父元素继承它的值 */
+}
+
