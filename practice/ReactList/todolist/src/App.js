@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
+import TodoInput from './TodoInput.js'
 
 class App extends Component {
   constructor(props){
@@ -12,9 +13,8 @@ class App extends Component {
     }
   }
   render(){
-    //写render外面行不？
     //map遍历数组，回调函数返回值 组成一个新数组返回，新数组索引结构和原数组一致，原数组不变
-    let todos = todoList.map((item, index)=>{
+    let todos = this.state.todoList.map((item, index)=>{
       return <li>{item.title}</li>
     })//渲染在下面
 
@@ -24,6 +24,7 @@ class App extends Component {
         <div className="inputWrapper">
           {/*注意 value= 后面不要加引号，加了会错*/}
           <input type="text" value={this.state.newTodo}/>
+          <TodoInput content={this.state.newTodo} />
         </div>
         <ol>
           {todos}
