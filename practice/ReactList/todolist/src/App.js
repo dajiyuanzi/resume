@@ -28,7 +28,7 @@ class App extends Component {
     })//渲染在下面
 
     return (
-      <div>
+      <div className="App">
         <h1>My Todos</h1>
         <div className="inputWrapper">
           {/*注意 value= 后面不要加引号，加了会错*/}
