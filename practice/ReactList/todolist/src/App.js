@@ -33,13 +33,16 @@ class App extends Component {
         <div className="inputWrapper">
           {/*注意 value= 后面不要加引号，加了会错*/}
           {/* <input type="text" value={this.state.newTodo}/> */}
-          <TodoInput content={this.state.newTodo} />
+          <TodoInput content={this.state.newTodo} onSubmit={this.addTodo} />
         </div>
         <ol>
           {todos}
         </ol>
       </div>
     )
+  }
+  addTodo(){
+    console.log('我得添加一个todo了')
   }
 }
 
