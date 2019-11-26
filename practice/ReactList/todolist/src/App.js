@@ -9,7 +9,7 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      newTodo:'', //输入框内的默认值，传给子组件TodoInput
+      newTodo:'', //输入框内的默认值 为空，传给子组件TodoInput
       todoList: [
         // {id:1, title:'1st Todo Item'},
         // {id:1, title:'2nd Todo Item'}
@@ -26,7 +26,7 @@ class App extends Component {
         </li>
       )
     })//渲染在下面
-    console.log(todos)
+    //console.log(todos)
 
     return (
       <div className="App">
@@ -34,13 +34,23 @@ class App extends Component {
         <div className="inputWrapper">
           {/*注意 value= 后面不要加引号，加了会错*/}
           {/* <input type="text" value={this.state.newTodo}/> */}
-          <TodoInput content={this.state.newTodo} onSubmit={this.addTodo.bind(this)} />
+          <TodoInput 
+            content={this.state.newTodo}
+            onChange={this.changeTitle.bind(this)} 
+            onSubmit={this.addTodo.bind(this)} 
+          />
         </div>
         <ol>
           {todos}
         </ol>
       </div>
     )
+  }
+  changeTitle(event){
+    this.setState({
+      newTodo: event.target.value,
+      todoList: this.state.todoList
+    })
   }
   addTodo(event){
     //console.log('我得添加一个todo了')

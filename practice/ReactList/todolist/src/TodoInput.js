@@ -1,9 +1,14 @@
 import React, { Component } from 'react'
 
 export default class TodoInput extends Component {
-  render(){
+  render(){ //<input defaultValue={xx}/>中的defaultValue 只会影响input的第一次值，后面 newTodo 怎么变，都不会影响 input
     return (
-      <input type="text" defaultValue={this.props.content} onKeyPress={this.submit.bind(this)}/>
+      <input type="text" 
+        // defaultValue={this.props.content} 
+        value={this.props.content}
+        onChange={this.changeTitle.bind(this)}
+        onKeyPress={this.submit.bind(this)}
+      />
     )
   }
   submit(e){
@@ -11,5 +16,8 @@ export default class TodoInput extends Component {
       // console.log('用户按回车了')
       this.props.onSubmit(e)
     }
+  }
+  changeTitle(e){
+    this.props.onChange(e)
   }
 }
