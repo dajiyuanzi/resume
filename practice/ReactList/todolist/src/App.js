@@ -9,7 +9,7 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      newTodo:'', //输入框内的默认值 为空，传给子组件TodoInput
+      newTodo:'', //输入框最开始的默认值 为空字符，传给子组件TodoInput
       todoList: [
         // {id:1, title:'1st Todo Item'},
         // {id:1, title:'2nd Todo Item'}
@@ -21,8 +21,9 @@ class App extends Component {
     let todos = this.state.todoList.map((item, index)=>{
       return (
         // <li>{item.title}</li>
+        // onToggle是传入的变量
         <li key={index}>
-          <TodoItem todo={item} />
+          <TodoItem todo={item} onToggle={this.toggle.bind(this)} />
         </li>
       )
     })//渲染在下面
@@ -45,6 +46,11 @@ class App extends Component {
         </ol>
       </div>
     )
+  }
+  toggle(e, todo){ //item的<input checkbox/>有change时触发以下判断：satus此时在addTodo中初始为null，所以被赋值为completed
+    todo.status = todo.status==='completed' ? '' : 'completed' //如果是status已经是completed, 触发change时再设为空(去掉勾)
+    console.log(todo.status)
+    this.setState(this.state)
   }
   changeTitle(event){
     this.setState({
