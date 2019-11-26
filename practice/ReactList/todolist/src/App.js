@@ -17,13 +17,18 @@ class App extends Component {
     }
   }
   render(){
+    //待办条目
     //map遍历数组，回调函数返回值 组成一个新数组返回，新数组索引结构和原数组一致，原数组不变
     let todos = this.state.todoList.map((item, index)=>{
       return (
         // <li>{item.title}</li>
         // onToggle是传入的变量
         <li key={index}>
-          <TodoItem todo={item} onToggle={this.toggle.bind(this)} />
+          <TodoItem 
+            todo={item} 
+            onToggle={this.toggle.bind(this)} 
+            onDelete={this.delete.bind(this)}
+          />
         </li>
       )
     })//渲染在下面
@@ -70,6 +75,10 @@ class App extends Component {
       newTodo: '',
       todoList: this.state.todoList
     })
+  }
+  delete(event, todo){
+    todo.deleted = true
+    this.setState(this.state)
   }
 }
 

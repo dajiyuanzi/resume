@@ -10,10 +10,14 @@ export default class TodoItem extends Component {
           onChange={this.toggle.bind(this)}
         />
         {this.props.todo.title}
+        <button onCLick={this.delete.bind(this)}>Delete</button>
       </div>
     )
   }
   toggle(e){
     this.props.onToggle(e, this.props.todo)
+  }
+  delete(e){
+    this.props.onDelete(e, this.props.todo)
   }
 }
