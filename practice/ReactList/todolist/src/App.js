@@ -9,10 +9,10 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      newTodo:'test',
+      newTodo:'', //输入框内的默认值，传给子组件TodoInput
       todoList: [
-        {id:1, title:'1st Todo Item'},
-        {id:1, title:'2nd Todo Item'}
+        // {id:1, title:'1st Todo Item'},
+        // {id:1, title:'2nd Todo Item'}
       ]
     }
   }
@@ -21,11 +21,12 @@ class App extends Component {
     let todos = this.state.todoList.map((item, index)=>{
       return (
         // <li>{item.title}</li>
-        <li>
+        <li key={index}>
           <TodoItem todo={item} />
         </li>
       )
     })//渲染在下面
+    console.log(todos)
 
     return (
       <div className="App">
@@ -33,7 +34,7 @@ class App extends Component {
         <div className="inputWrapper">
           {/*注意 value= 后面不要加引号，加了会错*/}
           {/* <input type="text" value={this.state.newTodo}/> */}
-          <TodoInput content={this.state.newTodo} onSubmit={this.addTodo} />
+          <TodoInput content={this.state.newTodo} onSubmit={this.addTodo.bind(this)} />
         </div>
         <ol>
           {todos}
@@ -41,9 +42,25 @@ class App extends Component {
       </div>
     )
   }
-  addTodo(){
-    console.log('我得添加一个todo了')
+  addTodo(event){
+    //console.log('我得添加一个todo了')
+    this.state.todoList.push({
+      id: idMaker(),
+      title: event.target.value,
+      status: null,
+      deleted: false
+    })
+    this.setState({ //更新数据
+      newTodo: '',
+      todoList: this.state.todoList
+    })
   }
 }
 
 export default App;
+
+let id = 0
+function idMaker(){
+  id += 1
+  return id
+}
