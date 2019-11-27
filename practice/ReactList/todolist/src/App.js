@@ -23,7 +23,7 @@ class App extends Component {
       .map((item, index)=>{ //map遍历数组，回调函数返回值 组成一个新数组返回，新数组索引结构和原数组一致，原数组不变
       return (
         // <li>{item.title}</li>
-        // onToggle是传入的变量
+        // onToggle是传入的变量  key是react要求每个li都要有不同的编号
         <li key={index}>
           <TodoItem 
             todo={item} 
@@ -47,7 +47,7 @@ class App extends Component {
             onSubmit={this.addTodo.bind(this)} 
           />
         </div>
-        <ol>
+        <ol className="todoList">
           {todos}
         </ol>
       </div>
