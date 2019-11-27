@@ -18,8 +18,9 @@ class App extends Component {
   }
   render(){
     //待办条目
-    //map遍历数组，回调函数返回值 组成一个新数组返回，新数组索引结构和原数组一致，原数组不变
-    let todos = this.state.todoList.map((item, index)=>{
+    let todos = this.state.todoList
+      .filter((item)=>!item.deleted)  //只展示没有被删除的todo。filter返回数组的一个子集，回调函数用于逻辑判断是否返回，返回true则把当前元素加入到返回数组中，false则不加
+      .map((item, index)=>{ //map遍历数组，回调函数返回值 组成一个新数组返回，新数组索引结构和原数组一致，原数组不变
       return (
         // <li>{item.title}</li>
         // onToggle是传入的变量
@@ -54,7 +55,6 @@ class App extends Component {
   }
   toggle(e, todo){ //item的<input checkbox/>有change时触发以下判断：satus此时在addTodo中初始为null，所以被赋值为completed
     todo.status = todo.status==='completed' ? '' : 'completed' //如果是status已经是completed, 触发change时再设为空(去掉勾)
-    console.log(todo.status)
     this.setState(this.state)
   }
   changeTitle(event){
