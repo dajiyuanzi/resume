@@ -4,7 +4,6 @@ import TodoInput from './TodoInput.js'
 import TodoItem from './TodoItem.js'
 import 'normalize.css'
 import './reset.css'
-import * as localStore from './localStore'
 
 //移到leanCloud.js
 //拷贝leancloud初始化代码, 这些码和地址都是leancloud生成的
@@ -32,7 +31,7 @@ class App extends Component {
     super(props)
     this.state = {
       newTodo: '', //输入框内渲染出的值，最开始的默认值 为空字符，以content变量 传给子组件TodoInput
-      todoList: localStore.load('todoList') || [] //从window.localSotre获取数据，无数据则为空
+      todoList: []  
       // {id:1, title:'1st Todo Item'}, 这是设计的数据格式
       // {id:1, title:'2nd Todo Item'}
     }
@@ -74,21 +73,18 @@ class App extends Component {
       </div>
     )
   }
-  //每次渲染setState之后都有运行一次save，所以用钩子，下面不需要重复写
   componentDidUpdate(){
-    localStore.save('todoList', this.state.todoList) //向window.localSotre存储数据
+    
   }
   toggle(e, todo){ //item的<input checkbox/>有change时触发以下判断：satus此时在addTodo中初始为null，所以被赋值为completed
     todo.status = todo.status==='completed' ? '' : 'completed' //如果是status已经是completed, 触发change时再设为空(去掉勾)
     this.setState(this.state)
-    //localStore.save('todoList', this.state.todoList)
   }
   changeTitle(event){ //用户输入时 把输入值更新渲染到输入框
     this.setState({
       newTodo: event.target.value,
       todoList: this.state.todoList
     })
-    //localStore.save('todoList', this.state.todoList) //向window.localSotre存储数据
   }
   addTodo(event){
     //console.log('我得添加一个todo了')
@@ -102,12 +98,10 @@ class App extends Component {
       newTodo: '',
       todoList: this.state.todoList
     })
-    //localStore.save('todoList', this.state.todoList)
   }
   delete(event, todo){
     todo.deleted = true
     this.setState(this.state)
-    //localStore.save('todoList', this.state.todoList)
   }
 }
 
