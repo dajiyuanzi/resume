@@ -5,6 +5,15 @@ import TodoItem from './TodoItem.js'
 import 'normalize.css'
 import './reset.css'
 import * as localStore from './localStore'
+import AV from 'leancloud-storage'
+
+//拷贝leancloud初始化代码
+var APP_ID ='v14NvWPzvoqzf1OAVFrlamua-gzGzoHsz'
+var APP_KEY = '4kTB4FACraYqwnn9IWrmlmHV'
+AV.init({
+  appId: APP_ID,
+  appKey: APP_KEY
+})
 
 class App extends Component {
   constructor(props){
