@@ -18,13 +18,13 @@ AV.init({
 })
 
 //测试 leancloud 功能
-var TestObject = AV.Object.extend('TestObject')
-var testObject = new TestObject()
-testObject.save({
-  words: 'Hello World!'
-}).then(function(object) {
-  alert('LeanCloud Rocks!')
-})
+// var TestObject = AV.Object.extend('TestObject')
+// var testObject = new TestObject()
+// testObject.save({
+//   words: 'Hello World!'
+// }).then(function(object) {
+//   alert('LeanCloud Rocks!')
+// })
 
 class App extends Component {
   constructor(props){
