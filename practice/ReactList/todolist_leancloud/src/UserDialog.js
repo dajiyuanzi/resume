@@ -5,7 +5,11 @@ export default class UserDialog extends Component {
   constructor(props){
     super(props)
     this.state = {
-      selected: 'signUp'
+      selected: 'signUp', //默认显示注册
+      formData: {
+        username: '',
+        password: ''
+      }
     }
   }
   switch (e) {  //切换登录和注册
@@ -13,16 +17,39 @@ export default class UserDialog extends Component {
       selected: e.target.value
     })
   }
+  signUp(e){}
+  signIn(e){}
+  changeUsername(e){
+    // this.state.formData.username = e.target.value
+    // this.setState(this.state)
+    // 像上面这样写会看到一个警告 warning  Do not mutate state directly. Use setState()
+    
+    let stateCopy = JSON.parse(JSON.stringify(this.state)) //用JSON深拷贝
+    stateCopy.formData.username = e.target.value
+    this.setState(stateCopy)
+  }
+  changePassword(e){
+    let stateCopy = JSON.parse(JSON.stringify(this.state)) //用JSON深拷贝
+    stateCopy.formData.password = e.target.value
+    this.setState(stateCopy)
+  }//登录注册form的input 不断把 onChange监听的state变动 渲染回到input value上
+
   render(){
     let signUpForm = (
-      <form className="signUp"> {/* Register */}
+      <form className="signUp" onSubmit={this.signUp.bind(this)}> {/* Register */}
         <div className="row">
           <label>User Name</label>
-          <input type="text"/>
+          <input type="text" 
+            value={this.state.formDate.username} 
+            onChange={this.changeUsername.bind(this)}
+          />
         </div>
         <div className="row">
           <label>Password</label>
-          <input type="password"/>
+          <input type="password"
+            value={this.state.formData.password}
+            onChange={this.changePassword.bind(this)}
+          />
         </div>
         <div className="row actions">
           <button type="submit">Login</button>
@@ -30,14 +57,20 @@ export default class UserDialog extends Component {
       </form>
     )
     let signInForm = (
-      <form className="signUp"> {/* Login */}
+      <form className="signUp" onSubmit={this.signIn.bind(this)}> {/* Login */}
         <div className="row">
           <label>User Name</label>
-          <input type="text"/>
+          <input type="text" 
+            value={this.state.formDate.username} 
+            onChange={this.changeUsername.bind(this)}
+          />
         </div>
         <div className="row">
           <label>Password</label>
-          <input type="password"/>
+          <input type="password"
+            value={this.state.formData.password}
+            onChange={this.changePassword.bind(this)}
+          />
         </div>
         <div className="row actions">
           <button type="submit">Login</button>
