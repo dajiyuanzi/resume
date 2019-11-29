@@ -2,13 +2,24 @@ import React, { Component } from 'react'
 import './UserDialog.css'
 
 export default class UserDialog extends Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      selected: 'signUp'
+    }
+  }
+  switch (e) {  //切换登录和注册
+    this.setState({
+      selected: e.target.value
+    })
+  }
   render(){
     return (
       <div className="UserDialog-Wrapper">
         <div className="UserDialog">
-          <nav>
-            <input type="radio"/>Register
-            <input type="radio"/>Login
+          <nav onChange={this.switch.bind(this)}>
+            <input type="radio" value="signUp" checked={this.state.selected === 'signUp'}/>Register
+            <input type="radio" value="signIn" checked={this.state.selected === 'signIn'}/>Login
           </nav>
           <div className="panes">
             <form className="signUp"> {/* Register */}
