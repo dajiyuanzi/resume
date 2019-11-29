@@ -17,22 +17,31 @@ export default class UserDialog extends Component {
       selected: e.target.value
     })
   }
+
   signUp(e){}
   signIn(e){}
-  changeUsername(e){
-    // this.state.formData.username = e.target.value
-    // this.setState(this.state)
-    // 像上面这样写会看到一个警告 warning  Do not mutate state directly. Use setState()
+
+  //登录注册form的input 不断把 onChange监听的state变动 渲染回到input value上
+  // changeUsername(e){
+  //   // this.state.formData.username = e.target.value
+  //   // this.setState(this.state)
+  //   // 像上面这样写会看到一个警告 warning  Do not mutate state directly. Use setState()
     
+  //   let stateCopy = JSON.parse(JSON.stringify(this.state)) //用JSON深拷贝
+  //   stateCopy.formData.username = e.target.value
+  //   this.setState(stateCopy)
+  // }
+  // changePassword(e){
+  //   let stateCopy = JSON.parse(JSON.stringify(this.state)) //用JSON深拷贝
+  //   stateCopy.formData.password = e.target.value
+  //   this.setState(stateCopy)
+  // }
+  //将 changeUserName 和 changePassword 优化成一个函数 changeFormData
+  changeFormData(key, e){
     let stateCopy = JSON.parse(JSON.stringify(this.state)) //用JSON深拷贝
-    stateCopy.formData.username = e.target.value
+    this.stateCopy.formData[key] = e.target.value
     this.setState(stateCopy)
   }
-  changePassword(e){
-    let stateCopy = JSON.parse(JSON.stringify(this.state)) //用JSON深拷贝
-    stateCopy.formData.password = e.target.value
-    this.setState(stateCopy)
-  }//登录注册form的input 不断把 onChange监听的state变动 渲染回到input value上
 
   render(){
     let signUpForm = (
@@ -40,15 +49,15 @@ export default class UserDialog extends Component {
         <div className="row">
           <label>User Name</label>
           <input type="text" 
-            value={this.state.formDate.username} 
-            onChange={this.changeUsername.bind(this)}
-          />
+            value={this.state.formData.username} 
+            onChange={this.changeFormData.bind(this, 'username')} 
+          />{/* bind 不仅可以绑定 this，还可以绑定第一个参数 */}
         </div>
         <div className="row">
           <label>Password</label>
           <input type="password"
             value={this.state.formData.password}
-            onChange={this.changePassword.bind(this)}
+            onChange={this.changeFormData.bind(this, 'password')}
           />
         </div>
         <div className="row actions">
@@ -61,15 +70,15 @@ export default class UserDialog extends Component {
         <div className="row">
           <label>User Name</label>
           <input type="text" 
-            value={this.state.formDate.username} 
-            onChange={this.changeUsername.bind(this)}
+            value={this.state.formData.username} 
+            onChange={this.changeFormData.bind(this, 'username')}
           />
         </div>
         <div className="row">
           <label>Password</label>
           <input type="password"
             value={this.state.formData.password}
-            onChange={this.changePassword.bind(this)}
+            onChange={this.changeFormData.bind(this, 'password')}
           />
         </div>
         <div className="row actions">
