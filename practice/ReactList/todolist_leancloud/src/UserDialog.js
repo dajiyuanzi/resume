@@ -18,8 +18,8 @@ export default class UserDialog extends Component {
       <div className="UserDialog-Wrapper">
         <div className="UserDialog">
           <nav onChange={this.switch.bind(this)}>
-            <input type="radio" value="signUp" checked={this.state.selected === 'signUp'}/>Register
-            <input type="radio" value="signIn" checked={this.state.selected === 'signIn'}/>Login
+            <label><input type="radio" value="signUp" checked={this.state.selected === 'signUp'}/> Register</label>
+            <label><input type="radio" value="signIn" checked={this.state.selected === 'signIn'}/> Login</label>
           </nav>
           <div className="panes">
             <form className="signUp"> {/* Register */}
@@ -54,3 +54,4 @@ export default class UserDialog extends Component {
     )
   }
 }
+
