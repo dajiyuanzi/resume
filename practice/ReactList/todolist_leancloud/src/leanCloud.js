@@ -34,6 +34,15 @@ export function signUp(username, password, successFn, errorFn){
   return undefined
 }
 
+export function signIn(username, password, successFn, errorFn){
+  AV.User.logIn(username, password).then(function(loginedUser){
+    let user = getUserFromAVUser(loginedUser)
+    successFn.call(null, user) //默认执行context在非严格下 为全局window，当UserDialog调用时就是它的context
+  }, function(error){
+    errorFn.call(null, error)
+  })
+}
+
 export function getCurrentUser(){
   let user = AV.User.current()
   if(user){

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './UserDialog.css'
-import {signUp} from './leanCloud'
+import {signUp, signIn} from './leanCloud'
 
 export default class UserDialog extends Component {
   constructor(props){
@@ -23,14 +23,25 @@ export default class UserDialog extends Component {
     e.preventDefault() //取消事件的默认动作,比如form点击submit后自动提交发送数据
     let {username, password} = this.state.formData
     let success = (user)=>{
-      this.props.onSignUp.call(null, user) //context设null，非严格模式下即window全局，但App.js在传入时已bind为UserDialog所处的context
+      this.props.onSignUp.call(null, user) 
+      //默认context设null，非严格模式下即window全局，但App.js在传入时已bind为UserDialog所处的context（其实，直接func(user)也行，只是这样更合形式上的逻辑）
     }
     let error = (error)=>{
-      console.log(error)
+      alert(error)
     }
     signUp(username, password, success, error) //这里面的signUp()是调用的src/leanCloud.js里的方法，外层的是定义的父组件里的方法。
   }
-  signIn(e){}
+  signIn(e){
+    e.preventDefault()
+    let {username, password} = this.state.formData
+    let success = (user)=>{
+      this.props.onSignIn.call(null, user)
+    }
+    let error = (error)=>{
+      alert(error)
+    }
+    signIn(username, password, success, error)
+  }
 
   //登录注册form的input 不断把 onChange监听的state变动 渲染回到input value上
   // changeUsername(e){

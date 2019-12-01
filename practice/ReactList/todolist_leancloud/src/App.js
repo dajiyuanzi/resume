@@ -76,7 +76,13 @@ class App extends Component {
         <ol className="todoList">
           {todos}
         </ol>
-        {this.state.user.id ? null : <UserDialog on SignUp={this.onSignUp.bind(this)}/> }
+        {this.state.user.id ? 
+          null : 
+          <UserDialog 
+            onSignUp={this.onSignUp.bind(this)}
+            onSignIn={this.onSignIn.bind(this)}
+          /> 
+        }
       </div>
     )
   }
@@ -90,7 +96,12 @@ class App extends Component {
   onSignUp(user){
     // this.state.user = user
     // this.setState(this.state)
-    // 消除「不要直接修改 state」的警告,如下
+    // 消除「不要直接修改 state」的警告,如下方案实现数据更新，即全部重新赋值。可以直接赋值，只是不推荐而已；后面改成Redux的，先写挫的再升级
+    let stateCopy = JSON.parse(JSON.stringify(this.state))
+    stateCopy.user = user
+    this.setState(stateCopy)
+  }
+  onSignIn(user){
     let stateCopy = JSON.parse(JSON.stringify(this.state))
     stateCopy.user = user
     this.setState(stateCopy)
