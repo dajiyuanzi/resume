@@ -5,6 +5,7 @@ import TodoItem from './TodoItem.js'
 import 'normalize.css'
 import './reset.css'
 import UserDialog from './UserDialog'
+import { getCurrentUser } from './leanCloud'
 
 //移到leanCloud.js
 //拷贝leancloud初始化代码, 这些码和地址都是leancloud生成的
@@ -31,7 +32,7 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      user: {},
+      user: getCurrentUser || {},
       newTodo: '', //输入框内渲染出的值，最开始的默认值 为空字符，以content变量 传给子组件TodoInput
       todoList: []  
       // {id:1, title:'1st Todo Item'}, 这是设计的数据格式
@@ -80,7 +81,7 @@ class App extends Component {
   onSignUp(user){
     // this.state.user = user
     // this.setState(this.state)
-    //消除「不要直接修改 state」的警告,如下
+    // 消除「不要直接修改 state」的警告,如下
     let stateCopy = JSON.parse(JSON.stringify(this.state))
     stateCopy.user = user
     this.setState(stateCopy)

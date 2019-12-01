@@ -34,10 +34,18 @@ export function signUp(username, password, successFn, errorFn){
   return undefined
 }
 
+export function getCurrentUser(){
+  let user = AV.User.current()
+  if(user){
+    return getUserFromAVUser(user)
+  }else{
+    return null
+  }
+}
 
 function getUserFromAVUser(AVUser){
   return {
-    id: AVUser.id,
+    id: AVUser.id, //leancloud中 数据对象 是leancloud自动生成的
     ...AVUser.attributes //attributes是leancloud中 用户对象 的属性
   }
   //console.log(AVUser.attributes)
