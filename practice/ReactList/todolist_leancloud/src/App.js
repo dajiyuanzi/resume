@@ -78,8 +78,12 @@ class App extends Component {
   }
 
   onSignUp(user){
-    this.state.user = user
-    this.setState(this.state)
+    // this.state.user = user
+    // this.setState(this.state)
+    //消除「不要直接修改 state」的警告,如下
+    let stateCopy = JSON.parse(JSON.stringify(this.state))
+    stateCopy.user = user
+    this.setState(stateCopy)
   }
   componentDidUpdate(){
     
