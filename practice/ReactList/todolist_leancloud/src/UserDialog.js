@@ -20,10 +20,10 @@ export default class UserDialog extends Component {
   }
 
   signUp(e){
-    e.preventDefault() //取消事件的默认动作
+    e.preventDefault() //取消事件的默认动作,比如form点击submit后自动提交发送数据
     let {username, password} = this.state.formData
     let success = (user)=>{
-      console.log(user)
+      this.props.onSignUp.call(null, user) //context设null，非严格模式下即window全局，但App.js在传入时已bind为UserDialog所处的context
     }
     let error = (error)=>{
       console.log(error)

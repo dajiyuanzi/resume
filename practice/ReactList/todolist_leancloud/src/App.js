@@ -31,6 +31,7 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
+      user: {},
       newTodo: '', //输入框内渲染出的值，最开始的默认值 为空字符，以content变量 传给子组件TodoInput
       todoList: []  
       // {id:1, title:'1st Todo Item'}, 这是设计的数据格式
@@ -58,7 +59,7 @@ class App extends Component {
 
     return (
       <div className="App">
-        <h1>My Todos</h1>
+      <h1>{this.state.username || 'My'} Todos</h1>
         <div className="inputWrapper">
           {/*注意 value= 后面不要加引号，加了会错*/}
           {/* <input type="text" value={this.state.newTodo}/> */}
@@ -71,9 +72,14 @@ class App extends Component {
         <ol className="todoList">
           {todos}
         </ol>
-        <UserDialog/>
+        <UserDialog onSignUp={this.onSignUp.bind(this)}/>
       </div>
     )
+  }
+
+  onSignUp(user){
+    this.state.user = user
+    this.setState(this.state)
   }
   componentDidUpdate(){
     
