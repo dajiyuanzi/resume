@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './UserDialog.css'
+import {signUp} from './leanCloud'
 
 export default class UserDialog extends Component {
   constructor(props){
@@ -18,7 +19,17 @@ export default class UserDialog extends Component {
     })
   }
 
-  signUp(e){}
+  signUp(e){
+    e.preventDefault() //取消事件的默认动作
+    let {username, password} = this.state.formData
+    let success = (user)=>{
+      console.log(user)
+    }
+    let error = (error)=>{
+      console.log(error)
+    }
+    signUp(username, password, success, error)
+  }
   signIn(e){}
 
   //登录注册form的input 不断把 onChange监听的state变动 渲染回到input value上
