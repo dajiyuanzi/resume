@@ -28,7 +28,7 @@ export default class UserDialog extends Component {
     let error = (error)=>{
       console.log(error)
     }
-    signUp(username, password, success, error)
+    signUp(username, password, success, error) //这里面的signUp()是调用的src/leanCloud.js里的方法，外层的是定义的父组件里的方法。
   }
   signIn(e){}
 

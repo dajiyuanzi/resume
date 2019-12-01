@@ -5,7 +5,7 @@ import TodoItem from './TodoItem.js'
 import 'normalize.css'
 import './reset.css'
 import UserDialog from './UserDialog'
-import { getCurrentUser } from './leanCloud'
+import { getCurrentUser, signOut } from './leanCloud'
 
 //移到leanCloud.js
 //拷贝leancloud初始化代码, 这些码和地址都是leancloud生成的
@@ -55,12 +55,15 @@ class App extends Component {
           />
         </li>
       )
-    })//渲染在下面
+    })//渲染在下面 {todos}
     //console.log(todos)
 
     return (
       <div className="App">
-      <h1>{this.state.username || 'My'} Todos</h1>
+      <h1>
+        {this.state.username || 'My'} Todos
+        {this.state.user.id ? <button onClick={this.signOut.bind(this)}>SignOut</button> : null}
+      </h1>
         <div className="inputWrapper">
           {/*注意 value= 后面不要加引号，加了会错*/}
           {/* <input type="text" value={this.state.newTodo}/> */}
@@ -78,6 +81,12 @@ class App extends Component {
     )
   }
 
+  signOut(){
+    signOut() //这里面的signOut()是调用的src/leanCloud.js里的方法，外层的是定义的父组件里的方法。
+    let stateCopy = JSON.parse(JSON.stringify(this.state))
+    stateCopy.user = {}
+    this.setState(stateCopy)
+  }
   onSignUp(user){
     // this.state.user = user
     // this.setState(this.state)

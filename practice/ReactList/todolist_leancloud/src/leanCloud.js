@@ -43,10 +43,15 @@ export function getCurrentUser(){
   }
 }
 
+export function signOut(){
+  AV.User.logOut()
+  return undefined
+}
+
 function getUserFromAVUser(AVUser){
   return {
     id: AVUser.id, //leancloud中 数据对象 是leancloud自动生成的
     ...AVUser.attributes //attributes是leancloud中 用户对象 的属性
   }
-  //console.log(AVUser.attributes)
 }
+//console.log(AV.User.current().attributes)
