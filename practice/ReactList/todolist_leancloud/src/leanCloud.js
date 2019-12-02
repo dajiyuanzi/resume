@@ -61,6 +61,14 @@ export function signOut(){
   return undefined
 }
 
+export function sendPasswordResetEmail(email, successFn, errorFn){
+  AV.User.requestPasswordReset(email).then(function(success){ //leancloud内的用户对象
+    successFn.call()
+  }, function(error){
+    console.dir(error) //在控制台中显示指定JavaScript对象的属性，并通过类似文件树样式的交互列表显示。
+  })
+}
+
 function getUserFromAVUser(AVUser){
   return {
     id: AVUser.id, //leancloud中 数据对象 是leancloud自动生成的
