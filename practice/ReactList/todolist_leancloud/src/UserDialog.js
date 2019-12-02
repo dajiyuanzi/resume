@@ -27,7 +27,14 @@ export default class UserDialog extends Component {
       //默认context设null，非严格模式下即window全局，但App.js在传入时已bind为UserDialog所处的context（其实，直接func(user)也行，只是这样更合形式上的逻辑）
     }
     let error = (error)=>{
-      alert(error)
+      switch(error.code){ //leancloud的服务状态码
+        case 202:
+          alert('用户名已被占用')
+          break
+        default:
+          alert(error)
+          break
+      }
     }
     signUp(username, password, success, error) //这里面的signUp()是调用的src/leanCloud.js里的方法，外层的是定义的父组件里的方法。
   }
@@ -38,7 +45,14 @@ export default class UserDialog extends Component {
       this.props.onSignIn.call(null, user)
     }
     let error = (error)=>{
-      alert(error)
+      switch(error.code){
+        case 210:
+          alert('用户名与密码不匹配')
+          break
+        default:
+          alert(error)
+          break
+      }     
     }
     signIn(username, password, success, error)
   }
