@@ -10,6 +10,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  /* 给dialog添加遮罩效果 */
+  background: hsla(0,0%,0%,0.40);
 }
 
 .userDialog{

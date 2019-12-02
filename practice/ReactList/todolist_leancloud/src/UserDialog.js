@@ -102,7 +102,7 @@ export default class UserDialog extends Component {
       </form>
     )
     let signInForm = (
-      <form className="signUp" onSubmit={this.signIn.bind(this)}> {/* Login */}
+      <form className="signIn" onSubmit={this.signIn.bind(this)}> {/* Login */}
         <div className="row">
           <label>User Name</label>
           <input type="text" 
