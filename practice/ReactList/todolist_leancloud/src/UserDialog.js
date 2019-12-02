@@ -119,6 +119,7 @@ export default class UserDialog extends Component {
         </div>
         <div className="row actions">
           <button type="submit">Login</button>
+          <a href="javascript:;">Do you forget the password?</a>
         </div>
       </form>
     )
