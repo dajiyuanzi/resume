@@ -61,11 +61,12 @@ export function signOut(){
   return undefined
 }
 
-export function sendPasswordResetEmail(email, successFn, errorFn){
+export function sendPasswordResetEmail(email, successFn, errorFn){ //js的function的参数不需要全填上，不用的参数也算是预留的接口
   AV.User.requestPasswordReset(email).then(function(success){ //leancloud内的用户对象
     successFn.call()
   }, function(error){
-    console.dir(error) //在控制台中显示指定JavaScript对象的属性，并通过类似文件树样式的交互列表显示。
+    //console.dir(error) //在控制台中显示指定JavaScript对象的属性，并通过类似文件树样式的交互列表显示。
+    errorFn.call(null, error)
   })
 }
 
