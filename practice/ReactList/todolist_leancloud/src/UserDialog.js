@@ -8,6 +8,7 @@ export default class UserDialog extends Component {
     this.state = {
       selected: 'signUp', //默认显示注册
       formData: {
+        email: '',
         username: '',
         password: ''
       }
@@ -21,7 +22,7 @@ export default class UserDialog extends Component {
 
   signUp(e){
     e.preventDefault() //取消事件的默认动作,比如form点击submit后自动提交发送数据
-    let {username, password} = this.state.formData
+    let {email, username, password} = this.state.formData
     let success = (user)=>{
       this.props.onSignUp.call(null, user) 
       //默认context设null，非严格模式下即window全局，但App.js在传入时已bind为UserDialog所处的context（其实，直接func(user)也行，只是这样更合形式上的逻辑）
@@ -36,7 +37,7 @@ export default class UserDialog extends Component {
           break
       }
     }
-    signUp(username, password, success, error) //这里面的signUp()是调用的src/leanCloud.js里的方法，外层的是定义的父组件里的方法。
+    signUp(email, username, password, success, error) //这里面的signUp()是调用的src/leanCloud.js里的方法，外层的是定义的父组件里的方法。
   }
   signIn(e){
     e.preventDefault()
@@ -73,7 +74,7 @@ export default class UserDialog extends Component {
   //   this.setState(stateCopy)
   // }
   //将 changeUserName 和 changePassword 优化成一个函数 changeFormData
-  changeFormData(key, e){
+  changeFormData(key, e){ //登录注册form的input 不断把 onChange监听的state变动 渲染回到input value上
     let stateCopy = JSON.parse(JSON.stringify(this.state)) //用JSON深拷贝
     stateCopy.formData[key] = e.target.value
     this.setState(stateCopy)
@@ -83,8 +84,17 @@ export default class UserDialog extends Component {
     let signUpForm = (
       <form className="signUp" onSubmit={this.signUp.bind(this)}> {/* Register */}
         <div className="row">
+          <label>Email</label>
+          <input 
+            type="text"
+            value={this.state.formData.email}
+            onChange={this.changeFormData.bind(this, 'email')}
+          />
+        </div>
+        <div className="row">
           <label>User Name</label>
-          <input type="text" 
+          <input 
+            type="text" 
             value={this.state.formData.username} 
             onChange={this.changeFormData.bind(this, 'username')} 
           />{/* bind 不仅可以绑定 this，还可以绑定第一个参数 */}

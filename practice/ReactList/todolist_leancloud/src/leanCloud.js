@@ -12,8 +12,9 @@ AV.init({
 
 export default AV
 
+//下面用的是leancloud的接口
 
-export function signUp(username, password, successFn, errorFn){
+export function signUp(email, username, password, successFn, errorFn){
   // 新建AVUser对象实例
   var user = new AV.User()
 
@@ -24,6 +25,9 @@ export function signUp(username, password, successFn, errorFn){
   user.setPassword(password)
 
   //设置邮箱
+  user.setEmail(email)
+
+  //注册判断 
   user.signUp().then(function(loginedUser){
     let user = getUserFromAVUser(loginedUser)
     successFn.call(null, user)
@@ -37,7 +41,7 @@ export function signUp(username, password, successFn, errorFn){
 export function signIn(username, password, successFn, errorFn){
   AV.User.logIn(username, password).then(function(loginedUser){
     let user = getUserFromAVUser(loginedUser)
-    successFn.call(null, user) //默认执行context在非严格下 为全局window，当UserDialog调用时就是它的context
+    successFn.call(null, user) //默认执行context在非严格下 为全局window，当UserDialog组件调用时就是它的context
   }, function(error){
     errorFn.call(null, error)
   })
