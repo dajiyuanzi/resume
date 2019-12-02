@@ -32,7 +32,7 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      user: getCurrentUser || {},
+      user: getCurrentUser || {}, //当前用户
       newTodo: '', //输入框内渲染出的值，最开始的默认值 为空字符，以content变量 传给子组件TodoInput
       todoList: []  
       // {id:1, title:'1st Todo Item'}, 这是设计的数据格式
@@ -79,8 +79,8 @@ class App extends Component {
         {this.state.user.id ? 
           null : 
           <UserDialog 
-            onSignUp={this.onSignUp.bind(this)}
-            onSignIn={this.onSignIn.bind(this)}
+            onSignUp={this.onSignUpOrSignIn.bind(this)}
+            onSignIn={this.onSignUpOrSignIn.bind(this)}
           /> 
         }
       </div>
@@ -93,7 +93,7 @@ class App extends Component {
     stateCopy.user = {}
     this.setState(stateCopy)
   }
-  onSignUp(user){
+  onSignUpOrSignIn(user){
     // this.state.user = user
     // this.setState(this.state)
     // 消除「不要直接修改 state」的警告,如下方案实现数据更新，即全部重新赋值。可以直接赋值，只是不推荐而已；后面改成Redux的，先写挫的再升级
@@ -101,11 +101,7 @@ class App extends Component {
     stateCopy.user = user
     this.setState(stateCopy)
   }
-  onSignIn(user){
-    let stateCopy = JSON.parse(JSON.stringify(this.state))
-    stateCopy.user = user
-    this.setState(stateCopy)
-  }
+
   componentDidUpdate(){
     
   }

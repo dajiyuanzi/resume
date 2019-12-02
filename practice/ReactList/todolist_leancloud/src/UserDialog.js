@@ -61,7 +61,7 @@ export default class UserDialog extends Component {
   //将 changeUserName 和 changePassword 优化成一个函数 changeFormData
   changeFormData(key, e){
     let stateCopy = JSON.parse(JSON.stringify(this.state)) //用JSON深拷贝
-    this.stateCopy.formData[key] = e.target.value
+    stateCopy.formData[key] = e.target.value
     this.setState(stateCopy)
   }
 
