@@ -131,6 +131,7 @@ export default class UserDialog extends Component {
         <div className="panes">
           {this.state.selected === 'signUp' ? 
             <SignUpForm 
+              formData={this.state.formData} 
               onSubmit={this.signUp.bind(this)}
               onChange={this.changeFormData.bind(this)}
             />
