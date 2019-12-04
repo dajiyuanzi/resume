@@ -8,9 +8,9 @@ export default class SignInForm extends Component {
           <label>User Name</label>
           <input type="text" 
             value={this.props.formData.username} 
-            onChange={this.props.onChange.bind(null, 'username')}
+            onChange={this.props.onChange.bind(null, 'username')} 
           />
-        </div>
+        </div> 
         <div className="row">
           <label>Password</label>
           <input type="password"
@@ -26,3 +26,5 @@ export default class SignInForm extends Component {
     )
   }
 }
+
+// onChange 事件执行函数会传递一个事件 e，这里bind null就是给 父组件调用它时的context而产生的this 腾个位置，防止props被当成this

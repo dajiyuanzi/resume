@@ -7,6 +7,7 @@ import './reset.css'
 import UserDialog from './UserDialog'
 import { getCurrentUser, signOut } from './leanCloud'
 
+
 //移到leanCloud.js
 //拷贝leancloud初始化代码, 这些码和地址都是leancloud生成的
 // import AV from 'leancloud-storage'
@@ -27,6 +28,24 @@ import { getCurrentUser, signOut } from './leanCloud'
 // }).then(function(object) {
 //   alert('LeanCloud Rocks!')
 // })
+
+
+//存储对象的数据
+import AV from './leanCloud'
+// 声明类型
+var TodoFolder = AV.Object.extend('TodoFolder');
+// 新建对象
+var todoFolder = new TodoFolder();
+// 设置名称
+todoFolder.set('name','工作');
+// 设置优先级
+todoFolder.set('priority',1);
+todoFolder.save().then(function (todo) {
+  console.log('objectId is ' + todo.id);
+}, function (error) {
+  console.error(error);
+});
+
 
 class App extends Component {
   constructor(props){
