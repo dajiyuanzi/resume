@@ -28,7 +28,7 @@ export default class SignUpForm extends Component {
           />
         </div>
         <div className="row actions">
-          <button type="submit">Login</button>
+          <button type="submit">Sign Up</button>
         </div>
       </form>
     )
