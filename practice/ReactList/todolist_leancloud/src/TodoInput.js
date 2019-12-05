@@ -1,11 +1,15 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './TodoInput.css'
 
 
-function submit(e){
+function submit(props, e){
   if(e.key === 'Enter') { //当按回车了
     // console.log('用户按回车了')
-    this.props.onSubmit(e)
+
+    //如果用户在输入框里什么都不写就敲回车，那么就拒绝用户
+    if(e.target.value.trim() !== ''){ //trim() 方法用于删除字符串的头尾空格, 不会改变原始字符串。
+      this.props.onSubmit(e)
+    }
   }
 }
 
