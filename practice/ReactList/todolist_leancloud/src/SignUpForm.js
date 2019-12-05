@@ -1,5 +1,7 @@
 import React from 'react';
 
+//如果一个组件只有 props 没有 state，你就可以把它写成一个函数
+
 export default function(props) {
   return (
     <form className="signUp" onSubmit={this.props.onSubmit.bind(this)}> {/* Register */}
