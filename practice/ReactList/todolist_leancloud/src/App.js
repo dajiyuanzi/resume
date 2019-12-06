@@ -5,7 +5,7 @@ import TodoItem from './TodoItem.js'
 import 'normalize.css'
 import './reset.css'
 import UserDialog from './UserDialog'
-import { getCurrentUser, signOut } from './leanCloud'
+import { getCurrentUser, signOut, TodoModel } from './leanCloud'
 
 
 //移到leanCloud.js
@@ -51,7 +51,7 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      user: getCurrentUser || {}, //当前用户
+      user: getCurrentUser || {}, //当前用户  leancloud回自动给每条数据加id, getCurrentUser将获得并返回
       newTodo: '', //输入框内渲染出的值，最开始的默认值 为空字符，以content变量 传给子组件TodoInput
       todoList: []  
       // {id:1, title:'1st Todo Item'}, 这是设计的数据格式
@@ -134,17 +134,22 @@ class App extends Component {
       todoList: this.state.todoList
     })
   }
-  addTodo(event){
+  addTodo(event){ 
     //console.log('我得添加一个todo了')
-    this.state.todoList.push({
-      id: idMaker(),
+    let newTodo = {
       title: event.target.value,
       status: null,
       deleted: false
-    })
-    this.setState({ //更新数据
-      newTodo: '',
-      todoList: this.state.todoList
+    }
+    TodoModel.create(newTodo, (id)=>{ //leancloud回自动给每条数据加id, 在leancloud以回调传回到这里
+      newTodo.id = id  
+      this.state.todoList.push(newTodo)
+      this.setState({ //更新数据
+        newTodo: '',
+        todoList: this.state.todoList
+      })
+    }, (error)=>{
+      console.log(error)
     })
   }
   delete(event, todo){
@@ -155,8 +160,9 @@ class App extends Component {
 
 export default App;
 
-let id = 0
-function idMaker(){
-  id += 1
-  return id
-}
+// let id = 0
+// function idMaker(){
+//   id += 1
+//   return id
+// }
+// leancloud回自动给每条数据加id

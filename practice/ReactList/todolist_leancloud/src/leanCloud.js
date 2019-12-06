@@ -14,6 +14,29 @@ export default AV
 
 //下面用的是leancloud的接口
 
+
+// 把所有跟 Todo 相关的 LeanCloud 操作都放到这个对象里，而不是一个个接口export
+export const TodoModel = {
+  create({status, title, deleted}, successFn, errorFn){
+    let Todo = AV.Object.extend('Todo') // 声明leancloud的1个class，下面存入云端,leancloud回自动给每条数据加id
+    let todo = new Todo() // 构建对象
+    todo.set('title', title) // 为属性赋值 key+value
+    todo.set('status', status)
+    todo.set('deleted', deleted)
+    todo.save().then(function(response){
+      successFn.call(null, response.id)
+    }, function(error){
+      errorFn && errorFn.call(null, error) //结合性Associative property: a=1&&3 返回3；a=1||3返回1。 或|| 即使第一个false，还会往下看，第二个数为true在返回第二个；两边皆true，返回第一个数（与&&相反），即第一个true则不再往下看了。
+    });
+  },
+  update(){
+
+  },
+  destroy(){
+
+  }
+}
+
 export function signUp(email, username, password, successFn, errorFn){
   // 新建AVUser对象实例
   var user = new AV.User()
@@ -41,7 +64,7 @@ export function signUp(email, username, password, successFn, errorFn){
 export function signIn(username, password, successFn, errorFn){
   AV.User.logIn(username, password).then(function(loginedUser){
     let user = getUserFromAVUser(loginedUser)
-    successFn.call(null, user) //默认执行context在非严格下 为全局window，当UserDialog组件调用时就是它的context
+    successFn.call(null, user) //默认执行context在非严格下 为全局window，当UserDialog组件调用 此回调successFn时, 才是successFn的context
   }, function(error){
     errorFn.call(null, error)
   })

@@ -8,13 +8,13 @@ function submit(props, e){
 
     //如果用户在输入框里什么都不写就敲回车，那么就拒绝用户
     if(e.target.value.trim() !== ''){ //trim() 方法用于删除字符串的头尾空格, 不会改变原始字符串。
-      this.props.onSubmit(e)
+      props.onSubmit(e)
     }
   }
 }
 
-function changeTitle(e){
-  this.props.onChange(e)
+function changeTitle(props, e){
+  props.onChange(e)
 }
 
 
