@@ -57,7 +57,17 @@ class App extends Component {
       // {id:1, title:'1st Todo Item'}, 这是设计的数据格式
       // {id:1, title:'2nd Todo Item'}
     }
+    let user = getCurrentUser()
+    if(user){
+      TodoModel.getByUser(user, (todos)=>{ //获得属于当前用户的todo数据
+        let stateCopy = JSON.parse(JSON.stringify(this.state))
+        stateCopy.todoList = todos
+        this.setState(stateCopy)
+      })
+    }
   }
+
+
   render(){
     //待办条目
     let todos = this.state.todoList

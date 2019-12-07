@@ -3,6 +3,7 @@ import './TodoInput.css'
 
 
 function submit(props, e){
+  //console.log(e) 查看是否参数传进来了
   if(e.key === 'Enter') { //当按回车了
     // console.log('用户按回车了')
 
@@ -25,8 +26,8 @@ export default function (props) {
       // defaultValue={this.props.content} 
       value={props.content}
       className="TodoInput"
-      onChange={changeTitle.bind(this)}
-      onKeyPress={submit.bind(this)}
+      onChange={changeTitle.bind(null, props)} //这里函数的调用context 要设为null(即全局)，因为App.js bind了它调用时的context
+      onKeyPress={submit.bind(null, props)}
     />
   )
 }

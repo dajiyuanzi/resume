@@ -16,7 +16,20 @@ export default AV
 
 
 // 把所有跟 Todo 相关的 LeanCloud 操作都放到这个对象里，而不是一个个接口export
+// 所有跟 Todo 相关的 LeanCloud 操作都放到这里
 export const TodoModel = {
+  getByUser(user, successFn, errorFn){ //只获得属于当前用户的todo
+    // 文档见 https://leancloud.cn/docs/leanstorage_guide-js.html#批量操作
+    let query = new AV.Query('Todo')
+    query.find().then((response)=>{
+      let array = response.map((t)=>{ //map(func)返回一个新数组，其元素为原始数组元素调用处理函数后的值。
+        return {id: t.id, ...t.attributes}
+      })
+      successFn.call(null, array)
+    }, (error)=>{
+      errorFn && errorFn.call(null, error)
+    })
+  },
   create({status, title, deleted}, successFn, errorFn){
     let Todo = AV.Object.extend('Todo') // 声明leancloud的1个class，下面存入云端,leancloud回自动给每条数据加id
     let todo = new Todo() // 构建对象
