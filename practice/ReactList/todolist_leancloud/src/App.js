@@ -59,7 +59,7 @@ class App extends Component {
     }
     let user = getCurrentUser()
     if(user){
-      TodoModel.getByUser(user, (todos)=>{ //获得属于当前用户的todo数据
+      TodoModel.getByUser(user, (todos)=>{ //请求todo数据
         let stateCopy = JSON.parse(JSON.stringify(this.state))
         stateCopy.todoList = todos
         this.setState(stateCopy)

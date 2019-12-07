@@ -18,7 +18,7 @@ export default AV
 // 把所有跟 Todo 相关的 LeanCloud 操作都放到这个对象里，而不是一个个接口export
 // 所有跟 Todo 相关的 LeanCloud 操作都放到这里
 export const TodoModel = {
-  getByUser(user, successFn, errorFn){ //只获得属于当前用户的todo
+  getByUser(user, successFn, errorFn){ //请求todo的数据
     // 文档见 https://leancloud.cn/docs/leanstorage_guide-js.html#批量操作
     let query = new AV.Query('Todo')
     query.find().then((response)=>{
@@ -36,6 +36,15 @@ export const TodoModel = {
     todo.set('title', title) // 为属性赋值 key+value
     todo.set('status', status)
     todo.set('deleted', deleted)
+
+    //只获得属于当前用户的todo，使用 Access Control Layer 访问控制层，让新建的 todo 只能被当前用户访问
+    // 根据文档 https://leancloud.cn/docs/acl-guide.html#hash-1171845695
+    // 这样做就可以让这个 Todo 只被当前用户看到
+    let acl = new AV.ACL()
+    acl.setPublicReadAccess(false) // 注意这里是false。默认当前用户可读，默认public 不可写。
+    acl.setWriteAccess(AV.User.current(), true)
+    todo.setACL(acl)
+
     todo.save().then(function(response){
       successFn.call(null, response.id)
     }, function(error){
