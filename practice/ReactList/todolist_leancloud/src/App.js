@@ -134,8 +134,14 @@ class App extends Component {
     
   }
   toggle(e, todo){ //item的<input checkbox/>有change时触发以下判断：satus此时在addTodo中初始为null，所以被赋值为completed
+    let oldStatus = todo.status
     todo.status = todo.status==='completed' ? '' : 'completed' //如果是status已经是completed, 触发change时再设为空(去掉勾)
-    this.setState(this.state)
+    TodoModel.update(todo, () => {
+      this.setState(this.state)
+    }, (error) => {
+      todo.status = oldStatus
+      this.setState(this.state)
+    })
   }
   changeTitle(event){ //用户输入时 把输入值更新渲染到输入框
     this.setState({
