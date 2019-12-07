@@ -67,7 +67,6 @@ class App extends Component {
     }
   }
 
-
   render(){
     //待办条目
     let todos = this.state.todoList
@@ -163,10 +162,12 @@ class App extends Component {
     })
   }
   delete(event, todo){
-    todo.deleted = true
-    this.setState(this.state)
+    TodoModel.destroy(todo.id, () => {
+      todo.deleted = true
+      this.setState(this.state)
+    })   
   }
-}
+} //render()
 
 export default App;
 

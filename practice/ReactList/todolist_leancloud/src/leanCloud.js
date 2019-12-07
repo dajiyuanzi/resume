@@ -54,8 +54,14 @@ export const TodoModel = {
   update(){
 
   },
-  destroy(){
-
+  destroy(todoId, successFn, errorFn){
+    // 文档 https://leancloud.cn/docs/leanstorage_guide-js.html#删除对象
+    let todo = AV.Object.createWithoutData()
+    todo.destroy().then(function (response) {
+      successFn && successFn.call(null)
+    }, function (error) {
+      errorFn && errorFn.call(null, error)
+    });
   }
 }
 
