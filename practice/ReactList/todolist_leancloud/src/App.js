@@ -57,14 +57,7 @@ class App extends Component {
       // {id:1, title:'1st Todo Item'}, 这是设计的数据格式
       // {id:1, title:'2nd Todo Item'}
     }
-    let user = getCurrentUser()
-    if(user){
-      TodoModel.getByUser(user, (todos)=>{ //请求todo数据
-        let stateCopy = JSON.parse(JSON.stringify(this.state))
-        stateCopy.todoList = todos
-        this.setState(stateCopy)
-      })
-    }
+    this.initTodoGetByUser() //请求数据
   }
 
   render(){
@@ -109,6 +102,7 @@ class App extends Component {
           <UserDialog 
             onSignUp={this.onSignUpOrSignIn.bind(this)}
             onSignIn={this.onSignUpOrSignIn.bind(this)}
+            todoInit={this.initTodoGetByUser.bind(this)}
           /> 
         }
       </div>
@@ -133,6 +127,16 @@ class App extends Component {
   componentDidUpdate(){
     
   }
+  initTodoGetByUser(){
+    let user = getCurrentUser()
+    if(user){
+      TodoModel.getByUser(user, (todos)=>{ //请求todo数据
+        let stateCopy = JSON.parse(JSON.stringify(this.state))
+        stateCopy.todoList = todos
+        this.setState(stateCopy) //更新状态数据，react自动局部更新渲染
+      })
+    }
+  }
   toggle(e, todo){ //item的<input checkbox/>有change时触发以下判断：satus此时在addTodo中初始为null，所以被赋值为completed
     let oldStatus = todo.status
     todo.status = todo.status==='completed' ? '' : 'completed' //如果是status已经是completed, 触发change时再设为空(去掉勾)
@@ -153,7 +157,7 @@ class App extends Component {
     //console.log('我得添加一个todo了')
     let newTodo = {
       title: event.target.value,
-      status: null,
+      status: '', //leancloud要求 status 应该是一个 Object 而不是一个 String。由于我们一开始讲 status 设置为 null，导致 LeanCloud 认为 status 是个对象
       deleted: false
     }
     TodoModel.create(newTodo, (id)=>{ //leancloud回自动给每条数据加id, 在leancloud以回调传回到这里

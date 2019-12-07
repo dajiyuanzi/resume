@@ -50,6 +50,7 @@ export default class UserDialog extends Component {
     let {username, password} = this.state.formData
     let success = (user)=>{
       this.props.onSignIn.call(null, user)
+      this.props.todoInit.call(null) //再次请求数据
     }
     let error = (error)=>{
       switch(error.code){

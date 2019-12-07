@@ -21,6 +21,7 @@ export const TodoModel = {
   getByUser(user, successFn, errorFn){ //请求todo的数据
     // 文档见 https://leancloud.cn/docs/leanstorage_guide-js.html#批量操作
     let query = new AV.Query('Todo')
+    query.equalTo('deleted', false) //获取所有deleted属性为false的todo
     query.find().then((response)=>{
       let array = response.map((t)=>{ //map(func)返回一个新数组，其元素为原始数组元素调用处理函数后的值。
         return {id: t.id, ...t.attributes}
@@ -43,6 +44,7 @@ export const TodoModel = {
     let acl = new AV.ACL()
     acl.setPublicReadAccess(false) // 注意这里是false。默认当前用户可读，默认public 不可写。
     acl.setWriteAccess(AV.User.current(), true)
+    acl.setReadAccess(AV.User.current(), true)
     todo.setACL(acl)
 
     todo.save().then(function(response){
@@ -72,13 +74,18 @@ export const TodoModel = {
     }, (error) => errorFn && errorFn.call(null, error))
   },
   destroy(todoId, successFn, errorFn){
+    
+    //删除数据
     // 文档 https://leancloud.cn/docs/leanstorage_guide-js.html#删除对象
-    let todo = AV.Object.createWithoutData('Todo', todoId)
-    todo.destroy().then(function (response) {
-      successFn && successFn.call(null)
-    }, function (error) {
-      errorFn && errorFn.call(null, error)
-    });
+    // let todo = AV.Object.createWithoutData('Todo', todoId)
+    // todo.destroy().then(function (response) {
+    //   successFn && successFn.call(null)
+    // }, function (error) {
+    //   errorFn && errorFn.call(null, error)
+    // });
+
+    // 我们不应该删除数据，而是将数据标记为 deleted，这样方便用户查看他删掉的todo
+    TodoModel.update({id: todoId, deleted: true}, successFn, errorFn)
   }
 }
 
