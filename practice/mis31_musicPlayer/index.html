@@ -237,7 +237,7 @@
     //请求音乐资源，由json中的url来请求 （回调函数实现解耦）
     function getMusicList(callback){
       var xhr = new XMLHttpRequest()
-      xhr.open('GET', '/music.json', true)
+      xhr.open('GET', './music.json', true)
       xhr.onload = function(){
         if((xhr.status >=200 && xhr.status < 300) || xhr.status === 304){
           callback(JSON.parse(this.responseText))
