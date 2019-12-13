@@ -78,7 +78,7 @@ $('.musicbox .bar').onclick = function(e){
 //请求音乐资源，由json中的url来请求 （回调函数实现解耦）
 function getMusicList(callback){
   var xhr = new XMLHttpRequest()
-  xhr.open('GET', '/music.json', true)
+  xhr.open('GET', './music.json', true)  //要加点，表 根目录(从整个项目文件夹开始)，否则url路径错误
   xhr.onload = function(){
     if((xhr.status >=200 && xhr.status < 300) || xhr.status === 304){
       callback(JSON.parse(this.responseText))
