@@ -13,7 +13,7 @@
     <!-- <son-component @change="handleTotal"></son-component>change是自定义事件 -->
 
     <son-component v-model="total"></son-component>
-    <!-- v-model其实就是绑定了input事件，当触发input时，input事件就自动接收传递过来的参数，并赋值给已经绑定的数据total -->
+    <!-- v-model其实含有v-on, 默认绑定了input事件。当input事件被触发时，v-model就自动接收传递过来的参数，并赋值给已经绑定的父组件数据total --> 
   </div>
   
   <!--环境搭建-->
