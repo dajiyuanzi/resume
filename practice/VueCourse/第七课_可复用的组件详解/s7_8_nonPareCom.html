@@ -21,6 +21,12 @@
   <!--环境搭建-->
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
   <script>
+    /*下面代码的运作流程：在同一根组件下，若 全局的兄弟组件A和B 之间传递数据，先创建一个空的Vue实例（里面没有任何内容，就是作为“中介”而用）；在组件A写方法 来触发事件，
+    在组件B的钩子函数中，实例创建时 就监听这个事件。其中的 空vue实例 相当于“中介”，A触发事件，中介 知道后 就去提醒B，B执行它所监听的方法。（空实例中介 和 全局组件A&B 都处在同一根组件，所以可以互传数据）
+    跟实例(根组件) 就是 一个vue的实例(app)，只要是被new出来的vue实例都是根组件，所以一个vue单页面项目中只需要 出现一次new创建的vue实例。
+    根组件和父组件 概念不要混淆---
+    父组件，根组件也只是 它的父组件的数据；子组件 都是放在 父组件对应的dom布局内(即templatetemplate的里的dom标签)。*/
+
     //触发事件
     Vue.component('my-acomponent', {
       template:'<div><button @click="handle">点击我向B组件传递数据</button></div>',
@@ -32,7 +38,7 @@
       },
       methods:{
         handle:function(){
-          this.$root.bus.$emit('lala', this.aaa) //访问根组件 并发射lala事件和其参数aaa
+          this.$root.bus.$emit('lala', this.aaa) //访问根组件中的"中介bus" 并发射lala事件和其参数aaa
         }
       }
     })
@@ -68,11 +74,11 @@
       }
     })
 
-    var app = new Vue({ ///父组件，根组件也只是 父组件实例的数据；放在template的里的dom标签是 子组件，放在父组件的dom布局内
+    var app = new Vue({ //vue实例app 是根组件
       el:"#app",
       data:{
         //bus中介，处在根组件
-        bus:new Vue(), //实例bus是 根组件，上面的子组件都被创建到了Vue父类上（即 全局组件），所以bus作为实例 可以与 Vue类内的全局组件沟通
+        bus:new Vue(), //组件A&B是 Vue父类上的 全局组件，所以bus作为父类中的数据，可以与 Vue类内的全局组件沟通
         msg:'数据还未修改',
         fromchild:'还未拿到'
       },
@@ -80,7 +86,7 @@
       methods:{
         getChildData:function(){
           //用来拿子组件中的内容----$refs
-          this.fromchild=this.$refs.a.msg //父组件 从子组件 获得数据
+          this.fromchild=this.$refs.a.msg //子组件(template) 从父组件child-component 获得数据并修改
         }
       }
     })
