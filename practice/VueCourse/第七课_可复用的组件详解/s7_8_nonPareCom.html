@@ -21,11 +21,13 @@
   <!--环境搭建-->
   <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
   <script>
-    /*下面代码的运作流程：在同一根组件下，若 全局的兄弟组件A和B 之间传递数据，先创建一个空的Vue实例（里面没有任何内容，就是作为“中介”而用）；在组件A写方法 来触发事件，
+    /*下面兄弟组件AB通讯代码的运作流程：在同一根组件下，若 全局的兄弟组件A和B 之间传递数据，先创建一个空的Vue实例（里面没有任何内容，就是作为“中介”而用）；在组件A写方法 来触发事件，
     在组件B的钩子函数中，实例创建时 就监听这个事件。其中的 空vue实例 相当于“中介”，A触发事件，中介 知道后 就去提醒B，B执行它所监听的方法。（空实例中介 和 全局组件A&B 都处在同一根组件，所以可以互传数据）
     跟实例(根组件) 就是 一个vue的实例(app)，只要是被new出来的vue实例都是根组件，所以一个vue单页面项目中只需要 出现一次new创建的vue实例。
     根组件和父组件 概念不要混淆---
-    父组件，根组件也只是 它的父组件的数据；子组件 都是放在 父组件对应的dom布局内(即templatetemplate的里的dom标签)。*/
+    父组件，根组件也只是 它的父组件的数据；子组件 都是放在 父组件对应的dom布局内(即templatetemplate的里的dom标签)。
+    
+    另有父子两方如何不用props通信*/
 
     //触发事件
     Vue.component('my-acomponent', {
@@ -64,7 +66,7 @@
       template:'<button @click="setFatherData">通过点击我修改父亲的数据</button>',
       methods:{
         setFatherData:function(){
-          this.$parent.msg='数据已经修改了' //从父组件获得数据并修改
+          this.$parent.msg='数据已经修改了' //子组件(template) 获得 父组件app的变量msg 并修改 
         }
       },
       data:function(){
@@ -74,7 +76,7 @@
       }
     })
 
-    var app = new Vue({ //vue实例app 是根组件
+    var app = new Vue({ //vue实例app 是根组件, 同时也是一个父组件(相对my-acomponent my-bcomponent child-component)
       el:"#app",
       data:{
         //bus中介，处在根组件
@@ -86,7 +88,7 @@
       methods:{
         getChildData:function(){
           //用来拿子组件中的内容----$refs
-          this.fromchild=this.$refs.a.msg //子组件(template) 从父组件child-component 获得数据并修改
+          this.fromchild=this.$refs.c.msg
         }
       }
     })
