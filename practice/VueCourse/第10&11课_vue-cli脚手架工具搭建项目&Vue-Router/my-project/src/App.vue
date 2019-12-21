@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <router-view></router-view> <!--组件模板就渲染于此-->
+    <router-view></router-view> <!--在main.js导入的 路由的组件模板 就渲染于此-->
 
 
     <img src="./assets/logo.png">
