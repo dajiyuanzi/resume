@@ -72,7 +72,7 @@
     store = Redux.createStore(stateChanger) //Redux创建一个store实例，store接收一个Reducer函数作为参数。
 
     render(store)
-    store.subscribe(()=>{
+    store.subscribe(()=>{ //subscribe监听每次修改情况 Adds a change listener. It will be called any time an action is dispatched.
       render(store)  // 3 接收到事件，重新 render
     })
 
