@@ -47,14 +47,13 @@ export default connect(mapStateToProps,mapDispatchToProps)(App);
 /* connext(x, y)(App), x和y的名称 随便取，App是相关的组件class，connect把x和y合并为props传给App
 X必须是函数，该函数返回 state中需要的数据 x:state.x (获得状态); --把state映射到props.n
 y是 对象{}或函数，该对象{} 返回 要dispatch的action，以变更状态 (更新状态) --把dispatch action映射到props.add1() 
-
 x和y返回的都是个{}对象
 */
 
 
 /* connect(x, y)(App)的运作流程
 y被触发时，把数据变更的action发给index.js，其内中的store(reducer)来处理state更新，provider将监听state更新
-并把数据传递给 子组件APP, 其中的connect(y)将再获取数据以渲染。 */
+并把数据传递给 子组件APP, 其中的connect(x)将获取数据以渲染。 */
 
 
 /*注意
