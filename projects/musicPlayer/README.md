@@ -1,3 +1,5 @@
+预览 https://dajiyuanzi.github.io/resume/projects/musicPlayer/ 
+
 本机上要打开htto-server才能正常运行 （无缓存运行server命令  http-server -c-1）
 
 具体原理看代码注释。
