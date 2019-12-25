@@ -1,5 +1,5 @@
 # Vue-CLI实现CNode社区
-本项目利用CNode社区提供的API，使用Vue-CLI手脚架、Vue组件、Vue-router搭建仿CNode社区项目，并重新布局。
+本项目利用CNode社区提供的API，使用Vue-CLI手脚架、Vue组件、Vue-router、Axios搭建仿CNode社区项目，并重新布局。
 
 #预览地址
 https://dajiyuanzi.github.io/resume/projects/cnode/dist/#/
