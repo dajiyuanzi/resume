@@ -32,10 +32,12 @@ class App extends Component { //不需要super
   }
 }
 
-//React+Redux本质是：
-//一层层的，儿子组件把数据通知给父亲，父亲给爷爷，爷爷组件最后把数据更新到store实例，反向亦然；
-//store subscribe数据变动，由它的reducer函数 处理数据，再由store更新渲染
+//react比原生好处，是 只更新有修改的部分，不需要全部重新渲染
 
-//React+Redux这样 一层层嵌套 传来传去，根本不好用，所以要把2者更好的结合 并让组件直接连store，则用React-Redux (或者用React内置的redux --- 钩子Hooks，干掉redux)
+//React+Redux流程本质是：
+//一层层的，儿子组件把 Redux的状态数据 由props给父亲，父传爷
+
+//React+Redux的缺点 和 用React-Redux克服
+//React+Redux这样 层层嵌套传递，根本不好用。为让组件直接获得 Redux的状态信息store，并发起修改的action，则用React-Redux(React内置的redux)   (或者用React内置的 钩子Hooks，干掉redux)
 
 export default App;
