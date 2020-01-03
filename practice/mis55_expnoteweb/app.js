@@ -38,7 +38,7 @@ app.get('/', function(req, res){
 app.use('/note', note); //当url含有“note”时，将会调用 应用级的路由note 来进一步处理请求（Router对象，相当于一个 子app，其内含有更多的中间件和路由函数，在上方已被require，即./routes/note文件）
 
 
-// catch 404 and forward to error handler
+// catch 404 and forward to error handler，如果不catch error，服务器会崩溃停止
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;

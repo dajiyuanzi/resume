@@ -16,7 +16,7 @@ app.set('view engine', 'ejs'); //视图的模板引擎
 app.use(logger('dev')); //中间件app.use(funcx)，该步的结果，再交给下一个中间件来处理
 app.use(express.json()); //中间件express.json()可处理json数据
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());//解析cookie
+app.use(cookieParser()); //解析cookie
 app.use(express.static(path.join(__dirname, 'public')));//生成资源（public文件夹）的绝对路径
 
 app.use('/', indexRouter);//如果请求的url和斜杠匹配，就给indexRouter处理
