@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import './TodoInput.css'
 
 export default class TodoInput extends Component {
-  render(){ //<input defaultValue={xx}/>中的defaultValue 只会影响input的第一次值，后面 newTodo 怎么变，都不会影响 input
+  render(){ 
     return (
       <input type="text" 
-        // defaultValue={this.props.content} 
+        // defaultValue={this.props.content} //<input defaultValue={xx}/>中的defaultValue 只会影响input的第一次值，后面 newTodo 怎么变，都不会影响 input
         value={this.props.content}
         className="TodoInput"
         onChange={this.changeTitle.bind(this)}

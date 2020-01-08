@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './TodoItem.css'
 
 export default class TodoItem extends Component {
-  render(){  //satus在addTodo中初始为null
+  render(){  //status在addTodo中初始为null
     return (
       <div className="TodoItem">
         <input 

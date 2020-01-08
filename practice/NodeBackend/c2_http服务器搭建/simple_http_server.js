@@ -37,31 +37,31 @@ server.on('request', function (request, response) {
 
   console.log(url);
 
-  const path = url.substr(0, url.indexOf('?'));
+  const path = url.substr(0, url.indexOf('?')); //识别url后的参数
 
   console.log(path);
 
   const queryString = url.substr(url.indexOf('?') + 1, url.length);
 
-  const query = qs.parse(queryString);
+  const query = qs.parse(queryString); //querystring模块的parse()方法 将URL查询的字符串 解析为键值对的集合。
 
   switch (path) {
     case '/user':
       switch (request.method) {
         case 'GET':
           response.statusCode = 200;
-          response.end(JSON.stringify(users));
+          response.end(JSON.stringify(users)); //处理json
           break;
         case 'POST':
           const contentType = request.headers['content-type'];
 
-          if (contentType !== 'application/json') {
+          if (contentType !== 'application/json') { //下面开始处理json
             response.statusCode = 400;
             response.end('error');
           }
 
           let requestBodyStr = '';
-          request.on('data', function (data) {
+          request.on('data', function (data) { //data和end是http请求对象的事件。Data：当服务端接收到数据时触发 End：数据接收完时触发
             requestBodyStr += data.toString();
           });
           request.on('end', function () {

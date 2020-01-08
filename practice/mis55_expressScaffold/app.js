@@ -24,7 +24,7 @@ app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler，即上面两个url都没匹配上
 app.use(function(req, res, next) {
-  next(createError(404));//生成404，next把结果 交给下一级中间件处理
+  next(createError(404));//生成404，next把结果 交给下一面的中间件处理
 });
 
 // error handler
