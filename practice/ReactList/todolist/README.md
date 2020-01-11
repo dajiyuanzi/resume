@@ -1,3 +1,7 @@
+该项目使用reactt的props，将父组件App内定义的函数 传给子组件TodoItem(展示数据)和TodoInput(输入数据)。数据存储和读取是用的window对象自带的localstorage实现的，在模块localStore.js.
+技术难点是 "todoinput的用户输入要通过触发onchange事件 来渲染到state" 难理解.
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

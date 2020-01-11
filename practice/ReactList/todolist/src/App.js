@@ -65,7 +65,7 @@ class App extends Component {
     this.setState(this.state)
     //localStore.save('todoList', this.state.todoList)
   }
-  changeTitle(event){ //用户输入时，把输入值更新到状态变量(react的diff会自动对比更新)，并通过TodoInput的参数content 渲染到输入框
+  changeTitle(event){ //用户输入时触发onchange事件，把输入值更新到状态变量(react的diff会自动对比更新)，并通过TodoInput的参数content 渲染到输入框
     this.setState({
       newTodo: event.target.value,
       todoList: this.state.todoList//这行可以不写

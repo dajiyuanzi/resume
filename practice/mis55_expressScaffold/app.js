@@ -13,9 +13,10 @@ var app = express();
 app.set('views', path.join(__dirname, 'views')); //views文件夹
 app.set('view engine', 'ejs'); //视图的模板引擎
 
+//use默认路由是'/'，其内的中间件都是有next()
 app.use(logger('dev')); //中间件app.use(funcx)，该步的结果，再交给下一个中间件来处理
 app.use(express.json()); //中间件express.json()可处理json数据
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false })); //解析UTF-8的编码的数据
 app.use(cookieParser()); //解析cookie
 app.use(express.static(path.join(__dirname, 'public')));//生成资源（public文件夹）的绝对路径
 

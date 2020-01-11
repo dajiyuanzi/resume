@@ -8,8 +8,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
 
   <title>GitHub 看板</title>
-  <link rel="stylesheet" href="//at.alicdn.com/t/font_440195_fw8hsnrso53wstt9.css
-">
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_440195_fw8hsnrso53wstt9.css">
  <meta name="referrer" content="never">
   <style>
     * {
@@ -32,11 +31,11 @@
 
 
     main>section {
-      height: calc(100% - 45px); /*了类似height: calc(100vh - 60px);满屏高度下，再减去45px。注：减号两侧一定要有空格*/
+      height: calc(100% - 45px); /*类似height: calc(100vh - 60px); 满屏高度下，再减去45px，作为 展示加载动画icon 的区域。注：减号两侧一定要有空格*/
       padding: 10px;
       background: #fff;
-      overflow: scroll; /*只让main标签的溢出内容滚动。overflow 属性规定当内容溢出元素框时发生的事情；scroll	内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。*/
-      -webkit-overflow-scrolling: touch; /*ios 上滚动时增加弹性*/
+      overflow: scroll; /*只让main标签的溢出内容滚动。overflow 属性规定当内容溢出元素框时发生的事情；scroll指 内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。*/
+      -webkit-overflow-scrolling: touch; /*手机上滚动时增加弹性*/
     }
     main>section{
       display: none;/*main中的内容有三类被加载，但先都隐藏，需要显示什么 再点击显示*/
@@ -44,11 +43,13 @@
     main section:first-child{
       display: block;/*暂时先让第一个section显示出来，在js内实现点击下面的tab切换section内容*/
     }
+
+
     .item {
       border-bottom: 1px solid #ccc;/*下边线*/
       padding-bottom: 10px;
       padding-top: 10px;
-      display: flex;
+      display: flex; /*指定容器为 块状flex 布局，容器内元素则按flex布局。incline-flex是行内flex。flex让clear float vertical-align属性无效*/
     }
     .item .cover,
     .item .cover img{
@@ -80,19 +81,22 @@
     .item .detail .score{
       color: #FF5722;
     }
+
+
     .loading {
       text-align: center;
       padding-top: 10px;
       display: none;/*隐藏*/
     }
-    .loading .iconfont{/*loading的动画旋转效果*/
+    .loading .iconfont{/*loading的动画旋转效果 使用icon */
       display: inline-block; /*动画旋转只是自付部分，用block，元素占位也要跟着旋转*/
-      animation: 1s rotate linear infinite;/*动画名称animate 定义在下方*/
+      animation: 1s rotate linear infinite;/*动画名称rotate，其定义在下方的keyframe*/
     }
-    @keyframes rotate {/*loading的动画旋转效果的定义*/
+    @keyframes rotate {/*loading的动画旋转效果的定义。@keyframes 规则 能够创建动画；创建动画的原理是，将一套 CSS 样式逐渐变化为另一套样式。*/
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg);  }
     }
+
 
     #search {
       height: calc(100% - 45px);
@@ -124,13 +128,13 @@
 
 
     footer {/*固定在底端，用fix在移动端有很多问题*/
-      position: absolute;
+      position: absolute; /*绝对定位后 用bottom定位于底部*/
       bottom: 0;
       height: 45px;
       width: 100%;
       border-top: 1px solid #ccc;
       background-color: #fff;
-      display: flex;
+      display: flex; /*指定容器为 块状flex 布局，容器内元素则按flex布局。incline-flex是行内flex。flex让clear float vertical-align属性无效*/
     }
     footer>div {
       flex: 1;/*相当于flex-grow属性为 1，则容器footer>div内的元素将按照flex布局来等分剩余空间*/
@@ -139,7 +143,7 @@
       color: #666;
       padding-top: 6px;
     }
-    footer .active{/*底部tab被点击时的颜色改变*/
+    footer .active{/*底部tab被点击后 颜色改变*/
       color: #FF5722;
     }
     footer>div>span{
@@ -150,8 +154,8 @@
 <body>
   <main>
     <section id="repo-board">
-      <div class="container">  
-        <!--
+      <div class="container">  <!--js用请求的json数据 所生合成的dom，都放在container div里-->
+        <!-- js填入div
          <div class="item">
           <a href="https://github.com/TryGhost/Ghost">
             <div class="order"><span>1</span></div>
@@ -163,7 +167,7 @@
           </a>
         </div> -->
       </div>
-      <div class="loading"><span class="iconfont icon-loading"></span></div><!--加载中，默认display: none;-->
+      <div class="loading"><span class="iconfont icon-loading"></span></div><!--加载中，默认display: none;，加载时显示-->
     </section>
     <section id="user-board">
       <div class="container">

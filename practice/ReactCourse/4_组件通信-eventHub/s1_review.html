@@ -51,9 +51,10 @@ function Foo(props) {
     <div>
       <p>Foo get the msg: {props.msg}</p>   {/* 父->子 */}
       <button onClick={props.fn}>click</button> {/* 子->父 */}
-
       {/* 子->父 注意：onclick(fn)的赋值必须是个 函数，而不是函数执行后的返回值，fn()有括号 就是执行函数 */}
+      
       <button onClick={()=>props.fn2('Son Msg2')}>click2</button>
+      {/* 注意：父组件传递的回调，它的执行环境还是父组件，箭头函数没有自己的执行环境，所以这里用它 */}
     </div>   
   )
 }

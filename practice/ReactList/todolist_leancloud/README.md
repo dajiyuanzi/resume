@@ -1,3 +1,8 @@
+该项目使用react的props，将父组件App内定义的函数 传给子组件TodoItem(展示数据)和TodoInput(输入数据)，以及其它组件。数据存储和读取是用的leancloud的API实现的，在模块leancloud.js。
+技术难点是 "todoinput的用户输入要通过触发onchange事件 来渲染到state" 难理解 和 层层组件传递回调时容易看糊涂（代码可读性差），之后可以用react-redux来做。
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

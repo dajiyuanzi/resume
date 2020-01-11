@@ -16,21 +16,23 @@
       text-decoration: none; /*清除a链接的下划线*/
       color: #333;
     }
-    html, body{
+    html, body, main{
       height: 100%;
+      position: relative; /*作为footer定位的依照，但position:relative会让body收缩，所以要把height设为100%*/
     }
     body{
-      position: relative; /*作为footer定位的依照，但position:relative会让body收缩，所以要把height设为100%*/
       font-size: 12px;
       line-height: 1.2;
-      background-color: #fff;
-      overflow: scroll; /*只让main标签的溢出内容滚动。overflow 属性规定当内容溢出元素框时发生的事情；scroll	内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。*/
-      -webkit-overflow-scrolling: touch; /*手机上滚动时有弹性*/
     }
 
-    main{
-      height: calc(100vh - 60px);/*满屏高度下，再减去50px。注：减号两侧一定要有空格*/
+
+    main>section{
+      height: calc(100vh - 60px);/*类似height: calc(100vh - 60px); 满屏高度下，再减去45px，作为 展示加载动画icon 的区域。注：减号两侧一定要有空格*/
       /*background: blue;*/
+      padding: 10px;
+      background-color: #fff;
+      overflow: scroll; /*只让main标签的溢出内容滚动。overflow 属性规定当内容溢出元素框时发生的事情；scroll指 内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。*/
+      -webkit-overflow-scrolling: touch; /*手机上滚动时有弹性*/
     }
     main>section{
       display: none;/*main中的内容有三类被加载，但先都隐藏，需要显示什么 再点击显示*/
@@ -38,11 +40,13 @@
     main>section:first-child{
       display: block; /*暂时先让第一个section显示出来，在js内实现点击下面的tab切换section内容*/
     }
+
+
     .item {
       border-bottom: 1px solid #ccc;/*下边线*/
       padding-bottom: 10px;
       padding-top: 10px;
-      display: flex;
+      display: flex; /*指定容器为 块状flex 布局，容器内元素则按flex布局。incline-flex是行内flex。flex让clear float vertical-align属性无效*/
     }
     .item .cover,
     .item .cover img{
@@ -76,20 +80,21 @@
       color: #FF5722;
     }
 
+
     footer{/*固定在底端，用fix在移动端有很多问题*/
-      position: absolute;
+      position: absolute; /*绝对定位后 用bottom定位于底部*/
       bottom: 0;
       height: 50px;
       width: 100%;
       /*background: red;*/
-      display: flex;
       border-top: 1px solid #ccc;
+      display: flex; /*指定容器为 块状flex 布局，容器内元素则按flex布局。incline-flex是行内flex。flex让clear float vertical-align属性无效*/
     }
     footer>div{
       flex: 1; /*相当于flex-grow属性为 1，则容器footer>div内的元素将按照flex布局来等分剩余空间*/
       text-align: center;
     }
-    footer .active{/*底部tab被点击时的状态*/
+    footer .active{/*底部tab被点击后 颜色改变*/
       color: #FF5722;
     }
     footer>div>span{
@@ -131,7 +136,7 @@
       $(this).addClass('active').siblings().removeClass('active') //点击的底部tab增加 样式active类，其他同级的tab移出active
     })
 
-    //请求数据以展示 一次请求一页 30条
+    //请求数据以展示 url有参数page 一次请求一页(30条)
     $.ajax({
       url: 'https://api.github.com/search/repositories?q=language:javascript&sort=stars&order=desc', //要加http字段，否则url会拼在当前网址的后面
       type: 'GET',
@@ -141,13 +146,13 @@
       dataType: 'jsonp'
     }).done(function(ret){
       console.log(ret)
-      setData(ret)
+      setData(ret) //收到url返回的数据后，处理并生成每个数据的dom
     }).fail(function(){
       console.log('error...')
     })
 
-    function setData(data){
-      data.data.items.forEach(function(subject, index){//遍历json数据中的items数据类型里的数据
+    function setData(data){ //收到url返回的数据后，处理并生成每个数据的dom
+      data.data.items.forEach(function(subject, index){//遍历json数据中的items数据类型里的数据：主题&索引号
         var tpl=`<div class="item">
                   <a href="https://github.com/TryGhost/Ghost">
                     <div class="order"><span>1</span></div>
