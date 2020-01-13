@@ -10,15 +10,15 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views')); //views文件夹
+app.set('views', path.join(__dirname, 'views')); //读取view文件的路径 拼接至views文件夹：项目根目录_dirname+views
 app.set('view engine', 'ejs'); //视图的模板引擎
 
-//use默认路由是'/'，其内的中间件都是有next()
-app.use(logger('dev')); //中间件app.use(funcx)，该步的结果，再交给下一个中间件来处理
+//use默认路由是'/'，其内的中间件自身都含有next()
+app.use(logger('dev')); //中间件logger会做日志。系统中间件一般有next， 会把该步的结果 再交给下一个中间件来处理
 app.use(express.json()); //中间件express.json()可处理json数据
 app.use(express.urlencoded({ extended: false })); //解析UTF-8的编码的数据
 app.use(cookieParser()); //解析cookie
-app.use(express.static(path.join(__dirname, 'public')));//生成资源（public文件夹）的绝对路径
+app.use(express.static(path.join(__dirname, 'public')));//将静态文件目录绝对路径 设置为：项目根目录+/public文件夹
 
 app.use('/', indexRouter);//如果请求的url和斜杠匹配，就给indexRouter处理
 app.use('/users', usersRouter);
@@ -32,7 +32,7 @@ app.use(function(req, res, next) {
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};//获取error中的信息
+  res.locals.error = req.app.get('env') === 'development' ? err : {};//若是开发环境，则获取error中的信息，否则错误时抛出空对象
 
   // render the error page
   res.status(err.status || 500); //如果不是404，就变为500
