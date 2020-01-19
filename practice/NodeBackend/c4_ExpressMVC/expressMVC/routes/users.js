@@ -20,6 +20,7 @@ router.post('/', (req, res)=>{
   const {firstName, lastName, age} = req.body //post请求 提交新用户，数据放在请求的body内
   const u = UserService.addNewUser(firstName, lastName, age)
   res.json(u) //发送JSON给客户端
+  //写入用户数据，用postman,在post形式的body内 写入xxx-form-urlencoded格式的 请求数据 并发送
 })
 router.get('/:userId', (req, res)=>{ //冒号 标识 userId为参数
   const users = UserService.getUserById(Number(req.params.userId)) //req.params可获取 post请求url中 的参数userId

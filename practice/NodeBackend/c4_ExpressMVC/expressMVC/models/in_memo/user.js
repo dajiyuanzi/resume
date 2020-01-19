@@ -15,6 +15,7 @@ class User{
   static insert(firstName, lastName, age){
     const u = new User(firstName, lastName, age)
     User.users.push(u) //users是User的静态属性
+    console.log(User.users.push(u))
     return u
   }
   static getOneByName(firstName, lastName){ //查找用户
