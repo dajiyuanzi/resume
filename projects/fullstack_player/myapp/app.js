@@ -4,8 +4,9 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// var indexRouter = require('./server/routes/index');
+// var usersRouter = require('./server/routes/users');
+var user = require('./server/routes/user');
 
 var app = express();
 
@@ -54,8 +55,9 @@ app.all('*',function(req, res, next) {
 });
 
 
-app.use('/', indexRouter); //webpack.config.js 将把根目录路由"/" 指向./client/index.js，而非之前的routes/index.js
-app.use('/users', usersRouter);
+// app.use('/', indexRouter); //webpack.config.js 将把根目录路由"/" 指向./client/index.js，而非之前的routes/index.js
+// app.use('/users', usersRouter);
+app.use('/api', user);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -74,26 +76,40 @@ app.use(function(err, req, res, next) {
 });
 
 
+//mongoose的数据库连接配置
 var mongoose = require('mongoose'),
     DB_URL = 'mongodb://localhost:27017/myapp';
-
 //连接
 mongoose.connect(DB_URL, {useMongoClient: true,});
-
 //连接成功
 mongoose.connection.on('connected', function () {    
     console.log('connect success ' + DB_URL);  
 });    
-
 //连接异常
 mongoose.connection.on('error',function (err) {    
     console.log('connect error: ' + err);  
 });    
-
 //连接断开
 mongoose.connection.on('disconnected', function () {    
     console.log('disconnect');  
 });  
+
+
+//下述代码生效：运行了npm run server，且数据库是可以连接上的，我们将数据写入数据库。后面修改参数的相同操作同理。
+//在添加时不用重启服务器完成后需删除这段代码
+//数据库的文件读取：歌曲列表
+var MongoClient = require('mongodb').MongoClient;
+var fs=require('fs');
+//这里的songs.json是mongoDB目录下的歌曲数据
+var file="./mongoDBsons.json"; //再改为personal.json等
+//读取文件 为json格式
+var result=JSON.parse(fs.readFileSync(file));
+//连接数据库 并 将文件读取数据 添加进数据库对应的Account表单中
+MongoClient.connect(DB_URL,function(err, db) {
+    //这里的Songs就是数据库集合的内容
+    db.collection('Songs').insert(result); //再改为personalized等
+});
+
 
 
 module.exports = app;

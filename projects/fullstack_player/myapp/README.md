@@ -1,27 +1,52 @@
-## 我的项目搭建过程
+
+本课程路由跳转是依靠前端的react-router，所以 routes 用于控制后端接口的配置，则webpack.config.js的entry将根路径"/"指向client/index.js
+
+ npm run server 运行
 
 
+
+## 项目文件结构
+```
+├── app.js    
+├── bin
+│   └── www         用于创建一个http服务器
+├── package.json      
+├── public          存储所有静态文件目录
+│   ├── imgs  
+│       └── style.css
+│   ├── js 
+│   ├── css   
+│   ├── fonts       fontawesome 存储目录
+│        ├── css
+│        └── fonts
+│   ├── svgs
+│   ├── index.html(内容与views->index.ejs一致)
+├── views           视图目录
+│   ├── error.ejs
+│   ├── index.ejs
+├── server          视图目录
+│   ├── routes
+│        └── user.js
+│   ├── models        
+|   ├── schemas
+├── mongoDB         存放所有mongoDB的表 
+└── client
+|   ├── actions     action 存储目录
+|   ├── components  组件存储目录
+|   ├── pages       页面存储目录
+|   ├── reducers    reducers存储目录
+|   ├── store       store存储目录
+|   ├── styles      页面的less文件储存目录
+|   ├── index.js    前端入口文件+路由配置文件
+```
+
+
+## 部分项目的搭建过程
 $ npm install express-generator -g #下载Express 应用生成器
 $ express -e myapp   #创建一个应用(-e表示ejs模板，没有就是默认jade)
 $ cd myapp #进入项目目录
  
  DEBUG=myapp npm start #(MacOS 或 Linux 平台) / set DEBUG=myapp & npm start(Windows) 
-
-├── app.js    
-├── bin
-│   └── www           用于创建一个http服务器
-├── package.json      
-├── public            存储所有静态文件目录
-│   ├── images        修改为：imgs，图片目录
-│   ├── javascripts   修改为：js，压缩后js存放目录
-│   └── stylesheets   修改为：css,存储压缩后css
-│       └── style.css
-├── routes            路由目录
-│   ├── index.js      首页路由
-│   └── users.js      user路由
-└── views             视图目录
-    ├── error.ejs
-    ├── index.ejs
 
 
 配置webpack
@@ -53,3 +78,9 @@ $ npm install cross-env --save-dev
 
 启动服务器
 npm run server
+
+antd-moblie 使用配置
+$ npm install antd-mobile --save
+$ npm install babel-plugin-import svg-sprite-loader --save-dev
+babel-plugin-import 是一款 babel 插件，它会在编译过程中将 import 的写法自动转换为按需引入的方式。 svg 文件(矢量图)处理。
+

@@ -1,6 +1,15 @@
+// 引入react
 import React, { Component } from 'react'
+import { Tabs } from 'antd-mobile';
 
-//组件的名称首字母一定大写
+//是react懒加载
+import LazyLoad from 'react-lazyload';
+
+import Header from "./header";
+import '../styles/home.less'
+import { connect } from "react-redux";
+const TabPane = Tabs.TabPane;
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -8,9 +17,40 @@ class Home extends Component {
 
   render() {
     return (
-      <div>This is home page.</div>
+      <div>
+        <Header />
+        <Tabs defaultActiveKey="1" swipeable={false}>
+          <TabPane tab="个性推荐" key="1">
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }}>
+              <LazyLoad height={200}>
+                <span>这是个性推荐页面</span>
+              </LazyLoad>
+            </div>
+          </TabPane>
+          <TabPane tab="歌单" key="2">
+            <div style={{ display: 'flex', alignItems: 'left', justifyContent: 'center', backgroundColor: '#fff' }}>
+              <LazyLoad height={200}>
+                <span>这是歌单页面</span>
+              </LazyLoad>
+            </div>
+          </TabPane>
+          <TabPane tab="排行榜" key="3">
+            <div style={{ display: 'flex', alignItems: 'left', justifyContent: 'center', backgroundColor: '#fff' }}>
+              <LazyLoad height={200}>
+                <span>这是排行榜页面</span>
+              </LazyLoad>
+            </div>
+          </TabPane>
+        </Tabs>
+      </div>
     )
   }
 }
-//导出的名称与定义名称一致
-export default Home;
+
+function select(state) {
+  return {
+
+  }
+}
+
+export default connect(select)(Home);
