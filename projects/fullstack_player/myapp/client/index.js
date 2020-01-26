@@ -8,8 +8,8 @@ import { render } from 'react-dom';
 import { HashRouter, Router, Route, hashHistory,Link } from 'react-router-dom'
 
 // 引入React-redux
-import { Provider }from "react-redux";
-import store from "./store/store";
+import { Provider } from "react-redux";
+import store from "./store/store"; //该store内调用了reducer，处理了action
 
 //引入自定义组件
 import Home from "./pages/home"; //首页页面（个性推荐，歌单，主播电台，排行榜）

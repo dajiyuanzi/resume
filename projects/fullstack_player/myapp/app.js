@@ -54,8 +54,8 @@ app.all('*',function(req, res, next) {
   next();    
 });
 
-
-// app.use('/', indexRouter); //webpack.config.js 将把根目录路由"/" 指向./client/index.js，而非之前的routes/index.js
+//webpack.config.js 将把根目录路由"/" 指向./client/index.js，而非之前的routes/index.js
+// app.use('/', indexRouter); 
 // app.use('/users', usersRouter);
 app.use('/api', user);
 
@@ -96,19 +96,25 @@ mongoose.connection.on('disconnected', function () {
 
 
 //下述代码生效：运行了npm run server，且数据库是可以连接上的，我们将数据写入数据库。后面修改参数的相同操作同理。
-//在添加时不用重启服务器完成后需删除这段代码
+//注意：在添加这段代码时，不用重启服务器，完成连接后，需删除这段代码
 //数据库的文件读取：歌曲列表
 var MongoClient = require('mongodb').MongoClient;
 var fs=require('fs');
 //这里的songs.json是mongoDB目录下的歌曲数据
-var file="./mongoDBsons.json"; //再改为personal.json等
+var file="./mongoDB/songs.json"; //再改为personal.json等
+var file2="./mongoDB/playlists.json";
+
 //读取文件 为json格式
 var result=JSON.parse(fs.readFileSync(file));
+var result2=JSON.parse(fs.readFileSync(file2));
+
 //连接数据库 并 将文件读取数据 添加进数据库对应的Account表单中
 MongoClient.connect(DB_URL,function(err, db) {
     //这里的Songs就是数据库集合的内容
     db.collection('Songs').insert(result); //再改为personalized等
+    db.collection('PlayList').insert(result2); 
 });
+
 
 
 

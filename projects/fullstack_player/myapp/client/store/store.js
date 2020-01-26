@@ -1,5 +1,5 @@
 
-// 引入总的rootReducer
+// 引入总的rootReducer,其内还有reducer对action的处理
 import rootReducer from "../reducers/rootReducer";
 // createStore 用于创建store ,applyMiddleware 使用中间件
 import { createStore,applyMiddleware } from 'redux';

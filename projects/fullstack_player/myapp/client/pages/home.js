@@ -9,12 +9,15 @@ import Header from "./header";
 import '../styles/home.less'
 import { connect } from "react-redux";
 const TabPane = Tabs.TabPane;
+import Recommend from '../components/Home/recommend' //将个性推荐页面引入主页
+import Playlist from '../components/Home/playlist' //引入组件
 
 class Home extends Component {
   constructor(props) {
     super(props);
   }
 
+  //jsx里不要写注释
   render() {
     return (
       <div>
@@ -23,14 +26,14 @@ class Home extends Component {
           <TabPane tab="个性推荐" key="1">
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#fff' }}>
               <LazyLoad height={200}>
-                <span>这是个性推荐页面</span>
+                <Recommend />
               </LazyLoad>
             </div>
           </TabPane>
           <TabPane tab="歌单" key="2">
             <div style={{ display: 'flex', alignItems: 'left', justifyContent: 'center', backgroundColor: '#fff' }}>
               <LazyLoad height={200}>
-                <span>这是歌单页面</span>
+                <Playlist/>
               </LazyLoad>
             </div>
           </TabPane>
