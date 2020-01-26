@@ -11,6 +11,7 @@ import { connect } from "react-redux";
 const TabPane = Tabs.TabPane;
 import Recommend from '../components/Home/recommend' //将个性推荐页面引入主页
 import Playlist from '../components/Home/playlist' //引入组件
+import Ranking from '../components/Home/rank'
 
 class Home extends Component {
   constructor(props) {
@@ -40,7 +41,7 @@ class Home extends Component {
           <TabPane tab="排行榜" key="3">
             <div style={{ display: 'flex', alignItems: 'left', justifyContent: 'center', backgroundColor: '#fff' }}>
               <LazyLoad height={200}>
-                <span>这是排行榜页面</span>
+                <Ranking />
               </LazyLoad>
             </div>
           </TabPane>

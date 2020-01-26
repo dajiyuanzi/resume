@@ -74,7 +74,7 @@ class Recommend extends Component {
 
 function select(state) { //改变最后的function select,获取全局的state，它return的就是render()中的this.props
   return {
-    personalizedDetail:state.home.personalizedDetail, //home是/clinet/actions/home.js
+    personalizedDetail:state.home.personalizedDetail, //home是来自reducers/rootReducer.js
   }
 }
 

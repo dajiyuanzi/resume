@@ -103,16 +103,19 @@ var fs=require('fs');
 //这里的songs.json是mongoDB目录下的歌曲数据
 var file="./mongoDB/songs.json"; //再改为personal.json等
 var file2="./mongoDB/playlists.json";
+var file3="./mongoDB/rank.json"
 
 //读取文件 为json格式
 var result=JSON.parse(fs.readFileSync(file));
 var result2=JSON.parse(fs.readFileSync(file2));
+var result3=JSON.parse(fs.readFileSync(file3))
 
 //连接数据库 并 将文件读取数据 添加进数据库对应的Account表单中
 MongoClient.connect(DB_URL,function(err, db) {
     //这里的Songs就是数据库集合的内容
     db.collection('Songs').insert(result); //再改为personalized等
     db.collection('PlayList').insert(result2); 
+    db.collection('Rank').insert(result3); 
 });
 
 

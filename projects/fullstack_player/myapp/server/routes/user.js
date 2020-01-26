@@ -25,4 +25,11 @@ var home = require('../models/home')
 router.get('/playlist',home.getPlayList);
 
 
+//引入创建的排行榜接口的方法
+var rank = require('../models/rank')
+//两个接口一个用于获取官方榜，一个用于或许全球榜
+router.get('/officialrank', rank.getOfficialRank);
+router.get('/nationalrank', rank.getNationalRank);
+
+
 module.exports = router;

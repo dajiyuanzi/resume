@@ -3,6 +3,7 @@
 * 本文件包含首页的所有action，个人推荐，歌单，排行榜
 */
 
+//这里发起ajax请求后端server的数据，然后发给reducer统一处理到状态数据state，发给相应的组件渲染
 
 //定义
 export const CHANGE_TEST = 'CHANGE_TEST';
