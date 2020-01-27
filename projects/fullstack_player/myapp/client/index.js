@@ -15,6 +15,9 @@ import store from "./store/store"; //该store内调用了reducer，处理了acti
 import Home from "./pages/home"; //首页页面（个性推荐，歌单，主播电台，排行榜）
 import Login from "./pages/login";
 
+import Music from "./pages/music";//个人音乐
+import Friends from "./pages/friends";//朋友圈
+
 // 配置路由 (Provider 是一个react组件，提供一个全局的store使得所有的组件都可以使用)
 render((
   <Provider store={store}>
@@ -22,6 +25,8 @@ render((
       <div>
         <Route exact path="/" component={Home} />
         <Route path="/login" component={Login} />
+        <Route path="/music" component={Music} />
+        <Route path="/friends" component={Friends} />
       </div>
     </HashRouter>
   </Provider>
