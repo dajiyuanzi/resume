@@ -4,10 +4,12 @@ import { combineReducers } from "redux";
 
 import home from './home'; //这里引入添加的reducer文件
 import rank from './rank';
+import search from './search';
 
 var rootReducer=combineReducers({
   home,
-  rank
+  rank,
+  search
 });
 
 export default rootReducer;

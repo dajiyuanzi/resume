@@ -84,3 +84,5 @@ $ npm install antd-mobile --save
 $ npm install babel-plugin-import svg-sprite-loader --save-dev
 babel-plugin-import 是一款 babel 插件，它会在编译过程中将 import 的写法自动转换为按需引入的方式。 svg 文件(矢量图)处理。
 
+
+ npm i rc-form --save-dev

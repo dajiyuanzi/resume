@@ -58,6 +58,7 @@ app.all('*',function(req, res, next) {
 // app.use('/', indexRouter); 
 // app.use('/users', usersRouter);
 app.use('/api', user);
+//express后端 所监听的请求，都是client/action中定义的js函数发出的；这些js函数是在引用它的组件 在被渲染时，被触发调用的
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
