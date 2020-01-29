@@ -1,7 +1,16 @@
 
-本课程路由跳转是依靠前端的react-router，所以 routes 用于控制后端接口的配置，则webpack.config.js的entry将根路径"/"指向client/index.js
+本课程路由跳转是依靠前端的react-router，所以 routes/user.js 用于控制后端接口的配置，则webpack.config.js的entry将根路径"/"指向client/index.js。前端中的axios会发出ajax，向 后端的路由接口 请求数据。
 
- npm run server 运行
+运行 npm run server 
+运行 mongod，再运行mongo
+
+
+ React-Redux的运作流程：
+ 在client文件夹下，pages和components内的react组件渲染时(这些组件都 嵌在 index.js的路由内)，声明周期componentDidMount触发调用了action；
+ client/acrions内定义了 向后端获取数据的函数，被/reducer内的reducer函数调用，处理获取的数据；
+ 之后，/reducer/rootReducer.js将所有reducer合并(combineReducers)，以创建store，index.js内的provider将引用此store。
+ store对象内含有 不同层级组件间共用的状态数据，共用状态数据实现了方便的数据更新渲染。
+
 
 
 

@@ -32,4 +32,7 @@ router.get('/officialrank', rank.getOfficialRank);
 router.get('/nationalrank', rank.getNationalRank);
 //express后端 所监听的请求，都是client/action中定义的js函数发出的；这些js函数是在引用它的组件 在被渲染时，被触发调用的
 
+var search = require('../models/search')
+router.get('/search',search.searchSongs);
+
 module.exports = router;

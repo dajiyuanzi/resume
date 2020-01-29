@@ -24,6 +24,9 @@ import Register from "./components/Login/register";//登录页面
 
 import Search from "./pages/search";//搜索页面
 
+import Footer from "./pages/footer";//播放
+import PlayDetial from './components/Player/playDetail';//播放详情
+
 // 配置路由 (Provider 是一个react组件，提供一个全局的store使得所有的组件都可以使用)
 render((
   <Provider store={store}>
@@ -36,6 +39,8 @@ render((
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="/search" component={Search} />
+        <Route path="/playing" component={PlayDetial} />
+        <Footer />
       </div>
     </HashRouter>
   </Provider>
