@@ -198,7 +198,6 @@
     <div>
       <span class="iconfont icon-search"></span><span>Search</span>
     </div>
- 
   </footer>
   
   <script>
@@ -217,7 +216,7 @@
         this.bind()
       },
       bind: function(){
-        var _this = this //指向了类Paging本身，因为：1直接写类名，改名后有影响；2类内的函数如果页用this，其内的this不再指向类了
+        var _this = this //指向了类Paging本身，因为：1直接写类名，改名后有影响；2类内的函数如果也用this，其内的this不再指向类了
         this.$tabs.on('click', function(){//点击底部按钮，切换 展示的section
           var $this = $(this)
           var index = $this.index()//获得 被点击的 底部按钮tab的index
@@ -236,7 +235,7 @@
         this.page = 1//当前页数
         this.count = 30//当前每页的条数
         this.isFinshed = false//将变量作为该对象的属性，方便调用。该变量判断数据是否已经被滚动加载完了。
-        this.isLoading = false//默认ajax不发送请求
+        this.isLoading = false//默认ajax不发送请求 判断是否正加载
         this.bind()//滑动时执行
         this.getData(function(result){//初始化加载第一页
           _this.renderData(result.data)

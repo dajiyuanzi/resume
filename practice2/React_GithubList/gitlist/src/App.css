@@ -1,0 +1,138 @@
+* {
+  box-sizing: border-box;/*盒模型：为元素指定的任何内边距和边框都将在已设定的宽度和高度内进行绘制。通过从已设定的宽度和高度分别减去边框和内边距才能得到内容的宽度和高度。*/
+  margin: 0;
+  padding: 0;
+}
+a {
+  text-decoration: none;/*清除a链接的下划线*/
+  color: #333;
+}
+html,body,main{
+  height: 100%;
+  position: relative; /*作为footer定位的依照，但position:relative会让body收缩，所以要把height设为100%*/
+}
+body{
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+
+main>section {
+  height: calc(100% - 45px); /*类似height: calc(100vh - 60px); 满屏高度下，再减去45px，作为 展示加载动画icon 的区域。注：减号两侧一定要有空格*/
+  padding: 10px;
+  background: #fff;
+  overflow: scroll; /*只让main标签的溢出内容滚动。overflow 属性规定当内容溢出元素框时发生的事情；scroll指 内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。*/
+  -webkit-overflow-scrolling: touch; /*手机上滚动时增加弹性*/
+}
+main>section{
+  display: none;/*main中的内容有三类被加载，但先都隐藏，需要显示什么 再点击显示*/
+}
+main section:first-child{
+  display: block;/*暂时先让第一个section显示出来，在js内实现点击下面的tab切换section内容*/
+}
+
+
+.item {
+  border-bottom: 1px solid #ccc;/*下边线*/
+  padding-bottom: 10px;
+  padding-top: 10px;
+  display: flex; /*指定容器为 块状flex 布局，容器内元素则按flex布局。incline-flex是行内flex。flex让clear float vertical-align属性无效*/
+}
+.item .cover,
+.item .cover img{
+  width: 50px;
+  border-radius: 4px;
+}
+.item>a{
+  display: flex;
+}
+.item .order {
+  display: flex;
+  align-items: center;
+}
+.item .order span{
+  padding: 0 4px;
+  color: #fff;
+  background: green;
+}
+.item .detail {
+  padding-left: 10px;
+}
+.item .detail h2{
+  font-size: 16px;
+}
+.item .detail .extra{
+  color: #999;
+  margin-top: 4px;
+}
+.item .detail .score{
+  color: #FF5722;
+}
+
+
+.loading {
+  text-align: center;
+  padding-top: 10px;
+  display: none;/*隐藏*/
+}
+.loading .iconfont{/*loading的动画旋转效果 使用icon */
+  display: inline-block; /*动画旋转只是自付部分，用block，元素占位也要跟着旋转*/
+  animation: 1s rotate linear infinite;/*动画名称rotate，其定义在下方的keyframe*/
+}
+@keyframes rotate {/*loading的动画旋转效果的定义。@keyframes 规则 能够创建动画；创建动画的原理是，将一套 CSS 样式逐渐变化为另一套样式。*/
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg);  }
+}
+
+
+#search {
+  height: calc(100% - 45px);
+}
+section .search-area{
+  color: #333;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+}
+section .search-area input {
+  width: calc(100% - 50px);
+  padding: 8px;
+  background-color: #eee;
+  border: none;
+  border-radius: 2px;
+  box-shadow: none;
+  outline: none;
+}
+section .search-area .button{
+  position: absolute;
+  right: 0;
+  padding: 8px 10px;
+  background: #FF5722;
+  color: #fff;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+
+footer {/*固定在底端，用fix在移动端有很多问题*/
+  position: absolute; /*绝对定位后 用bottom定位于底部*/
+  bottom: 0;
+  height: 45px;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  background-color: #fff;
+  display: flex; /*指定容器为 块状flex 布局，容器内元素则按flex布局。incline-flex是行内flex。flex让clear float vertical-align属性无效*/
+}
+footer>div {
+  flex: 1;/*相当于flex-grow属性为 1，则容器footer>div内的元素将按照flex布局来等分剩余空间*/
+  font-size: 12px;
+  text-align: center;
+  color: #666;
+  padding-top: 6px;
+}
+footer .active{/*底部tab被点击后 颜色改变*/
+  color: #FF5722;
+}
+footer>div>span{
+  display: block;/*以设置span居中，inline元素无法设置*/
+}
