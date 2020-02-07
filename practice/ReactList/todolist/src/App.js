@@ -35,7 +35,7 @@ class App extends Component {
             />
           </li>
         )
-      })//渲染在下面
+      })//渲染在下面,不用担心已有dom重复渲染，react diff会自动更新
       //console.log(todos)
 
     return (

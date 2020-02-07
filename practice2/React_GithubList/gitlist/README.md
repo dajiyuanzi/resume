@@ -1,3 +1,10 @@
+
+该项目根据practice的mis38 jquery修改而来，可见 react与jQuery最大区别：
+React不需要jQuery那样选择元素（虽然也有ref，也可用元生getelementbyid），而是把state和props变量 插入JSX 的class和style。
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

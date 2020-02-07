@@ -10,6 +10,17 @@
   <title>GitHub 看板</title>
   <link rel="stylesheet" href="//at.alicdn.com/t/font_440195_fw8hsnrso53wstt9.css">
  <meta name="referrer" content="never">
+
+  <!-- 我的项目讲解Readme：
+    3个section都加载出来，但先不显示全部，由js jquery控制需要显示的section，用户点击底部footer上按钮触发。
+    footer位于屏幕底部，是通过 使用绝对定位 并设置bottom:0。
+    js发送跨域ajax请求后，js处理生成每条数据的dom，塞到各个section dom里。
+    滚动是通过 overflow: scroll;  其只让main标签的溢出内容 滚动。overflow 属性规定当内容溢出元素框时发生的事情；scroll指 内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。
+    加载动画用iconfont和@keyframe来定义: @keyframes 规则 能够创建动画；创建动画的原理是，将一套 CSS 样式逐渐变化为另一套样式。
+
+    本地运行，先开node服务器 http-server -c-1(不缓存） 
+  -->
+
   <style>
     * {
       box-sizing: border-box;/*盒模型：为元素指定的任何内边距和边框都将在已设定的宽度和高度内进行绘制。通过从已设定的宽度和高度分别减去边框和内边距才能得到内容的宽度和高度。*/
@@ -22,7 +33,7 @@
     }
     html,body,main{
       height: 100%;
-      position: relative; /*作为footer定位的依照，但position:relative会让body收缩，所以要把height设为100%*/
+      position: relative; /*main作为footer定位的依照，但position:relative会让body收缩，所以要把height设为100%*/
     }
     body{
       font-size: 12px;
@@ -234,7 +245,7 @@
         this.$content = this.$container.find('.container')
         this.page = 1//当前页数
         this.count = 30//当前每页的条数
-        this.isFinshed = false//将变量作为该对象的属性，方便调用。该变量判断数据是否已经被滚动加载完了。
+        this.isFinshed = false//将变量作为该对象的属性，方便调用。该变量判断 所有数据是否已经被滚动加载尽了。
         this.isLoading = false//默认ajax不发送请求 判断是否正加载
         this.bind()//滑动时执行
         this.getData(function(result){//初始化加载第一页
@@ -262,16 +273,16 @@
       getData: function(callback){//请求数据以展示，callback为回调函数
         var _this = this
         this.isLoading = true //发送时改为true
-        this.$container.find('.loading').show(400)//显示loading元素，显示出来的时间是400ms
+        this.$container.find('.loading').show(400)//显示loading元素，该元素每次播放动画的时间是400ms
         $.ajax({
           url: 'https://api.github.com/search/repositories?q=language:javascript&sort=stars&order=desc',
           data: {
             page: this.page
           },
-          dataType: 'jsonp'
+          dataType: 'jsonp' //jquery-ajax的参数，请求是jsonp格式
         }).done(function(ret){
           _this.isLoading = false //发送成功 改回状态
-          _this.$container.find('.loading').hide(400)
+          _this.$container.find('.loading').hide(400) //关闭loading元素
           callback(ret)
         })
       },

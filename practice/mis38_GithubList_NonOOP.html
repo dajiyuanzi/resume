@@ -6,6 +6,15 @@
   <title>GitHub 看板</title>
   <link rel="stylesheet" href="//at.alicdn.com/t/font_440195_fw8hsnrso53wstt9.css"><!--icon link-->
   <!--这个版本的代码乱糟糟，比如变量和函数的名字已经经常重复很难再控制，所以要用面向对象编程-->
+  <!-- 我的项目讲解Readme：
+    3个section都加载出来，但先不显示全部，由js jquery控制需要显示的section，用户点击底部footer上按钮触发。
+    footer位于屏幕底部，是通过 使用绝对定位 并设置bottom:0。
+    js发送跨域ajax请求后，js处理生成每条数据的dom，塞到各个section dom里。
+    滚动是通过 overflow: scroll;  其只让main标签的溢出内容 滚动。overflow 属性规定当内容溢出元素框时发生的事情；scroll指 内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。
+    加载动画用iconfont和@keyframe来定义: @keyframes 规则 能够创建动画；创建动画的原理是，将一套 CSS 样式逐渐变化为另一套样式。
+
+    本地运行，先开node服务器 http-server -c-1(不缓存） 
+  -->
   <style>
     *{
       margin: 0;
@@ -18,7 +27,7 @@
     }
     html, body, main{
       height: 100%;
-      position: relative; /*作为footer定位的依照，但position:relative会让body收缩，所以要把height设为100%*/
+      position: relative; /*main作为footer定位的依照，但position:relative会让body收缩，所以要把height设为100%*/
     }
     body{
       font-size: 12px;
@@ -88,7 +97,7 @@
       width: 100%;
       /*background: red;*/
       border-top: 1px solid #ccc;
-      display: flex; /*指定容器为 块状flex 布局，容器内元素则按flex布局。incline-flex是行内flex。flex让clear float vertical-align属性无效*/
+      display: flex; /*指定容器为 块状flex 布局，容器内元素则按flex布局,默认挤满一行。incline-flex是行内flex。flex让clear float vertical-align属性无效*/
     }
     footer>div{
       flex: 1; /*相当于flex-grow属性为 1，则容器footer>div内的元素将按照flex布局来等分剩余空间*/
@@ -143,7 +152,7 @@
       data: {
         page: this.page
       },
-      dataType: 'jsonp'
+      dataType: 'jsonp' //jquery-ajax的参数，请求是jsonp格式
     }).done(function(ret){
       console.log(ret)
       setData(ret) //收到url返回的数据后，处理并生成每个数据的dom
