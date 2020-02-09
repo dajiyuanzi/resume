@@ -2,6 +2,8 @@
 该项目根据practice的mis38 jquery修改而来，可见 react与jQuery最大区别：
 React不需要jQuery那样选择元素（虽然也有ref，也可用元生getelementbyid），而是把state和props变量 插入JSX 的class和style。
 
+出现报错 渲染的item有key重复（key都是数据的id，不会重复），直接重启服务器yarn start 就可以。
+
 
 
 

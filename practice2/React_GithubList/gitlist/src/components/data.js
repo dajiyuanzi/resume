@@ -1,10 +1,11 @@
 import axios from 'axios'
 
-export default function getData(pageNum, callback){
-  var url='https://api.github.com/search/repositories?q=language:javascript&sort=stars&order=desc'
-  axios.get(url, {params:{
-    page:pageNum
-  }})
+export default function getData(url, pageNum, callback){
+  axios.get(url, {
+    params:{
+      page:pageNum
+    }
+  })
     .then(function (res){
       //console.log(res)
       callback(res)
@@ -13,3 +14,5 @@ export default function getData(pageNum, callback){
        console.log(error);
     });
 }
+
+
