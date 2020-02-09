@@ -1,4 +1,4 @@
-本项目用react和react-router实现，将页面的不同部分作为不同组件开发。
+本项目用react和react-router实现，将页面的不同部分作为不同组件开发，并使用axios处理ajax请求。
 
 # 坑点：
 1. footer的点击变色，要明确执行的生命周期 和 检查当前的window.location
