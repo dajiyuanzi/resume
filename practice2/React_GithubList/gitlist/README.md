@@ -12,7 +12,7 @@ React不需要jQuery那样选择元素，而是把state和props变量 插入JSX 
 
 # 预览地址
 http://dajiyuanzi.github.io/resume/practice2/React_GithubList/gitlist/build
-
+初次在线预览 需要点击下 底部的功能
 
 
 
