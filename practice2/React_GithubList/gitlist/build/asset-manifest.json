@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/resume/practice2/React_GithubList/gitlist/build/static/css/main.0b726110.chunk.css",
+    "main.js": "/resume/practice2/React_GithubList/gitlist/build/static/js/main.2eea240b.chunk.js",
+    "main.js.map": "/resume/practice2/React_GithubList/gitlist/build/static/js/main.2eea240b.chunk.js.map",
+    "runtime-main.js": "/resume/practice2/React_GithubList/gitlist/build/static/js/runtime-main.2561b03b.js",
+    "runtime-main.js.map": "/resume/practice2/React_GithubList/gitlist/build/static/js/runtime-main.2561b03b.js.map",
+    "static/js/2.d2f2fe02.chunk.js": "/resume/practice2/React_GithubList/gitlist/build/static/js/2.d2f2fe02.chunk.js",
+    "static/js/2.d2f2fe02.chunk.js.map": "/resume/practice2/React_GithubList/gitlist/build/static/js/2.d2f2fe02.chunk.js.map",
+    "index.html": "/resume/practice2/React_GithubList/gitlist/build/index.html",
+    "precache-manifest.03f50740f572c046d1fd90270ed898eb.js": "/resume/practice2/React_GithubList/gitlist/build/precache-manifest.03f50740f572c046d1fd90270ed898eb.js",
+    "service-worker.js": "/resume/practice2/React_GithubList/gitlist/build/service-worker.js",
+    "static/css/main.0b726110.chunk.css.map": "/resume/practice2/React_GithubList/gitlist/build/static/css/main.0b726110.chunk.css.map",
+    "static/js/2.d2f2fe02.chunk.js.LICENSE": "/resume/practice2/React_GithubList/gitlist/build/static/js/2.d2f2fe02.chunk.js.LICENSE",
+    "static/media/logo.svg": "/resume/practice2/React_GithubList/gitlist/build/static/media/logo.5d5d9eef.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.2561b03b.js",
+    "static/js/2.d2f2fe02.chunk.js",
+    "static/css/main.0b726110.chunk.css",
+    "static/js/main.2eea240b.chunk.js"
+  ]
+}

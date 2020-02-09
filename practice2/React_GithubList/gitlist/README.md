@@ -1,77 +1,15 @@
+本项目用react和react-router实现，将页面的不同部分作为不同组件开发。
 
-该项目根据practice的mis38 jquery修改而来，可见 react与jQuery最大区别：
-React不需要jQuery那样选择元素（虽然也有ref，也可用元生getelementbyid），而是把state和props变量 插入JSX 的class和style。
+# 坑点：
+1. footer的点击变色，要明确执行的生命周期 和 检查当前的window.location
+2. 一个组件state状态变量 不会受到 它包含的路由router里 的组件的渲染而变化（见App.js）-- 点击路由不会触发路由所在组件的渲染，也就没有生命周期变动
+3. 当直接更改地址时，整个页面刷新，触发所有组件的渲染；当点击路由link，不会触发整个页面刷新，只路由相关的组件内部会渲染，其它组件不会重新渲染（父组件页不渲染）
+4. 出现报错:渲染的item有key重复（key都是数据的id，不会重复）--直接重启服务器yarn start 就可以。
 
-出现报错 渲染的item有key重复（key都是数据的id，不会重复），直接重启服务器yarn start 就可以。
+
+# 该项目根据practice的mis38 jquery修改而来，可见 react与jQuery最大区别：
+React不需要jQuery那样选择元素，而是把state和props变量 插入JSX 的class和style（虽然React也有ref，也可用原生getelementbyid）。
 
 
 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `yarn start`
-
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `yarn build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
