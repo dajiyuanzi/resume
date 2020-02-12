@@ -10,6 +10,7 @@
  client/acrions内定义了 向后端获取数据的函数，被/reducer内的reducer函数调用，处理获取的数据；
  之后，/reducer/rootReducer.js将所有reducer合并(combineReducers)，以创建store，index.js内的provider将引用此store。
  store对象内含有 不同层级组件间共用的状态数据，共用状态数据实现了方便的数据更新渲染。
+ 可以用 client/components/Home/rank.js开始，一探究竟。
 
 
 

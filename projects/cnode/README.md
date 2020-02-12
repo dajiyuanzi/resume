@@ -7,6 +7,9 @@ https://dajiyuanzi.github.io/resume/projects/cnode/dist/#/
 #源码
 https://github.com/dajiyuanzi/resume/tree/master/practice/VueCourse/%E7%AC%AC12%E8%AF%BE_cnode%E7%A4%BE%E5%8C%BA/cnode
 
+# 运作流程
+main.js里的路由和组件挂载渲染到index.html上。路由/route/index.js指向的view，渲染在App.vue的router-view上。
+
 
 # Vue-Cli 的构建 与Github Page上部署 
 (本质:就是此命令把项目内的代码编译, 生成静态网页的文件,放到dist文件夹(distribution); 然后把这个文件夹的内容单独上传, github page 预览它的 dist/index.html 就可以了)

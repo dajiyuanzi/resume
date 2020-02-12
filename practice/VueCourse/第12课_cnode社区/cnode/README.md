@@ -1,5 +1,8 @@
 # cnode
 
+# 运作流程
+main.js里的路由和组件挂载渲染到index.html上。路由/route/index.js指向的view，渲染在App.vue的router-view上。
+
 > A Vue.js project
 
 # 预览地址 
