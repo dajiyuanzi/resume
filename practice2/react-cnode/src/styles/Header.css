@@ -1,0 +1,28 @@
+.header{
+  background-color:#5a5555;
+  height:50px;
+}
+
+.header img{
+  max-width: 120px;
+  margin-left: 50px;
+  margin-top: 10px;
+}
+
+.header ul{
+  list-style: none; /* ul的小点点样式，none是没有 */
+  float: right; /*漂浮在图片上，不在普通流了*/
+  margin: 4px; /*改小外边距，防止下移 */
+}
+
+.header li{
+  display: inline-block; /* 让li有行内属性，从而 水平*/
+  padding: 10px 15px;
+}
+
+.header a{
+  text-decoration: none;
+  color: #ccc;
+  font-size: 14px;
+  text-shadow: none;
+}

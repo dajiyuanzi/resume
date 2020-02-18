@@ -93,7 +93,7 @@
           console.log(err)
         })
       },
-      renderList(value){//分页，子组件pagination给父组件传递数据(点击的页码),以实现 点击翻页 请求更多数据
+      renderList(value){//分页，子组件pagination给父组件传递数据(点击的当前页码),以实现 点击翻页 请求更多数据
         this.postpage=value
         this.getData() //接收到子组件的数据，就再发请求
       }

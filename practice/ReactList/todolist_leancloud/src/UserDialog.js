@@ -31,7 +31,7 @@ export default class UserDialog extends Component {
     let {email, username, password} = this.state.formData
     let success = (user)=>{ //user是通过 作为signUp回调参数，从leanCloud.js拿到的数据
       this.props.onSignUp.call(null, user) 
-      //默认context设null，非严格模式下即window全局，但App.js在传入时已bind为UserDialog所处的context（其实，直接func(user)也行，只是这样更合形式上的逻辑）
+      //此处jS默认context设null，非严格模式下即window全局，但App.js在传入时已bind为UserDialog所处的context（其实，直接func(user)也行，只是这样更合形式上的逻辑）
     }
     let error = (error)=>{
       switch(error.code){ //leancloud的服务状态码

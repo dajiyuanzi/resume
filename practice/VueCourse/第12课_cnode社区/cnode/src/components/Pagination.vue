@@ -43,7 +43,7 @@ export default {
           default:
             break;
         }
-        return //防止执行下面的
+        return //退出，防止执行下面的
       }
 
       this.currentPage = page
@@ -58,8 +58,8 @@ export default {
 
       //页码只显示5个，往后/往前点多了，前面/后面的会被挤掉
       if(page == this.pagebtns[4]){ //朝后翻页
-        this.pagebtns.shift() //移除第1个元素
-        this.pagebtns.splice(4, 0, this.pagebtns[3]+1) //添加尾部页码 splice先移除第5个数(splice的下标从1开始)，剩余只有4个数，所以pagebtn[3]
+        this.pagebtns.shift() //移除第1个元素 只剩4个了 原先的第5个成第4个
+        this.pagebtns.splice(4, 0, this.pagebtns[3]+1) //添加尾部页码: 剩余只有4个数，splice的下标从1开始，所以在第4个数pagebtn[3] 后添加
       }
       else if(page==this.pagebtns[0] && page!=1){//朝前翻页
         //先在第1个位置加1个

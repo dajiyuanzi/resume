@@ -36,7 +36,7 @@ img{
 }
 
 ul{
-  list-style: none;
+  list-style: none; /* ul的小点点样式，none是没有 */
   float: right; /*漂浮在图片上，不在普通流了*/
   margin: 4px; /*改小外边距，防止下移 */
 }

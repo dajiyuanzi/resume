@@ -12,7 +12,7 @@ Vue.prototype.$http = Axios
 /* eslint-disable no-new */
 new Vue({
   el: '#app', //el 用于指定一个页面中己存在的 DOM 元素来挂载 Vue实例,可以是标签。也可以是css语法--此处是index.html
-  router,  //路由文件./router/index.js里包含了./components/里的组件
+  router,  //路由文件./router/index.js里包含了./components/里的组件 相当于router:router
   components: { App },
   template: '<App/>'
 })

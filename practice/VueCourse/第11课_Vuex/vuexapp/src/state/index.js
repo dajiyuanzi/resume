@@ -22,7 +22,7 @@ export default new Vuex.Store({
   actions:{//actions中只能对mutation进行操作
     decreaseAction:function(context){//context为上下文对象
       //同步操作
-      context.commit('decrease')
+      context.commit('decrease')  //在components/outter.vue中触发 this.$store.dispatch('decreaseAction')
 
       //异步操作
       // setTimeout(function(){

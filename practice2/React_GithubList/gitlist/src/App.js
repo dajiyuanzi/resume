@@ -12,15 +12,15 @@ class App extends Component {
   render(){
     return (
       <div>    
-          <Router>
-            <main>
-              <Route exact path="/" component={repo_board} />
-              <Route path="/repo" component={repo_board} />
-              <Route path="/user" component={user_board} />
-              <Route path="/search" component={search} />
-            </main>
-            <Footer />
-          </Router>
+        <Router>
+          <main>
+            <Route exact path="/" component={repo_board} />
+            <Route path="/repo" component={repo_board} />
+            <Route path="/user" component={user_board} />
+            <Route path="/search" component={search} />
+          </main>
+          <Footer />
+        </Router>
       </div>
     )
   }
