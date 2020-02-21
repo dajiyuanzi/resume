@@ -1,0 +1,56 @@
+.autherinfo .authersummay, .autherinfo .recent_replies, .autherinfo .recent_topics {
+  background-color: #fff;
+}
+.autherinfo {
+  width: 328px;
+  float: right;
+  margin-top: 0;
+}
+.autherinfo li{
+  padding: 3px 0 ;
+}
+.autherinfo .recent_replies ul, .autherinfo .recent_topics ul {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  list-style: none;
+  padding-left: 14px;
+}
+
+.autherinfo ul a {
+  font-size: 12px;
+  text-decoration: none;
+  color: #778087;
+}
+
+.autherinfo .topbar {
+  padding: 10px;
+  background-color: #f6f6f6;
+  height: 16px;
+  font-size: 12px;
+  margin-top: 10px;
+}
+
+.autherinfo img {
+  height: 48px;
+  width: 48px;
+  border-radius: 3px;
+  margin: 10px;
+}
+
+.autherinfo .loginname {
+  width: 100px;
+  float: right;
+  margin-top: 22px;
+  margin-right: 159px;
+  font-size: 14px;
+}
+
+.autherinfo .loginname a {
+  text-decoration: none;
+  color: #778087;
+}
+
+.autherinfo .authersummary .topbar {
+  margin-top: 0px;
+}
+

@@ -24,7 +24,7 @@
             <router-link :to="{
               name:'user_info',
               params:{
-                name:reply.author.loginname //传递参数为name, post是该组件的data
+                name:reply.author.loginname //传递参数为name, param是该组件的data
               }
             }">
               <img :src="reply.author.avatar_url" alt=""/>
