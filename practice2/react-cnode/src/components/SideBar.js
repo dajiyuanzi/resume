@@ -30,7 +30,7 @@ export default class SideBar extends Component {
             {
               this.topicLimitBy5().map((list)=>{
                 return (
-                  <li><Link to={`/topic/${list.id}&author=${list.author.loginname}`}>
+                  <li key={list.id}><Link to={`/topic/${list.id}&author=${list.author.loginname}`}>
                     {list.title}
                   </Link></li>
                 )
@@ -45,7 +45,7 @@ export default class SideBar extends Component {
             {
               this.replyLimitBy5().map((list)=>{
                 return (
-                  <li>
+                  <li key={list.id}>
                     <Link to={`/topic/${list.id}&author=${list.author.loginname}`}>
                       {list.title}
                     </Link>
@@ -73,7 +73,7 @@ export default class SideBar extends Component {
   topicLimitBy5(){
     if(this.state.userinfo.recent_topics){ //当userinfo不为空，就返回5个  length>会报错，因为当请求数据还未返回，userinfo是空，其length为undefined
       return this.state.userinfo.recent_topics.slice(0, 5) //slice 数组从坐标0-5截取出，不包括5
-    }else{ //有的时候此数据为空，上面map会报错，故返回空数组
+    }else{ //有的时候此数据为undefined，上面map会报错，故返回空数组填充
       return []
     }
   }
@@ -86,5 +86,13 @@ export default class SideBar extends Component {
       return []
     }
   }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.match.params.name != this.props.match.params.name){
+      this.props.match.params.name = nextProps.match.params.name
+      this.reqUser()
+    }
+  } //Article和SideBar组件使用相同的route path但参数不同，页面不会因参数变动而更新渲染；只有监控route传入的props，以触发更新
+
 
 }

@@ -48,13 +48,7 @@ export default class Article extends Component {
                       <div className='replyUp'>
                         
                         {/* 点击用户头像/姓名，跳转至用户页 */}
-                        {/* 第一种link可能不行 会报错 */}
-                        <Link to={
-                          {
-                            pathname: '/userinfo/',
-                            state: { name: reply.author.loginname }
-                          }
-                        }>
+                        <Link to={`/userinfo/${reply.author.loginname}`}>
                           <img src={reply.author.avatar_url} />
                         </Link>
                         <Link to={`/userinfo/${reply.author.loginname}`}>
@@ -94,5 +88,12 @@ export default class Article extends Component {
       }     
     })
   }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.match.params.id != this.props.match.params.id){
+      this.props.match.params.id = nextProps.match.params.id
+      this.reqArticle()
+    }
+  } //Article和SideBar组件使用相同的route path但参数不同，页面不会因参数变动而更新渲染；只有监控route传入的props，以触发更新
 
 }
