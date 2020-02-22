@@ -23,7 +23,7 @@ export default class UserInfo extends Component {
         {
           this.state.loading === true ? 
           <div className='loading'>
-            <img src='/loading.gif' />
+            <img src={require('./static/loading.gif')} />
           </div> 
           : 
           <div className='userInformation'>

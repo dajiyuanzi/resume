@@ -11,7 +11,7 @@ export default class Header extends Component {
     return (
       <div className="header">
         <Link to="/">
-          <img src="/cnodejs_light.svg" alt=""/>
+          <img src={require('./static/cnodejs_light.svg')} alt=""/>
         </Link>
         <ul>
           <li><a href="/">首页</a></li>

@@ -1,5 +1,5 @@
 
-@import url("/markdown-github.css"); /*引入处理markdown的css*/
+@import url("./markdown-github.css"); /*引入处理markdown的css*/
 
 .topbar {
   padding: 10px;

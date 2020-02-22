@@ -20,7 +20,7 @@ export default class Article extends Component {
         {
           this.state.loading===true ? 
           <div class='loading'>
-            <img src='/loading.gif' />
+            <img src={require('./static/loading.gif')} />
           </div> 
           : 
           <div>
@@ -33,7 +33,7 @@ export default class Article extends Component {
                 <li>· 来自{ tabFormatter(this.state.post) }</li>
               </ul>
 
-              {/* 因为帖子内容为markdown，所以要解析为html，等于vue的v-html */}
+              {/* 因为帖子内容为markdown格式，所以要解析为html，等于vue的v-html */}
               <div class="topic_content" 
                 dangerouslySetInnerHTML={{ __html: this.state.post.content }}
               ></div>

@@ -71,7 +71,7 @@ export default class PostList extends Component {
         {
           this.state.loading === true ?
           <div className="loading">
-            <img src="/loading.gif" />
+            <img src={require('./static/loading.gif')} />
           </div>
           :
           <div className="posts"> 
