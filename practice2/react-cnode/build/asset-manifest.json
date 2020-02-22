@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/resume/practice2/react-cnode/build/static/css/main.0335e4a4.chunk.css",
+    "main.js": "/resume/practice2/react-cnode/build/static/js/main.b44628d2.chunk.js",
+    "main.js.map": "/resume/practice2/react-cnode/build/static/js/main.b44628d2.chunk.js.map",
+    "runtime-main.js": "/resume/practice2/react-cnode/build/static/js/runtime-main.491be06c.js",
+    "runtime-main.js.map": "/resume/practice2/react-cnode/build/static/js/runtime-main.491be06c.js.map",
+    "static/js/2.ca22ec44.chunk.js": "/resume/practice2/react-cnode/build/static/js/2.ca22ec44.chunk.js",
+    "static/js/2.ca22ec44.chunk.js.map": "/resume/practice2/react-cnode/build/static/js/2.ca22ec44.chunk.js.map",
+    "index.html": "/resume/practice2/react-cnode/build/index.html",
+    "precache-manifest.8584ce2f1a21bb9e1f38466750d4ad23.js": "/resume/practice2/react-cnode/build/precache-manifest.8584ce2f1a21bb9e1f38466750d4ad23.js",
+    "service-worker.js": "/resume/practice2/react-cnode/build/service-worker.js",
+    "static/css/main.0335e4a4.chunk.css.map": "/resume/practice2/react-cnode/build/static/css/main.0335e4a4.chunk.css.map",
+    "static/js/2.ca22ec44.chunk.js.LICENSE.txt": "/resume/practice2/react-cnode/build/static/js/2.ca22ec44.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.491be06c.js",
+    "static/js/2.ca22ec44.chunk.js",
+    "static/css/main.0335e4a4.chunk.css",
+    "static/js/main.b44628d2.chunk.js"
+  ]
+}
