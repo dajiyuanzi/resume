@@ -1,0 +1,154 @@
+*{
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px; /*清除容器周边的空白*/
+}
+*::before, *::after{box-sizing: border-box;}
+/* 因为三角形用涂色的border实现，所以用ie盒模型 */
+
+.skin{ /*容器*/
+  position: relative; /*内部元素有绝对定位*/
+}
+body{
+  background: #ffe600;
+  min-height: 100vh; /*占满全屏*/
+}
+
+/* 鼻子的三角形和容器 */
+.nose{
+  border: 10px solid black;
+  border-color: black transparent transparent;
+  border-bottom: none; /*不用也行*/
+  width: 0px;
+  height: 0px;
+  position: relative; /*鼻子的圆头yuan为绝对定位*/
+  left: 50%; /*居中*/
+  top: 145px;
+  margin-left: -10px; /*定位是左上角，故左移*/
+  z-index: 10;
+}
+.yuan{ /* 半圆鼻头 https://www.cnblogs.com/masanhe/p/8358963.html  */
+  position: absolute;
+  width: 20px;
+  height: 10px;
+  background: black;
+  top: -20px;
+  left: -10px;
+  border-radius: 10px 10px 0 0; 
+}
+
+.eye{ /*先定位到中线,再左右移开*/
+  border:2px solid #000;
+  width: 64px;
+  height: 64px;
+  position: absolute;
+  left: 50%;
+  top: 100px;
+  margin-left: -32px;
+  background: #2e2e2e;
+  border-radius: 50%;
+}
+.eye.left{
+  transform: translateX(-100px);
+}
+.eye.right{
+  transform: translateX(100px);
+}
+/* 眼睛上的亮白球 */
+.eye::before{
+  content: '';
+  display: block; /*伪元素默认为行内，不可改宽高*/
+  border: 3px solid #000;
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  border-radius: 50%;
+
+  position: relative;
+  left: 4px;
+  top: 2px;
+}
+
+
+.mouth{ /*嘴巴的区域*/
+  /* border: 1px solid red; 方便看出元素的位置 */
+  width: 200px;
+  height: 200px;
+  position: absolute;
+
+  top: 170px;
+  left: 50%;
+  margin-left: -100px;
+}
+.mouth .up{
+  position: relative;
+  top: -20px;
+  z-index: 1;
+}
+.mouth .up .lip{
+  border: 3px solid black;
+  height: 30px;
+  width: 100px;
+  background: #ffe600;
+  border-top-color: transparent;
+  border-right-color: transparent;
+  position: absolute;
+  left: 50%;
+  margin-left: -50px;
+}
+.mouth .up .lip.left{
+  border-radius: 0 0 0 50px;
+  transform: rotate(-15deg) translateX(-53px);
+}
+.mouth .up .lip.right{
+  border-radius: 0 0 50px 0px;
+  transform: rotate(15deg) translateX(53px);
+}
+.mouth .up .lip::before{ /*遮住部分线条*/
+  content: '';
+  display: block;
+  width: 7px;
+  height: 30px;
+  position: absolute;
+  bottom: 0;
+  background: #ffe600;
+}
+.mouth .up .lip.left::before{
+  right: -6px;
+}
+.mouth .up .lip.right::before{
+  left: -6px;
+}
+
+/* css怎么写？瞎试，根据页面实时的变化，来调试数值 */
+.mouth .down{
+  height: 180px;
+  position: absolute;
+  top: 5px;
+  width: 100%;
+  overflow: hidden; /*凡是符合选择器的元素，它们超出容器的部分就隐藏（因绝对定位而溢出），此实现了舌头和嘴的不同颜色的层叠*/
+}
+.mouth .down .yuan1{ /*张开的嘴*/
+  border: 3px solid black;
+  width: 150px;
+  height: 1000px;
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  margin-left: -75px;
+  border-radius: 75px/300px; /*调试出的弧形*/
+  background: #9b000a;
+  overflow: hidden; /*因绝对定位而溢出其容器的部分隐藏*/
+}
+.mouth .down .yuan1 .yuan2{ /*嘴里的舌头*/
+  width: 200px;
+  height: 300px;
+  background:  #ff485f;
+  position: absolute;
+  bottom: -155px;
+  left: 50%;
+  margin-left: -100px;
+  border-radius: 100px;
+}
+
+

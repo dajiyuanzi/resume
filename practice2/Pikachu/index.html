@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- viewport表示供移动设备使用. content定义了viewport的属性 -->
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"> 
+  <title>Pikachu</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="skin">
+    <!-- 抽象思维：屏幕中线为基准，放 鼻子，其它两边对称 -->
+    <div class="eye left"></div>
+    <div class="eye right"></div> <!--鼻子头半圆-->
+    <div class="nose">
+      <div class="yuan"></div>
+    </div>
+    <div class="face left"></div>
+    <div class="face right"></div>
+    <div class="mouth">
+      <div class="up">
+        <div class="lip left"></div>
+        <div class="lip right"></div>
+      </div>
+      <div class="down">
+        <div class="yuan1"> <!--张开的嘴-->
+          <div class="yuan2"></div> <!--舌头-->
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<!-- 引入空的js，否则parcel打包器会有bug -->
+<script src="main.js"></script>
+</html>
