@@ -151,4 +151,55 @@ body{
   border-radius: 100px;
 }
 
+.face{
+  position: absolute;
+  left: 50%;
+  border: 3px solid black;
+  width: 88px;
+  height: 88px;
+  top: 200px;
+  margin-left: -44px;
+  z-index: 3;
+}
+.face.left{
+  transform: translateX(-180px);
+  background: #ff0000;
+  border-radius: 50%;
+}
+.face.right{
+  transform: translateX(180px);
+  background: #ff0000;
+  border-radius: 50%;
+}
+/* 闪电gif */
+.face > img{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+.face.left > img{ /*左脸反向*/
+  transform: rotateY(180deg);
+  transform-origin: 0 0;
+}
+
+/*动态效果*/
+/* 鼻子动 */
+@keyframes wave{
+  0%{
+    transform: rotate(0deg);
+  }
+  33%{
+    transform: rotate(5deg);
+  }
+  66%{
+    transform: rotate(-5deg);
+  }
+  100%{
+    transform: rotate(0deg);
+  }
+}
+.nose:hover{
+  transform-origin: center bottom; /*设置旋转元素的基点位置*/
+  animation: wave 300ms infinite linear;
+}
 
