@@ -1,0 +1,22 @@
+/**
+通用样式，如button样式
+**/
+@import './variable.scss';
+
+.button{
+  font-size: 16px;
+  box-sizing: border-box;
+  display: inline-block;
+  margin: 10px auto;
+  width: 30px;
+  height: 36px;
+  cursor: pointer;
+  border-radius: 2px;
+  border: 1px solid $primary;
+  background-color: $primary
+}
+
+.input{
+
+}
+

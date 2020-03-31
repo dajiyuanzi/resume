@@ -1,20 +1,27 @@
 
-本课程路由跳转是依靠前端的react-router，所以 routes/user.js 用于控制后端接口的配置，则webpack.config.js的entry将根路径"/"指向client/index.js。前端中的axios会发出ajax，向 后端的路由接口 请求数据。
+本课程路由跳转是依靠前端的react-router (在/client/index.js)，故 node的路由(routes/user.js) 用于 监听 对后端数据的 请求。
+
+app.js是 数据库连接&跨域的 相关配置，bin/www.js是创建服务器 以监听请求并响应。
+webpack.config.js的entry将根路径"/"指向client/index.js，用户请求 是被react的路由所监听，react(服务器中前端渲染)的代码 发送请求 到后端node要数据。前端中的axios会发出ajax，向 后端的路由接口 请求数据。
 
 运行 npm run server 
 运行 mongod，再运行mongo
 
 
- React-Redux的运作流程：
+ # React-Redux的运作流程：
  在client文件夹下，pages和components内的react组件渲染时(这些组件都 嵌在 index.js的路由内)，声明周期componentDidMount触发调用了action；
+
  client/acrions内定义了 向后端获取数据的函数，被/reducer内的reducer函数调用，处理获取的数据；
+
  之后，/reducer/rootReducer.js将所有reducer合并(combineReducers)，以创建store，index.js内的provider将引用此store。
+
  store对象内含有 不同层级组件间共用的状态数据，共用状态数据实现了方便的数据更新渲染。
+
  可以用 client/components/Home/rank.js开始，一探究竟。
 
 
 
-后端
+# 后端
 在项目中，mongoose操作 mongodb 数据，mongoose 是 Node.js 下的 mongodb 的 orm 框架，能用面向对象的方式去操作数据库。在实现用户模块时，使用express-session模块来管理 session 状态，express-generator 模块是 express 的应用生成器。在接口传输数据时，使用json格式的数据，借助body-parser模块来进行解析。
 
 
