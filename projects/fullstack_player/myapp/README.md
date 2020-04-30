@@ -24,6 +24,11 @@ webpack.config.js的entry将根路径"/"指向client/index.js，用户请求 是
 # 后端
 在项目中，mongoose操作 mongodb 数据，mongoose 是 Node.js 下的 mongodb 的 orm 框架，能用面向对象的方式去操作数据库。在实现用户模块时，使用express-session模块来管理 session 状态，express-generator 模块是 express 的应用生成器。在接口传输数据时，使用json格式的数据，借助body-parser模块来进行解析。
 
+# 项目前后端的配置过程
+先创建express架构：express -e myapp
+然后在webpack.config.js中写入其它需要的配置，如babel等前端资源依赖的配置。
+运行npm run start将依赖资源安装。
+
 
 
 ## 项目文件结构

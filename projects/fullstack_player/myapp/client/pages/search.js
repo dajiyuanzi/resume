@@ -37,7 +37,7 @@ class Search extends Component {
     //获取输入框的值
     const search = this.search.value;
     if (search != '') {
-      this.props.dispatch(getSearchDetail(search));
+      this.props.dispatch(getSearchDetail(search)); //这里是react-redux的用法，store在props里，以此调用store的dispatch。被 connect 过的 component 中的 this.props 有了 dispatch 属性。
     } else {
       this.props.dispatch(getSearchDetail());
     }
@@ -140,7 +140,7 @@ class Search extends Component {
 
 function select(state) { //取得当前搜索结果
   return {
-    searchDetail:state.search.searchDetail //serach是来自reducers/rootReducer.js
+    searchDetail:state.search.searchDetail //serach是来自store的数据 由reducers/rootReducer.js处理action之后产生
   }
 }
 
