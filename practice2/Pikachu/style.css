@@ -1,10 +1,10 @@
 *{
-  box-sizing: border-box;
+  box-sizing: border-box; /* 因为鼻子的三角形用涂色的border实现，所以用ie盒模型 */
   margin: 0px;
   padding: 0px; /*清除容器周边的空白*/
 }
 *::before, *::after{box-sizing: border-box;}
-/* 因为三角形用涂色的border实现，所以用ie盒模型 */
+
 
 .skin{ /*容器*/
   position: relative; /*内部元素有绝对定位*/
@@ -14,10 +14,10 @@ body{
   min-height: 100vh; /*占满全屏*/
 }
 
-/* 鼻子的三角形和容器 */
+/* 鼻子的三角形，也是容器 */
 .nose{
   border: 10px solid black;
-  border-color: black transparent transparent;
+  border-color: black transparent transparent; /*三角鼻子，无第三个transparent也行*/
   border-bottom: none; /*不用也行*/
   width: 0px;
   height: 0px;
@@ -37,7 +37,7 @@ body{
   border-radius: 10px 10px 0 0; 
 }
 
-.eye{ /*先定位到中线,再左右移开*/
+.eye{ /*先把2眼都定位到中线,再用translateX左右移开*/
   border:2px solid #000;
   width: 64px;
   height: 64px;

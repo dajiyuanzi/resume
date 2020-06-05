@@ -40,8 +40,8 @@ const player = {
       window.clearInterval(player.id)
       return
     }
-    player.ui.demo.innerText = string.substr(0, player.n) //逐行展示
-    player.ui.demo2.innerHTML = string.substr(0, player.n) //逐行运行
+    player.ui.demo.innerText = string.substr(0, player.n) //逐码展示
+    player.ui.demo2.innerHTML = string.substr(0, player.n) //逐码运行
     player.ui.demo.scrollTop = player.ui.demo.scrollHeight //展示框的滚动条要滚到底部
   },
   play: () => {
