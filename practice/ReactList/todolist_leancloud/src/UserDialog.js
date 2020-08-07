@@ -27,7 +27,7 @@ export default class UserDialog extends Component {
   //与selected属性移到组件，将signInOrSignUp抽离成一个组件，注意state和props的区别
 
   signUp(e){
-    e.preventDefault() //取消事件的默认动作,比如form点击submit后自动提交发送数据
+    e.preventDefault() //取消事件的默认动作,比如form点击submit后自动提交发送数据，在此处处理后再由leancloud发送数据
     let {email, username, password} = this.state.formData
     let success = (user)=>{ //user是通过 作为signUp回调参数，从leanCloud.js拿到的数据
       this.props.onSignUp.call(null, user) 
