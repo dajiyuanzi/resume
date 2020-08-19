@@ -28,7 +28,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use(noteModel);//调用中间件./models/note，以 启动orm和sqlite
+app.use(noteModel);//调用中间件./models/note，以 启动orm和sqlite，
+//任何路径的请求都可使用此中间件，因而 别的文件内也可用，比如/routes/note.js中的不需要引入也可用/models/note.js
 
 app.get('/', function(req, res){
   res.send('hello world')

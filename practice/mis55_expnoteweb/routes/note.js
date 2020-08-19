@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 /* GET users listing. */
+// models是在app.js中require并作为 "全局中间件" 使用的app.use(noteModel);
+// models.note是orm的模型之调用方法，orm在sqlite上创建的数据表模型note，其把req中的数据放在数据表上（创建代码 见/models/note.js）
 router.get('/list', function(req, res, next) {
   req.models.note.find({}, function(err, notes){ //find是在表note内 查询数据；find无参数，则展示所有的数据
     if(err){

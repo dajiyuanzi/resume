@@ -20,7 +20,7 @@
   </style>
 </head>
 <body>
-  <div class="waterfall"><!--容器不适用绝对定位：因为 如果img下面还有元素的话，容器的高度还会涨，超过img瀑布的最长列，就无法用容器高度确定瀑布高度了-->
+  <div class="waterfall"><!--理解错误 "容器不适用绝对定位：因为 如果img下面还有元素的话，容器的高度还会涨，超过img瀑布的最长列，就无法用容器高度确定瀑布高度了"，这里其实就是没高度，img的定位是跟着根元素html的-->
     <img src="http://via.placeholder.com/100x100" alt="300*100">
     <img src="http://via.placeholder.com/100x70" alt="300*70">
     <img src="http://via.placeholder.com/100x150" alt="300*150">

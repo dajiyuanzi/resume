@@ -2,6 +2,9 @@
 技术难点是 "todoinput的用户输入要通过触发onchange事件 来渲染到state" 难理解 和 层层组件传递回调时容易看糊涂（代码可读性差），之后可以用react-redux来做。
 数据请求是leancloud的接口，逻辑在src/leanCloud.js
 
+leancloud配置看文档和我的笔记
+https://leancloud.cn/docs/sdk_setup-js.html#hash20935048
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
