@@ -1,8 +1,14 @@
+Preview Demo: https://dajiyuanzi.github.io/resume/practice/ReactList/todolist_leancloud/build/index.html
+
+This project uses Props of React in order to transfer the data between child components, TodoItem(output) and TodoInput(input), and other components. The data storage and read are implemented by the BAAS, LeanCloud API, coded in the file module leancloud.js.
+Technical challenges here are: 1.Tough to understand how in TodoInput the user's input triggers the OnChange event and then render the event to the State; 2.Tough to clearly read layers and laysers of nested components code (Low readability). 
+Improvement: Use React-Redux in the future.
+
 该项目使用react的props，将父组件App内定义的函数 传给子组件TodoItem(展示数据)和TodoInput(输入数据)，以及其它组件。数据存储和读取是用的leancloud的API实现的，在模块leancloud.js。
 技术难点是 "todoinput的用户输入要通过触发onchange事件 来渲染到state" 难理解 和 层层组件传递回调时容易看糊涂（代码可读性差），之后可以用react-redux来做。
 数据请求是leancloud的接口，逻辑在src/leanCloud.js
 
-leancloud配置看文档和我的笔记
+leancloud配置看文档和我的笔记 The doc of LeanCloud API
 https://leancloud.cn/docs/sdk_setup-js.html#hash20935048
 
 
