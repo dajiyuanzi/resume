@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/resume/practice2/react-cnode/build/static/css/main.6191e5ea.chunk.css",
-    "main.js": "/resume/practice2/react-cnode/build/static/js/main.8a99c095.chunk.js",
-    "main.js.map": "/resume/practice2/react-cnode/build/static/js/main.8a99c095.chunk.js.map",
+    "main.js": "/resume/practice2/react-cnode/build/static/js/main.7e418ffb.chunk.js",
+    "main.js.map": "/resume/practice2/react-cnode/build/static/js/main.7e418ffb.chunk.js.map",
     "runtime-main.js": "/resume/practice2/react-cnode/build/static/js/runtime-main.491be06c.js",
     "runtime-main.js.map": "/resume/practice2/react-cnode/build/static/js/runtime-main.491be06c.js.map",
     "static/js/2.31baaece.chunk.js": "/resume/practice2/react-cnode/build/static/js/2.31baaece.chunk.js",
     "static/js/2.31baaece.chunk.js.map": "/resume/practice2/react-cnode/build/static/js/2.31baaece.chunk.js.map",
     "index.html": "/resume/practice2/react-cnode/build/index.html",
-    "precache-manifest.1054c0788260455dc6f45f56c8096469.js": "/resume/practice2/react-cnode/build/precache-manifest.1054c0788260455dc6f45f56c8096469.js",
+    "precache-manifest.fa9556edcf1cd4c80447fb5b0477ac76.js": "/resume/practice2/react-cnode/build/precache-manifest.fa9556edcf1cd4c80447fb5b0477ac76.js",
     "service-worker.js": "/resume/practice2/react-cnode/build/service-worker.js",
     "static/css/main.6191e5ea.chunk.css.map": "/resume/practice2/react-cnode/build/static/css/main.6191e5ea.chunk.css.map",
     "static/js/2.31baaece.chunk.js.LICENSE.txt": "/resume/practice2/react-cnode/build/static/js/2.31baaece.chunk.js.LICENSE.txt",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.491be06c.js",
     "static/js/2.31baaece.chunk.js",
     "static/css/main.6191e5ea.chunk.css",
-    "static/js/main.8a99c095.chunk.js"
+    "static/js/main.7e418ffb.chunk.js"
   ]
 }

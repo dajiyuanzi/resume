@@ -12,6 +12,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.1"
   },
+  "homepage": "http://dajiyuanzi.github.io/resume/practice2/react-cnode/build",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -32,6 +33,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "homepage":"http://dajiyuanzi.github.io/resume/practice2/react-cnode/build"
+  }
 }

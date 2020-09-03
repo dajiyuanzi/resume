@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "f875c73172e665ffd1d8396423764ee7",
+    "revision": "aa56a3bf979a2b81020908109effb583",
     "url": "/resume/practice2/react-cnode/build/index.html"
   },
   {
-    "revision": "341b53b9e26bff8afb16",
+    "revision": "f1840f82d1f65fe6a515",
     "url": "/resume/practice2/react-cnode/build/static/css/main.6191e5ea.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/resume/practice2/react-cnode/build/static/js/2.31baaece.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "341b53b9e26bff8afb16",
-    "url": "/resume/practice2/react-cnode/build/static/js/main.8a99c095.chunk.js"
+    "revision": "f1840f82d1f65fe6a515",
+    "url": "/resume/practice2/react-cnode/build/static/js/main.7e418ffb.chunk.js"
   },
   {
     "revision": "dae356168850c8af855d",
