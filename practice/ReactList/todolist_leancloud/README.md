@@ -1,6 +1,7 @@
 Preview Demo: https://dajiyuanzi.github.io/resume/practice/ReactList/todolist_leancloud/build/index.html
 
 This project uses Props of React in order to transfer the data between child components, TodoItem(output) and TodoInput(input), and other components. The data storage and read are implemented by the BAAS, LeanCloud API, coded in the file module leancloud.js.
+
 Technical challenges here are: 1.Tough to understand how in TodoInput the user's input triggers the OnChange event and then render the event to the State; 2.Tough to clearly read layers and laysers of nested components code (Low readability). 
 Improvement: Use React-Redux in the future.
 
