@@ -2,17 +2,18 @@
 ![localhost](https://github.com/dajiyuanzi/resume/tree/master/practice2/react_cnode/localhost.png)
 
 # English
-This project implements a forum of Cnode(https://cnodejs.org/) by using React and React-Router, which can scroll to read posts and their user info. The requested data is provided by the website, Cnode.
+This project implements a forum of Cnode(https://cnodejs.org/) by using React and React-Router, which can scroll to read posts and their user info. The requested data is provided by the API of website, Cnode.
 
 ## Tech Challenges
 1. The implementation of bottom pagination (see /components/pagination.js).
 2. In Article.js, using componentWillReceiveProps solves "When the route path isn't altered but is appended with path arguments, the page isn't refreshed and rendered".
 3. In UserInfo.js, the data initialization of state variable is assigned an empty array [] in order to prevent that during rendering the requested data is not returned and thereby the state variable is undefined.
 PS: Localhost running is ok, but the Github deployment suffers from the bug that it cannot request data. This may be induced by that the API supported by Cnode website has some kind of conflicts with React projects deployed on GitHub, and temporarily there is no definite solution available, of which the references are below.
-https://segmentfault.com/q/1010000022605532?utm_source=tag-newest
-https://github.com/axios/axios/issues/2501
+https://segmentfault.com/q/1010000022605532?utm_source=tag-newest 
+https://github.com/axios/axios/issues/2501 
 https://forum.freecodecamp.org/t/axios-unable-to-fetch-api-data-after-deploying-the-react-app-build/324483 
 
+My Demo: https://dajiyuanzi.github.io/resume/practice2/react_cnode/build/
 
 ****
 ****
