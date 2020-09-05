@@ -1,6 +1,5 @@
 // 关键：同时以文本的形式(innerText)和html(innerHTML)的形式，展示style标签。
 
-
 import string from './css.js'
 
 const player = {

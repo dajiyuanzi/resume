@@ -6,8 +6,8 @@
   <title>Cast</title>
 </head>
 <body>
-  <style id="demo2"></style> <!--css代码在此处起作用-->
-  <div id="demo"></div>
+  <style id="demo2"></style> <!--css代码在此处起 样式的作用-->
+  <div id="demo"></div> <!--css代码的打印动画，靠cast.js中把css.js用innerText插入到此处 来实现-->
   <div id="buttons">
     <button id="btnPause">暂停 Pause</button>
     <button id="btnPlay">播放 Play</button>
@@ -16,7 +16,7 @@
     <button id="btnFast">快速 Quick</button>
   </div>
 
-  <!-- 皮卡丘的html代码，变动效果 靠css的输入 来实现 -->
+  <!-- 皮卡丘的html代码，变动效果 靠cast.js中把css.js用innerHTML插入到<style id="demo2"> 来实现。<div id="html">内Dom的初始时 没设置颜色，故看不见 -->
   <div id="html">
     <div class="skin">
       <div class="eye left"></div>
