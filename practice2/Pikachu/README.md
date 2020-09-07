@@ -6,7 +6,7 @@ index.html+style.css
 Preview Link: http://dajiyuanzi.github.io/resume/practice2/Pikachu/index.html
   
 # Animation of Code Casting
-cast.html+cast.js+css.js
+cast.html+cast.js+css.js   
 Preview Link: http://dajiyuanzi.github.io/resume/practice2/Pikachu/cast.html
   
 **Key of Implementation**: Display the Style code in both forms of text(innerText) and html(innerHTML).   
