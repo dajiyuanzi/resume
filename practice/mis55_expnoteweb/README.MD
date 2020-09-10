@@ -1,3 +1,14 @@
+![]()
+
+This project uses "express+ejs+sqlite3+ORM".  
+  
+localhost:3000/node/[arguments]：
+"/list" show all notes, "/detail/:id" show one note, "/create" make a note.
+
+
+  
+****
+  
 在.gitignore文件内 忽略依赖文件和本地数据
 
 node_modules

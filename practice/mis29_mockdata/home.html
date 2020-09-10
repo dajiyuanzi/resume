@@ -11,7 +11,7 @@
 </body>
 <script>
   var xhr=new XMLHttpRequest()
-  xhr.open('GET', '/resume/practice/mis29_mockdata/cate.json', true) //域名是github.com，链接是在之后添加的
+  xhr.open('GET', '/resume/practice/mis29_mockdata/cate.json', true) //域名是github.com，该文件路径回自动拼接到域名后，构成url连接
   xhr.send()
   xhr.onload=function(data){
     console.log(data)

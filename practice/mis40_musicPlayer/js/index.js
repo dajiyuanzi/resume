@@ -86,7 +86,7 @@ var Footer = {//底部的音乐滑动
 
   render(){//获取歌曲的频道，并把数据塞到footer里
     var _this = this
-    $.getJSON('//jirenguapi.applinzi.com/fm/getChannels.php')
+    $.getJSON('https://jirenguapi.applinzi.com/fm/v2/getChannels.php')
       .done(function(ret){
         console.log(ret)
         _this.renderFooter(ret.channels)
@@ -100,8 +100,8 @@ var Footer = {//底部的音乐滑动
     var html = ''
     channels.unshift({ //与shift方法对应的有一个unshift方法，用于向数组头部添加一个元素
       channel_id: 0,
-      name: '鎴戠殑鏈€鐖�',
-      cover_small: 'http://cloud.hunger-valley.com/17-10-24/1906806.jpg-small',
+      name: 'Autumn Whisper',
+      cover_small: 'https://cloud.hunger-valley.com/17-10-24/1906806.jpg-small',
       cover_middle: 'http://cloud.hunger-valley.com/17-10-24/1906806.jpg-middle',
       cover_big: 'http://cloud.hunger-valley.com/17-10-24/1906806.jpg-big',
     })
@@ -129,7 +129,7 @@ var Footer = {//底部的音乐滑动
 var App = {//播放
   init: function(){
     this.channelId = 'public_shiguang_80hou'
-    this.channelName = '80鍚�'
+    this.channelName = '80 Times'
     this.$container = $('#page-music main')
     this.audio = new Audio()
     this.audio.autoplay = true
@@ -140,7 +140,7 @@ var App = {//播放
 
     EventCenter.fire('select-albumn', {//自己触发trigger一些自定义事件
       channelId: '0',
-      channelName: '鎴戠殑鏈€鐖�'
+      channelName: 'Spring Hiking'
     })
   },
   bind: function(){
@@ -205,7 +205,7 @@ var App = {//播放
     if(this.channelId === '0'){//如果是默认的第一个channel
       _this.loadCollection()//随机播放一曲
     }else {
-      $.getJSON('//jirenguapi.applinzi.com/fm/getSong.php', {channel: this.channelId})
+      $.getJSON('https://jirenguapi.applinzi.com/fm/v2/getSong.php', {channel: this.channelId})
         .done(function(ret){
           _this.play(ret.song[0]||null)
         })
@@ -243,7 +243,7 @@ var App = {//播放
 
   loadLyric: function(sid){//加载歌词
     var _this = this
-    $.getJSON('//jirenguapi.applinzi.com/fm/getLyric.php', {sid: sid})
+    $.getJSON('https://jirenguapi.applinzi.com/fm/v2/getLyric.php', {sid: sid})
       .done(function(ret){
         console.log(ret.lyric)
         var lyricObj = {}
