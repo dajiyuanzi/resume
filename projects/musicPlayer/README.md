@@ -1,4 +1,4 @@
-![runscreen](https://github.com/dajiyuanzi/resume/tree/master/projects/musicPlayer/runscreen.PNG)
+![runscreen](https://github.com/dajiyuanzi/resume/tree/master/projects/musicPlayer/runscreen.PNG)  
 Demo https://dajiyuanzi.github.io/resume/projects/musicPlayer/  
   
 The RESTful API from the backend cannot support HTTPS protocol and only can offer HTTP. But Github can only work with HTTPS, and therefore the online demo in Github cannot play the music. Localhost can play the music.

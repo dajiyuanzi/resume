@@ -1,7 +1,26 @@
-## News Waterfall
-预览地址
-https://dajiyuanzi.github.io/resume/projects/waterfall-sinanews/index.html
+# News Waterfall
+**Demo** https://dajiyuanzi.github.io/resume/projects/waterfall-sinanews/index.html  
+![waterfall](https://github.com/dajiyuanzi/resume/tree/master/projects/waterfall-sinanews/)  
+  
+This project was implemented with the RESTful API offered by Sina News.
+  
+## Lazy-load Summary
+If at first, there many images need loading and are loaded simultaneously, this will cost much of performance. 
+This can work better through lazy-loading:  first onlu load the images viewed, and then when scroll the page down, load images required. 
+Benefits: Ease the presssure of browser and increase user expirences, making the user to feel your website faster, which splits one-time pressure into multiple segments.  
+  
+## Principle of Waterfall
+The layout with equal width and uneuqal height is Waterfall Page.
+First it calculates how many dom elements one row can contain;
+then it judges which column's height is the largest and put the next dom element to it;
+afterwards it judges which column of elements is the shortest in the enti in the entire newly generated row after placing that element, and then place the next new element in this column;
+and so on.
 
+  
+****
+  
+本项目使用新浪新闻所提供的 RESTful API 实现。
+  
 ## 懒加载原理
 若一开始，页面上有许多的图片要加载，而如果同时加载这么多图片，会消耗性能。可以通过懒加载的方式，先只加载页面上所看到的图片，等滚动到页面下面时，再加载所需的图片。
 作用： 可以缓解浏览器的压力，增强用户体验，让用户感觉到你的网站更快一些。将一次的压力，分解成好几段。
