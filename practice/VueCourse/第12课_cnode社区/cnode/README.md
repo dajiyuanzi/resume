@@ -1,14 +1,15 @@
 # cnode
 
-# 运作流程
+## Workflow 运作流程 
+Routes and components in main.js are mounted and rendered onto index.html. Routes of /route/index.js are directed to the 'view', that is, rendered on the router-view in App.vue.
 main.js里的路由和组件挂载渲染到index.html上。路由/route/index.js指向的view，渲染在App.vue的router-view上。
 
 > A Vue.js project
 
-# 预览地址 
+## Demo Link 
 https://dajiyuanzi.github.io/resume/projects/cnode/dist/#/
 
-# 详细介绍
+## Detailed Intro 详细介绍
 https://github.com/dajiyuanzi/resume/tree/master/projects/cnode
 
 
@@ -28,6 +29,6 @@ npm run build
 npm run build --report
 ```
 
-注意：本源代码 还没有 run build
+Notice 注意 ：本源代码 还没有 run build (This code hasn't execute 'run build')
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
