@@ -2,7 +2,7 @@
 **Demo** https://dajiyuanzi.github.io/resume/projects/waterfall-sinanews/index.html  
 ![waterfall](https://github.com/dajiyuanzi/resume/tree/master/projects/waterfall-sinanews/)  
   
-This project was implemented with the RESTful API offered by Sina News.
+This project was implemented with the RESTful API offered by Sina News and jQuery.
   
 ## Lazy-load Summary
 If at first, there many images need loading and are loaded simultaneously, this will cost much of performance. 
@@ -19,7 +19,7 @@ and so on.
   
 ****
   
-本项目使用新浪新闻所提供的 RESTful API 实现。
+本项目使用jQuery和新浪新闻所提供的 RESTful API 实现。
   
 ## 懒加载原理
 若一开始，页面上有许多的图片要加载，而如果同时加载这么多图片，会消耗性能。可以通过懒加载的方式，先只加载页面上所看到的图片，等滚动到页面下面时，再加载所需的图片。

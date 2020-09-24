@@ -2,7 +2,7 @@
 ![localhost](https://github.com/dajiyuanzi/resume/tree/master/practice2/react_cnode/localhost.png)
 
 # English
-This project implements a forum of Cnode(https://cnodejs.org/) by using React and React-Router, which can scroll to read posts and their user info. The requested data is provided by the API of website, Cnode.
+This project implements a forum of Cnode(https://cnodejs.org/) by using React and React-Router, which can scroll to read posts and their user info. The requested data is provided by the RESTful API of CNode.
 
 ## Tech Challenges
 1. The implementation of bottom pagination (see /components/pagination.js).

@@ -1,3 +1,5 @@
+Draw a Pikachu by JS, HTML and CSS, and cast a animation. This animation is implemented by the CSS code in both forms of text(innerText) and html(innerHTML).
+
 # Code Link
 https://github.com/dajiyuanzi/resume/tree/master/practice2/Pikachu
   
