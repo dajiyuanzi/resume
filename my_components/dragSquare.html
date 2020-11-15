@@ -31,22 +31,24 @@
   var dragging = false
   var position = null
 
-  xxx.addEventListener('mousedown', function (e) {
-    dragging = true
-    position = [e.clientX, e.clientY] /*按下鼠标时的屏幕坐标*/
+  xxx.addEventListener('mousedown', function (e) { //监听div
+    dragging = true //鼠标在方块div上
+    position = [e.clientX, e.clientY] /*按下鼠标时 鼠标的屏幕坐标*/
   })
 
-  /*监听document，移动快了也掉不下去*/
+  /*监听document，移动快了也掉不下去, 监听div鼠标会掉到div外*/
   document.addEventListener('mousemove', function (e) {
     if (dragging === false) { return }
     console.log('hi')
     const x = e.clientX
     const y = e.clientY
-    const deltaX = x - position[0]
+    const deltaX = x - position[0] //鼠标位移的距离
     const deltaY = y - position[1]
-    const left = parseInt(xxx.style.left || 0) /*按下鼠标时的css位置属性*/
+    const left = parseInt(xxx.style.left || 0) /*按下鼠标时的css位置属性, 默认是0*/
     const top = parseInt(xxx.style.top || 0)
-    xxx.style.left = left + deltaX + 'px'
+
+    //鼠标位移 累加到div的css位置, style.left是div的左上角, 故不可直接用clientX赋值, 否则div左上角会跳到鼠标上
+    xxx.style.left = left + deltaX + 'px' 
     xxx.style.top = top + deltaY + 'px'
     position = [x, y] /*更新屏幕位置数据，以计算上面的deltaX*/
   })
