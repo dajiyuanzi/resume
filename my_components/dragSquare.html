@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dragSquare</title>
+</head>
+
+<body>
+  <div id="xxx"></div>
+</body>
+
+<style>
+  div {
+    border: 1px solid red;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100px;
+    height: 100px;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+  }
+</style>
+
+<script>
+  var dragging = false
+  var position = null
+
+  xxx.addEventListener('mousedown', function (e) {
+    dragging = true
+    position = [e.clientX, e.clientY] /*按下鼠标时的屏幕坐标*/
+  })
+
+  /*监听document，移动快了也掉不下去*/
+  document.addEventListener('mousemove', function (e) {
+    if (dragging === false) { return }
+    console.log('hi')
+    const x = e.clientX
+    const y = e.clientY
+    const deltaX = x - position[0]
+    const deltaY = y - position[1]
+    const left = parseInt(xxx.style.left || 0) /*按下鼠标时的css位置属性*/
+    const top = parseInt(xxx.style.top || 0)
+    xxx.style.left = left + deltaX + 'px'
+    xxx.style.top = top + deltaY + 'px'
+    position = [x, y] /*更新屏幕位置数据，以计算上面的deltaX*/
+  })
+  document.addEventListener('mouseup', function (e) {
+    dragging = false /*松开鼠标时脱离*/
+  })
+</script>
+
+</html>

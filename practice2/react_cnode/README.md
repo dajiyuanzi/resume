@@ -30,7 +30,11 @@ PS: 本机运行可以，github page的部署有问题，无法请求的数据�
 https://segmentfault.com/q/1010000022605532?utm_source=tag-newest
 https://github.com/axios/axios/issues/2501
 https://forum.freecodecamp.org/t/axios-unable-to-fetch-api-data-after-deploying-the-react-app-build/324483 
-
+  
+## Notice
+因为CNODE官网域名经常被屏蔽， 如遇到无法访问接口的情况，把码里的接口改为IP地址：
+https://cnodejs.org/api/xxx 全部替换为 https://52.197.183.123/api/xxx
+  
 ****
 ****
 

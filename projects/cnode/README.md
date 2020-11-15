@@ -46,3 +46,7 @@ Vue-router:进行路径管理。
 
 Axios:基于Promise，用于浏览器和Node.js的HTTP客户端，改写Vue原型链，并把Axios挂载其上。
 
+## Notice
+因为CNODE官网域名经常被屏蔽， 如遇到无法访问接口的情况，把码里的接口改为IP地址：
+https://cnodejs.org/api/xxx 全部替换为 https://52.197.183.123/api/xxx
+

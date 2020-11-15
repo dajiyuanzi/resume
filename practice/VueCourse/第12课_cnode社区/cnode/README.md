@@ -11,6 +11,10 @@ https://dajiyuanzi.github.io/resume/projects/cnode/dist/#/
 
 ## Detailed Intro 详细介绍
 https://github.com/dajiyuanzi/resume/tree/master/projects/cnode
+  
+## Notice
+因为CNODE官网域名经常被屏蔽， 如遇到无法访问接口的情况，把码里的接口改为IP地址：
+https://cnodejs.org/api/xxx 全部替换为 https://52.197.183.123/api/xxx
 
 
 ## Build Setup
