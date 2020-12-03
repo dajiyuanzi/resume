@@ -8,8 +8,7 @@
 </head>
 <body>
   <div id="app" style="border: 2px solid chartreuse">
-    <!--这里，my-component和message及其属性 都算是父组件，子组件是component的template-->  
-    <my-component v-show="childshow"><!-- v-show取值是app内的childshow（false，即不显示），即 父组件的-->
+    <my-component v-show="childshow"><!-- v-show取值是app内的childshow（值为false，故不显示），即 父组件的-->
       {{message}} 
       <!-- 若把message放到下面template里，就要用到slot -->
     </my-component>
