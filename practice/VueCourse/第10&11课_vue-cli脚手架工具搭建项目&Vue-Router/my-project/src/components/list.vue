@@ -3,7 +3,7 @@
     <li>
       <!-- <router-link to="helloworld">HELLO WORLD</router-link> -->
       <router-link :to="{name:'helloworld', params:{worldmsg:'你好世界'}}">HELLO WORLD</router-link>
-      <!--固定格式，必须是name和params。冒号是v-bind-->
+      <!--固定格式，必须是name和params。冒号是v-bind, 否则会把{}内容 作字符串而非变量-->
       <!--跳转到哪个组件，哪个组件就 接收信息-->
     </li>
     <li>
