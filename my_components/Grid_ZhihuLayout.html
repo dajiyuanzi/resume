@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <div class="wrap">logo</div>
+    </header>
+    <main>main</main>
+    <aside>aside</aside>
+</body>
+<style>
+    * {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #f6f6f6;
+  display: grid; 
+  grid: 50px auto / 1fr 590px 200px 1fr;  /*等价于 grid-template-rows: 50px auto; grid-template-columns: 1fr 590px 200px 1fr;*/
+  grid-gap: 10px; /* grid-row-gap:10px; grid-column-gap:10px; 列/行之间的间距 */
+  height: 100vh;
+}
+
+header {
+  background: #fff;
+  grid-column: 1 / 5; /*起始线: 列的第1根线 到第5根结束*/
+  grid-row: 1;  /*行的第一根开始 结束不指明 自动挤压*/
+  
+  display: grid;
+  grid: auto / 1fr 800px 1fr;
+}
+
+header .wrap {
+  grid-column: 2;
+}
+
+main {
+  background: #fff;
+  grid-column: 2; /*起始线*/
+  grid-row: 2;
+  height: 400px;
+}
+
+aside {
+  background: #fff;
+  grid-column: 3;
+  grid-row: 2;
+  height: 400px;
+}
+</style>
+</html>
