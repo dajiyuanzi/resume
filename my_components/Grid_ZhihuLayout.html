@@ -26,9 +26,9 @@ body {
   height: 100vh;
 }
 
-header {
+header { /*顶部导航栏 是header不是head*/
   background: #fff;
-  grid-column: 1 / 5; /*起始线: 列的第1根线 到第5根结束*/
+  grid-column: 1 / 5; /*grid-column和grid-row把容器的子元素放入定位到网格  起始线: 列的第1根线 到第5根结束*/
   grid-row: 1;  /*行的第一根开始 结束不指明 自动挤压*/
   
   display: grid;
